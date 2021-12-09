@@ -1,4 +1,5 @@
 var algebra = require('algebra.js');
+var Solver = require('js-solver');
 solveEquation("acot(1)+7=y", "thins", "x");
 var Fraction = algebra.Fraction;
 var Expression = algebra.Expression;
