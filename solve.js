@@ -1,6 +1,6 @@
-var algebra = require('algebra.js');
-var Solver = require('js-solver');
-parseForCust("acot(1)+7=y", "thins", "x");
+var algebra = require("algebra.js");
+var Solver = require("js-solver");
+parseForCust("acot(1)+cos(2)+7=y", "thins", "x");
 var Fraction = algebra.Fraction;
 var Expression = algebra.Expression;
 var Equation = algebra.Equation;
@@ -15,7 +15,20 @@ function parseForCust(equation, varGrid, target) {
     let containsTrig = false;
     let foundTrig = [];
     let functionList = [];
-    let funcList = ["acsc","asec","acot","asin","acos","atan","sin","cos","tan","csc","sec","cot",];
+    let funcList = [
+      "acsc",
+      "asec",
+      "acot",
+      "asin",
+      "acos",
+      "atan",
+      "sin",
+      "cos",
+      "tan",
+      "csc",
+      "sec",
+      "cot",
+    ];
     let subEquation = equation;
     for (let func of funcList) {
       if (subEquation.indexOf(func) > -1) {
@@ -44,7 +57,11 @@ function parseForCust(equation, varGrid, target) {
               "}"
           )
         );
-        subEquation = subEquation.substring(0,subEquation.indexOf(func))+subEquation.substring(subEquation.indexOf(func)+func.length+inner.length);
+        subEquation =
+          subEquation.substring(0, subEquation.indexOf(func)) +
+          subEquation.substring(
+            subEquation.indexOf(func) + func.length + inner.length
+          );
         console.log("Sub Equation " + subEquation);
       }
     }
@@ -80,21 +97,27 @@ function parseForCust(equation, varGrid, target) {
                 break;
               case "asin":
                 if (degRad) {
-                  computed = eval("Math.asin(" + trig.inner + ")*(180/Math.PI)");
+                  computed = eval(
+                    "Math.asin(" + trig.inner + ")*(180/Math.PI)"
+                  );
                 } else {
                   computed = eval("Math.asin(" + trig.inner + ")");
                 }
                 break;
               case "acos":
                 if (degRad) {
-                  computed = eval("Math.acos(" + trig.inner + ")*(180/Math.PI)");
+                  computed = eval(
+                    "Math.acos(" + trig.inner + ")*(180/Math.PI)"
+                  );
                 } else {
                   computed = eval("Math.acos(" + trig.inner + ")");
                 }
                 break;
               case "atan":
                 if (degRad) {
-                  computed = eval("Math.atan(" + trig.inner + ")*(180/Math.PI)");
+                  computed = eval(
+                    "Math.atan(" + trig.inner + ")*(180/Math.PI)"
+                  );
                 } else {
                   computed = eval("Math.atan(" + trig.inner + ")");
                 }
@@ -154,14 +177,23 @@ function parseForCust(equation, varGrid, target) {
                 }
                 break;
             }
-            //console.log("Logging Computed " + computed);
-            equation = equation.substring(0,trig.index)+ computed + equation.substring(trig.index + trig.inner.length + trig.func.length+2);
-           // console.log("Parsed Equation "+equation);
+            equation =
+              equation.substring(0, trig.index) +
+              computed +
+              equation.substring(
+                trig.index + trig.inner.length + trig.func.length + 2
+              );
+            foundTrig.splice(foundTrig.indexOf(trig), 1);
+            console.log("Found Trig post")
+            console.log(foundTrig);
           }
         }
       }
+      console.log("Trig loop done");
+      console.log(foundTrig);
       let sideOne = 0;
       let sideTwo = 0;
+      //determines Which side to solve first in order to isolate the target
       for (let innerTrig of foundTrig) {
         if (innerTrig.contains && innerTrig.index < indexEquals) {
           sideOne++;
@@ -170,21 +202,23 @@ function parseForCust(equation, varGrid, target) {
         }
       }
       let indexEquals = equation.indexOf("=");
-          let solveSide = "";
-          let equatSide = "";
-          if (sideOne > sideTwo) {
-            solveSide = equation.substring(0, indexEquals);
-            equatSide = equation.substring(indexEquals + 1);
-          } else {
-            solveSide = equation.substring(indexEquals + 1);
-            equatSide = equation.substring(0, indexEquals);
-          }
-
-          let openVariable = findSafeVar(equation);
-          solveSide = solveSide.replace(
-            trig.func + "(" + trig.inner + ")",
-            openVariable
-          );
+      let solveSide = "";
+      let equatSide = "";
+      if (sideOne > sideTwo) {
+        solveSide = equation.substring(0, indexEquals);
+        equatSide = equation.substring(indexEquals + 1);
+      } else {
+        solveSide = equation.substring(indexEquals + 1);
+        equatSide = equation.substring(0, indexEquals);
+      }
+      for(let trig of foundTrig){
+        let openVariable = findSafeVar(equation);
+        solveSide = solveSide.replace(
+          trig.func + "(" + trig.inner + ")",
+          openVariable
+        );
+      }
+      
     } else {
     }
   }
