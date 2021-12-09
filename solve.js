@@ -7,7 +7,6 @@ var Equation = algebra.Equation;
   var degRad = true;
 }
 function solveEquation(equation, varGrid, target) {
-  //here lies the switch
   degRad = false;
   if (target == "y") {
   } else {
