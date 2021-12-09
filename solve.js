@@ -189,6 +189,7 @@ function parseForCust(equation, varGrid, target) {
     }
   }
 }
+//Long Form
 function findSafeVar(equation) {
   let posiableVar = [
     "a",
