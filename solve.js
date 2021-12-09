@@ -1,13 +1,14 @@
 var algebra = require('algebra.js');
 var Solver = require('js-solver');
-solveEquation("acot(1)+7=y", "thins", "x");
+parseForCust("acot(1)+7=y", "thins", "x");
 var Fraction = algebra.Fraction;
 var Expression = algebra.Expression;
 var Equation = algebra.Equation;
 {
   var degRad = true;
 }
-function solveEquation(equation, varGrid, target) {
+//Parses the equation for a target or variable
+function parseForCust(equation, varGrid, target) {
   degRad = false;
   if (target == "y") {
   } else {
