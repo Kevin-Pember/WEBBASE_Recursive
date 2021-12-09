@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "algebra.js": "^0.2.6"
+    "algebra.js": "^0.2.6",
+    "js-solver": "^0.0.2"
   }
 }
