@@ -195,7 +195,7 @@ function parseForCust(equation, varGrid, target) {
 
           let openVariable = findSafeVar(equation);
           solveSide = solveSide.replace(
-            //trig.func + "(" + trig.inner + ")",
+            trig.func + "(" + trig.inner + ")",
             openVariable
           );
     } else {
