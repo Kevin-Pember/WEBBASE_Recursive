@@ -15,22 +15,9 @@ function parseForCust(equation, varGrid, target) {
     let containsTrig = false;
     let foundTrig = [];
     let functionList = [];
-    let trigFunction = [
-      "acsc",
-      "asec",
-      "acot",
-      "asin",
-      "acos",
-      "atan",
-      "sin",
-      "cos",
-      "tan",
-      "csc",
-      "sec",
-      "cot",
-    ];
+    let funcList = ["acsc","asec","acot","asin","acos","atan","sin","cos","tan","csc","sec","cot",];
     let subEquation = equation;
-    for (let func of trigFunction) {
+    for (let func of funcList) {
       if (subEquation.indexOf(func) > -1) {
         containsTrig = true;
         let contains = false;
