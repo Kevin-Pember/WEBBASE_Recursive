@@ -49,7 +49,7 @@ function parseForCust(equation, varGrid, target) {
             '{"func":"' +
               func +
               '", "index":' +
-              subEquation.indexOf(func) +
+              equation.indexOf(func) +
               ',"inner":"' +
               inner.substring(1, inner.length - 1) +
               '", "contains":' +
