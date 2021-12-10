@@ -1,6 +1,6 @@
 var algebra = require("algebra.js");
 var Solver = require("js-solver");
-parseForCust("acot(1)+cos(2)+7=y", "thins", "x");
+parseForCust("acot(1)+cos(2)+7+sin(5)=y", "thins", "x");
 var Fraction = algebra.Fraction;
 var Expression = algebra.Expression;
 var Equation = algebra.Equation;
