@@ -1,6 +1,6 @@
 var algebra = require("algebra.js");
 var Solver = require("js-solver");
-parseForCust("acot(1)+cos(2)+7+sin(5)=y", "thins", "x");
+parseForCust("acot(1)+cos(2)+cos(2)+7+sin(5)=y", "thins", "x");
 var Fraction = algebra.Fraction;
 var Expression = algebra.Expression;
 var Equation = algebra.Equation;
@@ -31,40 +31,49 @@ function parseForCust(equation, varGrid, target) {
     ];
     let subEquation = equation;
     for (let func of funcList) {
-      if (subEquation.indexOf(func) > -1) {
-        containsTrig = true;
-        let contains = false;
-        if (
-          parEncap(
+      while (subEquation.includes(func)) {
+        if (subEquation.indexOf(func) > -1) {
+          containsTrig = true;
+          let contains = false;
+          if (
+            parEncap(
+              subEquation.substring(subEquation.indexOf(func) + func.length)
+            ).includes(target)
+          ) {
+            contains = true;
+          }
+          let inner = parEncap(
             subEquation.substring(subEquation.indexOf(func) + func.length)
-          ).includes(target)
-        ) {
-          contains = true;
-        }
-        let inner = parEncap(
-          subEquation.substring(subEquation.indexOf(func) + func.length)
-        );
-        foundTrig.push(
-          JSON.parse(
-            '{"func":"' +
-              func +
-              '", "index":' +
-              equation.indexOf(func) +
-              ',"inner":"' +
-              inner.substring(1, inner.length - 1) +
-              '", "contains":' +
-              contains +
-              "}"
-          )
-        );
-        subEquation =
-          subEquation.substring(0, subEquation.indexOf(func)) +
-          subEquation.substring(
-            subEquation.indexOf(func) + func.length + inner.length
           );
-        console.log("Sub Equation " + subEquation);
+          foundTrig.push(
+            JSON.parse(
+              '{"func":"' +
+                func +
+                '", "index":' +
+                equation.indexOf(func) +
+                ',"inner":"' +
+                inner.substring(1, inner.length - 1) +
+                '", "contains":' +
+                contains +
+                "}"
+            )
+          );
+          subEquation =
+            subEquation.substring(0, subEquation.indexOf(func)) +
+            subEquation.substring(
+              subEquation.indexOf(func) + func.length + inner.length
+            );
+          console.log("Sub Equation " + subEquation);
+        }
       }
     }
+    foundTrig.sort(function (a, b) {
+      let returnVal = -1;
+      if (a.index > b.index) {
+        returnVal = 1;
+      }
+      return returnVal;
+    });
     if (containsTrig) {
       console.log(foundTrig);
       console.log(degRad);
@@ -184,7 +193,7 @@ function parseForCust(equation, varGrid, target) {
                 trig.index + trig.inner.length + trig.func.length + 2
               );
             foundTrig.splice(foundTrig.indexOf(trig), 1);
-            console.log("Found Trig post")
+            console.log("Found Trig post");
             console.log(foundTrig);
           }
         }
@@ -211,14 +220,13 @@ function parseForCust(equation, varGrid, target) {
         solveSide = equation.substring(indexEquals + 1);
         equatSide = equation.substring(0, indexEquals);
       }
-      for(let trig of foundTrig){
+      for (let trig of foundTrig) {
         let openVariable = findSafeVar(equation);
         solveSide = solveSide.replace(
           trig.func + "(" + trig.inner + ")",
           openVariable
         );
       }
-      
     } else {
     }
   }
