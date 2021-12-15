@@ -48,14 +48,14 @@ function parseForCust(equation, varGrid, target) {
           foundTrig.push(
             JSON.parse(
               '{"func":"' +
-                func +
-                '", "index":' +
-                equation.indexOf(func) +
-                ',"inner":"' +
-                inner.substring(1, inner.length - 1) +
-                '", "contains":' +
-                contains +
-                "}"
+              func +
+              '", "index":' +
+              equation.indexOf(func) +
+              ',"inner":"' +
+              inner.substring(1, inner.length - 1) +
+              '", "contains":' +
+              contains +
+              "}"
             )
           );
           subEquation =
@@ -226,10 +226,11 @@ function parseForCust(equation, varGrid, target) {
           trig.func + "(" + trig.inner + ")",
           openVariable
         );
-        let solveExpr = new Expression(solveSide);
-        let equatExpr = new Expression(equatSide);
-        let eq = new Equation(solveExpr,equatExpr);
-        console.log(eq.solveFor(openVariable));
+        var expr = algebra.Expression("x");
+        expr = expr.subtract(3);
+        expr = expr.add("x");
+
+        console.log(expr.toString());
       }
     } else {
     }
