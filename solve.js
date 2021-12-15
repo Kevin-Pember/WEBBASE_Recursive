@@ -1,9 +1,10 @@
 //var algebra = require("algebra.js");
 //var Solver = require("js-solver");
-parseForCust("acot(1)+cos(2)+cos(2)+7+sin(5)=y", "thins", "x");
 var Fraction = algebra.Fraction;
 var Expression = algebra.Expression;
 var Equation = algebra.Equation;
+parseForCust("acot(1)+cos(2)+cos(2)+7+sin(5)=y", "thins", "x");
+
 {
   var degRad = true;
 }
@@ -48,14 +49,14 @@ function parseForCust(equation, varGrid, target) {
           foundTrig.push(
             JSON.parse(
               '{"func":"' +
-              func +
-              '", "index":' +
-              equation.indexOf(func) +
-              ',"inner":"' +
-              inner.substring(1, inner.length - 1) +
-              '", "contains":' +
-              contains +
-              "}"
+                func +
+                '", "index":' +
+                equation.indexOf(func) +
+                ',"inner":"' +
+                inner.substring(1, inner.length - 1) +
+                '", "contains":' +
+                contains +
+                "}"
             )
           );
           subEquation =
@@ -200,6 +201,7 @@ function parseForCust(equation, varGrid, target) {
       }
       console.log("Trig loop done");
       console.log(foundTrig);
+      if(foundTrig.length > 0){
       let sideOne = 0;
       let sideTwo = 0;
       //determines Which side to solve first in order to isolate the target
@@ -220,18 +222,22 @@ function parseForCust(equation, varGrid, target) {
         solveSide = equation.substring(indexEquals + 1);
         equatSide = equation.substring(0, indexEquals);
       }
+      console.log("Equation "+equation);
+      console.log("Solve Side " + solveSide);
+      console.log("Equat Side " + equatSide);
       for (let trig of foundTrig) {
         let openVariable = findSafeVar(equation);
         solveSide = solveSide.replace(
           trig.func + "(" + trig.inner + ")",
           openVariable
         );
-        var expr = new Expression("x");
-        expr = expr.subtract(3);
-        expr = expr.add("x");
-
-        console.log(expr.toString());
+        console.log("Solve Side post " + solveSide);
+        let solveExpr = new Expression(solveSide);
+        let equatExpr = new Expression(equatSide);
+        let eq = new Equation(solveExpr,4);
+        console.log(eq.solveFor(openVariable));
       }
+    }
     } else {
     }
   }
