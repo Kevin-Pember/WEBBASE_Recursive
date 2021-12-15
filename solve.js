@@ -78,9 +78,10 @@ function parseForCust(equation, varGrid, target) {
     if (containsTrig) {
       console.log(foundTrig);
       console.log(degRad);
-      for (let trig of foundTrig) {
+      for (let i = 0; i < foundTrig.length; i++) {
+        let trig = foundTrig[i];
         if (!trig.contains) {
-          {
+          
             let computed = 0.0;
             switch (trig.func) {
               case "sin":
@@ -196,7 +197,7 @@ function parseForCust(equation, varGrid, target) {
             foundTrig.splice(foundTrig.indexOf(trig), 1);
             console.log("Found Trig post");
             console.log(foundTrig);
-          }
+          
         }
       }
       console.log("Trig loop done");
