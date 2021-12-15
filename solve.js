@@ -14,7 +14,7 @@ function parseForCust(equation, varGrid, target) {
   if (target == "y") {
   } else {
     let containsTrig = false;
-    let foundTrig = [];
+    var foundTrig = [];
     let functionList = [];
     let funcList = [
       "acsc",
@@ -68,6 +68,8 @@ function parseForCust(equation, varGrid, target) {
         }
       }
     }
+    console.log("Found Trig Before");
+    
     foundTrig.sort(function (a, b) {
       let returnVal = -1;
       if (a.index > b.index) {
@@ -75,8 +77,8 @@ function parseForCust(equation, varGrid, target) {
       }
       return returnVal;
     });
+    console.log(foundTrig);
     if (containsTrig) {
-      console.log(foundTrig);
       console.log(degRad);
       for (let i = 0; i < foundTrig.length; i++) {
         let trig = foundTrig[i];
@@ -195,8 +197,6 @@ function parseForCust(equation, varGrid, target) {
                 trig.index + trig.inner.length + trig.func.length + 2
               );
             foundTrig.splice(foundTrig.indexOf(trig), 1);
-            console.log("Found Trig post");
-            console.log(foundTrig);
           
         }
       }
