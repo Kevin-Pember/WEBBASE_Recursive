@@ -51,7 +51,7 @@ function parseForCust(equation, varGrid, target) {
               '{"func":"' +
                 func +
                 '", "index":' +
-                equation.indexOf(subEquation) +
+                funcIndex(func,equation,foundTrig) +
                 ',"inner":"' +
                 inner.substring(1, inner.length - 1) +
                 '", "contains":' +
@@ -64,7 +64,6 @@ function parseForCust(equation, varGrid, target) {
             subEquation.substring(
               subEquation.indexOf(func) + func.length + inner.length
             );
-          console.log("Sub Equation " + subEquation);
         }
       }
     }
@@ -312,11 +311,12 @@ function funcIndex(func, equation, funcList) {
   let has = false;
   var hasVal;
   for (let i = funcList.length - 1; i >= 0; i--) {
-    if (funcList[i] == func) {
+    if (funcList[i].func == func) {
       has = true;
       hasVal = funcList[i]
     }
   }
+  console.log("Has is "+has);
   if (has) {
     return hasVal.index + equation.substring(hasVal.index).indexOf(func);
   } else {
