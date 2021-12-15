@@ -226,6 +226,10 @@ function parseForCust(equation, varGrid, target) {
           trig.func + "(" + trig.inner + ")",
           openVariable
         );
+        let solveExpr = new Expression(solveSide);
+        let equatExpr = new Expression(equatSide);
+        let eq = new Equation(solveExpr,equatExpr);
+        console.log(eq.solveFor(openVariable));
       }
     } else {
     }
