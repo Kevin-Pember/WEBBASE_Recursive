@@ -69,7 +69,7 @@ function parseForCust(equation, varGrid, target) {
       }
     }
     console.log("Found Trig Before");
-    
+
     foundTrig.sort(function (a, b) {
       let returnVal = -1;
       if (a.index > b.index) {
@@ -84,165 +84,157 @@ function parseForCust(equation, varGrid, target) {
       while (still) {
         let trig = foundTrig[0];
         if (!trig.contains) {
-          
-            let computed = 0.0;
-            switch (trig.func) {
-              case "sin":
-                if (degRad) {
-                  computed = eval("Math.sin(" + trig.inner + "*(Math.PI/180))");
-                  console.log("Sin computed " + computed);
-                } else {
-                  computed = eval("Math.sin(" + trig.inner + ")");
-                }
-                break;
-              case "cos":
-                if (degRad) {
-                  computed = eval("Math.cos(" + trig.inner + "*(Math.PI/180))");
-                } else {
-                  computed = eval("Math.cos(" + trig.inner + ")");
-                }
-                break;
-              case "tan":
-                if (degRad) {
-                  computed = eval("Math.tan(" + trig.inner + "*(Math.PI/180))");
-                } else {
-                  computed = eval("Math.tan(" + trig.inner + ")");
-                }
-                break;
-              case "asin":
-                if (degRad) {
-                  computed = eval(
-                    "Math.asin(" + trig.inner + ")*(180/Math.PI)"
-                  );
-                } else {
-                  computed = eval("Math.asin(" + trig.inner + ")");
-                }
-                break;
-              case "acos":
-                if (degRad) {
-                  computed = eval(
-                    "Math.acos(" + trig.inner + ")*(180/Math.PI)"
-                  );
-                } else {
-                  computed = eval("Math.acos(" + trig.inner + ")");
-                }
-                break;
-              case "atan":
-                if (degRad) {
-                  computed = eval(
-                    "Math.atan(" + trig.inner + ")*(180/Math.PI)"
-                  );
-                } else {
-                  computed = eval("Math.atan(" + trig.inner + ")");
-                }
-                break;
-              case "csc":
-                if (degRad) {
-                  computed = eval(
-                    "1/(Math.sin(" + trig.inner + "*(Math.PI/180)))"
-                  );
-                } else {
-                  computed = eval("1/(Math.sin(" + trig.inner + "))");
-                }
-                break;
-              case "sec":
-                if (degRad) {
-                  computed = eval(
-                    "1/(Math.cos(" + trig.inner + "*(Math.PI/180)))"
-                  );
-                } else {
-                  computed = eval("1/(Math.cos(" + trig.inner + "))");
-                }
-                break;
-              case "cot":
-                if (degRad) {
-                  computed = eval(
-                    "1/(Math.tan(" + trig.inner + "*(Math.PI/180)))"
-                  );
-                } else {
-                  computed = eval("1/(Math.tan(" + trig.inner + "))");
-                }
-                break;
-              case "acsc":
-                if (degRad) {
-                  computed = eval(
-                    "Math.asin(1/" + trig.inner + ")*(180/Math.PI)"
-                  );
-                } else {
-                  computed = eval("Math.asin(1/" + trig.inner + ")");
-                }
-                break;
-              case "asec":
-                if (degRad) {
-                  computed = eval(
-                    "Math.acos(1/" + trig.inner + ")*(180/Math.PI)"
-                  );
-                } else {
-                  computed = eval("Math.acos(1/" + trig.inner + ")");
-                }
-                break;
-              case "acot":
-                if (degRad) {
-                  computed = eval(
-                    "Math.atan(1/" + trig.inner + ")*(180/Math.PI)"
-                  );
-                } else {
-                  computed = eval("Math.atan(1/" + trig.inner + ")");
-                }
-                break;
-            }
-            equation =
-              equation.substring(0, trig.index) +
-              computed +
-              equation.substring(
-                trig.index + trig.inner.length + trig.func.length + 2
-              );
-            foundTrig.shift();
-          
+          let computed = 0.0;
+          switch (trig.func) {
+            case "sin":
+              if (degRad) {
+                computed = eval("Math.sin(" + trig.inner + "*(Math.PI/180))");
+                console.log("Sin computed " + computed);
+              } else {
+                computed = eval("Math.sin(" + trig.inner + ")");
+              }
+              break;
+            case "cos":
+              if (degRad) {
+                computed = eval("Math.cos(" + trig.inner + "*(Math.PI/180))");
+              } else {
+                computed = eval("Math.cos(" + trig.inner + ")");
+              }
+              break;
+            case "tan":
+              if (degRad) {
+                computed = eval("Math.tan(" + trig.inner + "*(Math.PI/180))");
+              } else {
+                computed = eval("Math.tan(" + trig.inner + ")");
+              }
+              break;
+            case "asin":
+              if (degRad) {
+                computed = eval("Math.asin(" + trig.inner + ")*(180/Math.PI)");
+              } else {
+                computed = eval("Math.asin(" + trig.inner + ")");
+              }
+              break;
+            case "acos":
+              if (degRad) {
+                computed = eval("Math.acos(" + trig.inner + ")*(180/Math.PI)");
+              } else {
+                computed = eval("Math.acos(" + trig.inner + ")");
+              }
+              break;
+            case "atan":
+              if (degRad) {
+                computed = eval("Math.atan(" + trig.inner + ")*(180/Math.PI)");
+              } else {
+                computed = eval("Math.atan(" + trig.inner + ")");
+              }
+              break;
+            case "csc":
+              if (degRad) {
+                computed = eval(
+                  "1/(Math.sin(" + trig.inner + "*(Math.PI/180)))"
+                );
+              } else {
+                computed = eval("1/(Math.sin(" + trig.inner + "))");
+              }
+              break;
+            case "sec":
+              if (degRad) {
+                computed = eval(
+                  "1/(Math.cos(" + trig.inner + "*(Math.PI/180)))"
+                );
+              } else {
+                computed = eval("1/(Math.cos(" + trig.inner + "))");
+              }
+              break;
+            case "cot":
+              if (degRad) {
+                computed = eval(
+                  "1/(Math.tan(" + trig.inner + "*(Math.PI/180)))"
+                );
+              } else {
+                computed = eval("1/(Math.tan(" + trig.inner + "))");
+              }
+              break;
+            case "acsc":
+              if (degRad) {
+                computed = eval(
+                  "Math.asin(1/" + trig.inner + ")*(180/Math.PI)"
+                );
+              } else {
+                computed = eval("Math.asin(1/" + trig.inner + ")");
+              }
+              break;
+            case "asec":
+              if (degRad) {
+                computed = eval(
+                  "Math.acos(1/" + trig.inner + ")*(180/Math.PI)"
+                );
+              } else {
+                computed = eval("Math.acos(1/" + trig.inner + ")");
+              }
+              break;
+            case "acot":
+              if (degRad) {
+                computed = eval(
+                  "Math.atan(1/" + trig.inner + ")*(180/Math.PI)"
+                );
+              } else {
+                computed = eval("Math.atan(1/" + trig.inner + ")");
+              }
+              break;
+          }
+          equation =
+            equation.substring(0, trig.index) +
+            computed +
+            equation.substring(
+              trig.index + trig.inner.length + trig.func.length + 2
+            );
+          foundTrig.shift();
         }
-        if(foundTrig.length == 0){
+        if (foundTrig.length == 0) {
           still = false;
         }
       }
       console.log("Trig loop done");
       console.log(foundTrig);
-      if(foundTrig.length > 0){
-      let sideOne = 0;
-      let sideTwo = 0;
-      //determines Which side to solve first in order to isolate the target
-      for (let innerTrig of foundTrig) {
-        if (innerTrig.contains && innerTrig.index < indexEquals) {
-          sideOne++;
+      if (foundTrig.length > 0) {
+        let sideOne = 0;
+        let sideTwo = 0;
+        //determines Which side to solve first in order to isolate the target
+        for (let innerTrig of foundTrig) {
+          if (innerTrig.contains && innerTrig.index < indexEquals) {
+            sideOne++;
+          } else {
+            sideTwo++;
+          }
+        }
+        let indexEquals = equation.indexOf("=");
+        let solveSide = "";
+        let equatSide = "";
+        if (sideOne > sideTwo) {
+          solveSide = equation.substring(0, indexEquals);
+          equatSide = equation.substring(indexEquals + 1);
         } else {
-          sideTwo++;
+          solveSide = equation.substring(indexEquals + 1);
+          equatSide = equation.substring(0, indexEquals);
+        }
+        console.log("Equation " + equation);
+        console.log("Solve Side " + solveSide);
+        console.log("Equat Side " + equatSide);
+        for (let trig of foundTrig) {
+          let openVariable = findSafeVar(equation);
+          solveSide = solveSide.replace(
+            trig.func + "(" + trig.inner + ")",
+            openVariable
+          );
+          console.log("Solve Side post " + solveSide);
+          let solveExpr = new Expression(solveSide);
+          let equatExpr = new Expression(equatSide);
+          let eq = new Equation(solveExpr, 4);
+          console.log(eq.solveFor(openVariable));
         }
       }
-      let indexEquals = equation.indexOf("=");
-      let solveSide = "";
-      let equatSide = "";
-      if (sideOne > sideTwo) {
-        solveSide = equation.substring(0, indexEquals);
-        equatSide = equation.substring(indexEquals + 1);
-      } else {
-        solveSide = equation.substring(indexEquals + 1);
-        equatSide = equation.substring(0, indexEquals);
-      }
-      console.log("Equation "+equation);
-      console.log("Solve Side " + solveSide);
-      console.log("Equat Side " + equatSide);
-      for (let trig of foundTrig) {
-        let openVariable = findSafeVar(equation);
-        solveSide = solveSide.replace(
-          trig.func + "(" + trig.inner + ")",
-          openVariable
-        );
-        console.log("Solve Side post " + solveSide);
-        let solveExpr = new Expression(solveSide);
-        let equatExpr = new Expression(equatSide);
-        let eq = new Equation(solveExpr,4);
-        console.log(eq.solveFor(openVariable));
-      }
-    }
     } else {
     }
   }
@@ -309,10 +301,25 @@ function parEncap(sub) {
   }
   return sub;
 }
-function printArray(arr){
-  console.log('{');
-  for(let i = 0; i < arr.length; i++){
+function printArray(arr) {
+  console.log("{");
+  for (let i = 0; i < arr.length; i++) {
     console.log(arr[i]);
   }
-  console.log('}');
+  console.log("}");
+}
+function funcIndex(func, equation, funcList) {
+  let has = false;
+  var hasVal;
+  for (let i = funcList.length - 1; i >= 0; i--) {
+    if (funcList[i] == func) {
+      has = true;
+      hasVal = funcList[i]
+    }
+  }
+  if (has) {
+    return hasVal.index + equation.substring(hasVal.index).indexOf(func);
+  } else {
+    return equation.indexOf(func);
+  }
 }
