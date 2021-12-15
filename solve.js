@@ -51,7 +51,7 @@ function parseForCust(equation, varGrid, target) {
               '{"func":"' +
                 func +
                 '", "index":' +
-                equation.indexOf(func) +
+                equation.indexOf(subEquation) +
                 ',"inner":"' +
                 inner.substring(1, inner.length - 1) +
                 '", "contains":' +
@@ -77,7 +77,7 @@ function parseForCust(equation, varGrid, target) {
       }
       return returnVal;
     });
-    console.log(foundTrig);
+    printArray(foundTrig);
     if (containsTrig) {
       console.log(degRad);
       let still = true;
@@ -308,4 +308,11 @@ function parEncap(sub) {
     }
   }
   return sub;
+}
+function printArray(arr){
+  console.log('{');
+  for(let i = 0; i < arr.length; i++){
+    console.log(arr[i]);
+  }
+  console.log('}');
 }
