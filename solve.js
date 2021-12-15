@@ -3,7 +3,7 @@
 var Fraction = algebra.Fraction;
 var Expression = algebra.Expression;
 var Equation = algebra.Equation;
-parseForCust("acot(1)+cos(2)+cos(2)+7+sin(5)=y", "thins", "x");
+parseForCust("acot(1)+cos(2)+cos(2)+cos(2)+7+sin(5)+acot(2)=y", "thins", "x");
 
 {
   var degRad = true;
@@ -196,6 +196,7 @@ function parseForCust(equation, varGrid, target) {
         }
       }
       console.log("Trig loop done");
+      console.log(equation);
       console.log(foundTrig);
       if (foundTrig.length > 0) {
         let sideOne = 0;
@@ -309,16 +310,19 @@ function printArray(arr) {
 }
 function funcIndex(func, equation, funcList) {
   let has = false;
-  var hasVal;
-  for (let i = funcList.length - 1; i >= 0; i--) {
+  var hasVal = -1;
+  for (let i = funcList.length-1; i >= 0; i--) {
     if (funcList[i].func == func) {
       has = true;
-      hasVal = funcList[i]
+      console.log(funcList[i].index)
+      if(hasVal < funcList[i].index){
+        hasVal = funcList[i].index+ funcList[i].func.length;
+      }
     }
   }
-  console.log("Has is "+has);
+  console.log("Has is "+has+" hasVal index is "+hasVal);
   if (has) {
-    return hasVal.index + equation.substring(hasVal.index).indexOf(func);
+    return hasVal + equation.substring(hasVal).indexOf(func);
   } else {
     return equation.indexOf(func);
   }
