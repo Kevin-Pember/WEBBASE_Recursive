@@ -226,7 +226,7 @@ function parseForCust(equation, varGrid, target) {
           trig.func + "(" + trig.inner + ")",
           openVariable
         );
-        var expr = algebra.Expression("x");
+        var expr = new Expression("x");
         expr = expr.subtract(3);
         expr = expr.add("x");
 
