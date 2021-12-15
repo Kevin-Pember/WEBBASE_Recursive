@@ -80,8 +80,9 @@ function parseForCust(equation, varGrid, target) {
     console.log(foundTrig);
     if (containsTrig) {
       console.log(degRad);
-      for (let i = 0; i < foundTrig.length; i++) {
-        let trig = foundTrig[i];
+      let still = true;
+      while (still) {
+        let trig = foundTrig[0];
         if (!trig.contains) {
           
             let computed = 0.0;
@@ -196,8 +197,11 @@ function parseForCust(equation, varGrid, target) {
               equation.substring(
                 trig.index + trig.inner.length + trig.func.length + 2
               );
-            foundTrig.splice(foundTrig.indexOf(trig), 1);
+            foundTrig.shift();
           
+        }
+        if(foundTrig.length == 0){
+          still = false;
         }
       }
       console.log("Trig loop done");
