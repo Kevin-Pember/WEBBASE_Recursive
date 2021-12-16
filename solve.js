@@ -190,6 +190,12 @@ function parseForCust(equation, varGrid, target) {
               trig.index + trig.inner.length + trig.func.length + 2
             );
           foundTrig.shift();
+          let offset = computed.toString().length -(trig.func.length + trig.inner.length + 2);
+          for(let funcs of foundTrig){
+            funcs.index += offset;
+          }
+          console.log('Array After offset')
+          printArray(foundTrig);
         }
         if (foundTrig.length == 0) {
           still = false;
