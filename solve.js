@@ -194,8 +194,6 @@ function parseForCust(equation, varGrid, target) {
           for(let funcs of foundTrig){
             funcs.index += offset;
           }
-          console.log('Array After offset')
-          printArray(foundTrig);
         }
         if (foundTrig.length == 0) {
           still = false;
