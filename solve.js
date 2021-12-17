@@ -3,7 +3,7 @@
 var Fraction = algebra.Fraction;
 var Expression = algebra.Expression;
 var Equation = algebra.Equation;
-parseForCust("acot(1)+cos(2)+cos(2)+cos(2)+7+sin(5)+acot(2)=y", "thins", "x");
+parseForCust("acot(1)+cos(x)+cos(2)+cos(2)+7+sin(5)+acot(2)=y", "thins", "x");
 
 {
   var degRad = true;
@@ -51,7 +51,7 @@ function parseForCust(equation, varGrid, target) {
               '{"func":"' +
                 func +
                 '", "index":' +
-                funcIndex(func,equation,foundTrig) +
+                funcIndex(func, equation, foundTrig) +
                 ',"inner":"' +
                 inner.substring(1, inner.length - 1) +
                 '", "contains":' +
@@ -76,12 +76,13 @@ function parseForCust(equation, varGrid, target) {
       }
       return returnVal;
     });
-    printArray(foundTrig);
     if (containsTrig) {
       console.log(degRad);
-      let still = true;
-      while (still) {
+      console.log("%c Running Func Loop", "color: blue");
+      let funcInner = [];
+      while (foundTrig.length > 0) {
         let trig = foundTrig[0];
+        console.log(trig);
         if (!trig.contains) {
           let computed = 0.0;
           switch (trig.func) {
@@ -183,20 +184,28 @@ function parseForCust(equation, varGrid, target) {
               }
               break;
           }
+          console.log("%c Changing Equation", "color: lightgreen");
           equation =
             equation.substring(0, trig.index) +
             computed +
             equation.substring(
               trig.index + trig.inner.length + trig.func.length + 2
             );
+          console.log("%c" + equation, "color: gray");
           foundTrig.shift();
-          let offset = computed.toString().length -(trig.func.length + trig.inner.length + 2);
-          for(let funcs of foundTrig){
+          let offset =
+            computed.toString().length -
+            (trig.func.length + trig.inner.length + 2);
+          for (let funcs of foundTrig) {
             funcs.index += offset;
           }
+        } else {
+          console.log("%c Running Bottom", "color: red");
+          funcInner.push(foundTrig[0]);
+          foundTrig.shift();
         }
         if (foundTrig.length == 0) {
-          still = false;
+          break;
         }
       }
       console.log("Trig loop done");
@@ -315,16 +324,16 @@ function printArray(arr) {
 function funcIndex(func, equation, funcList) {
   let has = false;
   var hasVal = -1;
-  for (let i = funcList.length-1; i >= 0; i--) {
+  for (let i = funcList.length - 1; i >= 0; i--) {
     if (funcList[i].func == func) {
       has = true;
-      console.log(funcList[i].index)
-      if(hasVal < funcList[i].index){
-        hasVal = funcList[i].index+ funcList[i].func.length;
+      console.log(funcList[i].index);
+      if (hasVal < funcList[i].index) {
+        hasVal = funcList[i].index + funcList[i].func.length;
       }
     }
   }
-  console.log("Has is "+has+" hasVal index is "+hasVal);
+  console.log("Has is " + has + " hasVal index is " + hasVal);
   if (has) {
     return hasVal + equation.substring(hasVal).indexOf(func);
   } else {
