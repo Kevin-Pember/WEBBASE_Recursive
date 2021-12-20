@@ -1,4 +1,7 @@
 //var algebra = require("algebra.js");
+
+//const algebra = require("algebra.js");
+
 //var Solver = require("js-solver");
 var Fraction = algebra.Fraction;
 var Expression = algebra.Expression;
@@ -210,19 +213,19 @@ function parseForCust(equation, varGrid, target) {
       }
       console.log("Trig loop done");
       console.log(equation);
-      console.log(foundTrig);
-      if (foundTrig.length > 0) {
+      console.log(funcInner);
+      if (funcInner.length > 0) {
         let sideOne = 0;
         let sideTwo = 0;
         //determines Which side to solve first in order to isolate the target
-        for (let innerTrig of foundTrig) {
+        let indexEquals = equation.indexOf("=");
+        for (let innerTrig of funcInner) {
           if (innerTrig.contains && innerTrig.index < indexEquals) {
             sideOne++;
           } else {
             sideTwo++;
           }
         }
-        let indexEquals = equation.indexOf("=");
         let solveSide = "";
         let equatSide = "";
         if (sideOne > sideTwo) {
@@ -235,17 +238,24 @@ function parseForCust(equation, varGrid, target) {
         console.log("Equation " + equation);
         console.log("Solve Side " + solveSide);
         console.log("Equat Side " + equatSide);
-        for (let trig of foundTrig) {
+        for (let trig of funcInner) {
           let openVariable = findSafeVar(equation);
           solveSide = solveSide.replace(
             trig.func + "(" + trig.inner + ")",
             openVariable
           );
           console.log("Solve Side post " + solveSide);
-          let solveExpr = new Expression(solveSide);
-          let equatExpr = new Expression(equatSide);
-          let eq = new Equation(solveExpr, 4);
-          console.log(eq.solveFor(openVariable));
+          var x1 = algebra.parse("1/5 * x * 1");
+          var x2 = algebra.parse("1/7 * x + 4");  
+          var expr = new Expression("x");
+          //expr = expr.subtract(3);
+          //expr = expr.add("x");
+          //console.log(expr.toString());
+          var eq = new Equation(x1, x2);
+          console.log(eq.toString());
+          var x = eq.solveFor("x");
+
+          console.log("x = " + x.toString());
         }
       }
     } else {
