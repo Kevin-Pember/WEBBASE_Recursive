@@ -1,0 +1,33 @@
+{
+  "name": "Recursive",
+  "description": "Easliy programable calculator",
+  "version": "2.0",
+  "manifest_version": 3,
+  "background":{
+    "service_worker": "load.js"
+  },
+  "permissions": ["storage", "activeTab", "scripting"],
+  "action": {
+    "default_popup": "Recursive.html",
+    "default_icon": {
+      "16": "/Images/IconX16.png",
+      "32": "/Images/IconX32.png",
+      "48": "/Images/IconX48.png",
+      "128": "/Images/IconX128.png"
+    }
+  },
+  "icons": {
+    "16": "/Images/IconX16.png",
+    "32": "/Images/IconX32.png",
+    "48": "/Images/IconX48.png",
+    "128": "/Images/IconX128.png"
+  },
+  "content_scripts": [
+    {
+       "matches":    ["http://www.google.com/*"],
+       "css":        ["./stylesheets.css"],
+       "js":         ["./Main.js"]
+    }
+ ]
+ 
+}
