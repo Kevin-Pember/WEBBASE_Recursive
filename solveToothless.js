@@ -21,7 +21,7 @@ function solveInpr(equation, returnTarget){
       ];
       let subEquation = equation;
       let loopNum = 0;
-      for (let func of funcList) {
+      for (let i = 0; i < equation.length; i++) {
         while (subEquation.includes(func)) {
           if (subEquation.indexOf(func) > -1) {
             let innerRAW = parEncap(subEquation.substring(subEquation.indexOf(func) + func.length));
@@ -31,11 +31,6 @@ function solveInpr(equation, returnTarget){
             let parsedFunc = assembly(funcTemp, inner);
             equation = equation.replace(func + innerRAW, parsedFunc);
             console.log("%c"+equation, "color: green");
-            loopNum++;
-            if(loopNum == 1000){
-              console.log("%c Infinite Loop", "color: red");
-              break;
-            }
           }
         }
       }
