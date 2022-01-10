@@ -42,6 +42,20 @@ function solveInpr(equation, returnTarget){
         return returnVal;
       });
 }
+function funcMatch(equation){
+  let func4 = ["acsc","asec","acot","asin","acos","atan"];
+  if(func4.indexOf(equation.substring(0,5))){
+    return true;
+  }
+  let func3 = ["sin","cos","tan","csc","sec","cot","log","mod","d→f"];
+  if(func3.indexOf(equation.substring(0,4))){
+    return true;
+  }
+  let func2 = ["ln"];
+  if(func2.indexOf(equation.substring(0,3))){
+    return true;
+  }
+}
 function findMethod(func){
   let funcTemp = [];
   let degRad = true;
