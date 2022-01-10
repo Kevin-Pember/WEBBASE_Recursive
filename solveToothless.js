@@ -22,7 +22,7 @@ function solveInpr(equation, returnTarget){
       let subEquation = equation;
       let loopNum = 0;
       for (let i = 0; i < equation.length; i++) {
-        while (subEquation.includes(func)) {
+        if () {
           if (subEquation.indexOf(func) > -1) {
             let innerRAW = parEncap(subEquation.substring(subEquation.indexOf(func) + func.length));
             let inner = recrSolve(innerRAW.substring(1, innerRAW.length - 1));
