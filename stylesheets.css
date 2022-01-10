@@ -651,6 +651,9 @@ button:focus, input[type="button"]:focus {
     z-index: -1;
     visibility: hidden;
   }
+  #minusFunctionEx{
+    left: 50px;
+  }
   #displayText{
     visibility: hidden;
   }

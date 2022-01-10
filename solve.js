@@ -32,6 +32,10 @@ function parseForCust(equation, varGrid, target) {
       "csc",
       "sec",
       "cot",
+      "ln",
+      "log",
+      "mod",
+      "d→f"
     ];
     let subEquation = equation;
     for (let func of funcList) {
@@ -62,11 +66,7 @@ function parseForCust(equation, varGrid, target) {
                 "}"
             )
           );
-          subEquation =
-            subEquation.substring(0, subEquation.indexOf(func)) +
-            subEquation.substring(
-              subEquation.indexOf(func) + func.length + inner.length
-            );
+          subEquation = subEquation.substring(0, subEquation.indexOf(func)) + subEquation.substring(subEquation.indexOf(func) + func.length + inner.length);
         }
       }
     }
@@ -186,6 +186,14 @@ function parseForCust(equation, varGrid, target) {
                 computed = eval("Math.atan(1/" + trig.inner + ")");
               }
               break;
+            case "ln":
+              computed = eval("Math.log(" + trig.inner + ")");
+              break;
+            case "log":
+              computed = eval("Math.log10(" + trig.inner + ")");
+              break;
+            case "mod":
+              
           }
           console.log("%c Changing Equation", "color: lightgreen");
           equation =
