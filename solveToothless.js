@@ -1,142 +1,145 @@
-solveInpr("1+sin(2)+9");
-
+let funcList = [
+  {
+    func: "acsc",
+    funcParse: ["Math.asin(1/", "v1", ")","toRad"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 4,
+  },
+  {
+    func: "asec",
+    funcParse: ["Math.acos(1/", "v1", ")", "toRad"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 4,
+  },
+  {
+    func: "acot",
+    funcParse: ["Math.atan(1/", "v1", ")", "toRad"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 4,
+  },
+  {
+    func: "asin",
+    funcParse: ["Math.asin(", "v1", ")", "toRad"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 4,
+  },
+  {
+    func: "acos",
+    funcParse: ["Math.acos(", "v1", ")", "toRad"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 4,
+  },
+  {
+    func: "atan",
+    funcParse: ["Math.atan(", "v1", ")", "toRad"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 4,
+  },
+  {
+    func: "sin",
+    funcParse: ["Math.sin(", "v1", ")", "toDeg"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 3,
+  },
+  {
+    func: "cos",
+    funcParse: ["Math.cos(", "v1", ")", "toDeg"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 3,
+  },
+  {
+    func: "tan",
+    funcParse: ["Math.tan(", "v1", ")", "toDeg"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 3,
+  },
+  {
+    func: "csc",
+    funcParse: ["Math.asin(1/", "v1", ")", "toDeg"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 3,
+  },
+  {
+    func: "sec",
+    funcParse: ["Math.acos(1/", "v1", ")", "toDeg"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 3,
+  },
+  {
+    func: "cot",
+    funcParse: ["Math.atan(1/", "v1", ")", "toDeg"],
+    inputs: 1,
+    funcRadDeg: true,
+    funcLength: 3,
+  },
+  {
+    func: "ln",
+    funcParse: ["Math.log(", "v1", ")"],
+    inputs: 1,
+    funcRadDeg: false,
+    funcLength: 2,
+  },
+  {
+    func: "log",
+    funcParse: ["Math.log10(", "v1", ")"],
+    inputs: 1,
+    funcRadDeg: false,
+    funcLength: 3,
+  },
+  {
+    func: "mod",
+    funcParse: ["v1 % v2"],
+    inputs: 2,
+    funcRadDeg: false,
+    funcLength: 3,
+  },
+];
+console.log(solveInpr("1+sin(2)+9"));
 //create an array full of object that contain name, equation, parse the equation, needs rad of deg, length, or  etc.
 function solveInpr(equation, returnTarget) {
-  var foundTrig = [];
-  let funcList = [
-    {
-      func: "acsc",
-      funcParse: ["Math.asin(1/", "v1", ")","toRad"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 4,
-    },
-    {
-      func: "asec",
-      funcParse: ["Math.acos(1/", "v1", ")", "toRad"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 4,
-    },
-    {
-      func: "acot",
-      funcParse: ["Math.atan(1/", "v1", ")", "toRad"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 4,
-    },
-    {
-      func: "asin",
-      funcParse: ["Math.asin(", "v1", ")", "toRad"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 4,
-    },
-    {
-      func: "acos",
-      funcParse: ["Math.acos(", "v1", ")", "toRad"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 4,
-    },
-    {
-      func: "atan",
-      funcParse: ["Math.atan(", "v1", ")", "toRad"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 4,
-    },
-    {
-      func: "sin",
-      funcParse: ["Math.sin(", "v1", ")", "toDeg"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 3,
-    },
-    {
-      func: "cos",
-      funcParse: ["Math.cos(", "v1", ")", "toDeg"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 3,
-    },
-    {
-      func: "tan",
-      funcParse: ["Math.tan(", "v1", ")", "toDeg"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 3,
-    },
-    {
-      func: "csc",
-      funcParse: ["Math.asin(1/", "v1", ")", "toDeg"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 3,
-    },
-    {
-      func: "sec",
-      funcParse: ["Math.acos(1/", "v1", ")", "toDeg"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 3,
-    },
-    {
-      func: "cot",
-      funcParse: ["Math.atan(1/", "v1", ")", "toDeg"],
-      inputs: 1,
-      funcRadDeg: true,
-      funcLength: 3,
-    },
-    {
-      func: "ln",
-      funcParse: ["Math.log(", "v1", ")"],
-      inputs: 1,
-      funcRadDeg: false,
-      funcLength: 2,
-    },
-    {
-      func: "log",
-      funcParse: ["Math.log10(", "v1", ")"],
-      inputs: 1,
-      funcRadDeg: false,
-      funcLength: 3,
-    },
-    {
-      func: "mod",
-      funcParse: ["v1 % v2"],
-      inputs: 2,
-      funcRadDeg: false,
-      funcLength: 3,
-    },
-  ];
+  console.log('Inpr ran');
   let subEquation = equation;
   for (let i = 0; i < equation.length; i++) {
-    if (funcMatch(subEquation) != "") {
+    console.log("Ran :" + i);
+    if (funcMatch(subEquation.substring(i)) != "") {
       let func = getByName(funcMatch(subEquation));
+      console.log("func is ");
+      console.log(func);
       let innerRAW = parEncap(
         subEquation.substring(func.funcLength)
       );
+      console.log("innerRaw is ");
+      console.log(innerRAW);
       let values = recrSolve(innerRAW.substring(1, innerRAW.length - 1),func);
+      console.log("Values are ");
+      console.log(values);
       let funcTemp = findMethod(func);
+      console.log("funcTemp is ");
+      console.log(funcTemp);
       /*subEquation =
         subEquation.substring(0, subEquation.indexOf(func)) +
         subEquation.substring(
           subEquation.indexOf(func) + func.length + innerRAW.length
         );*/
       let parsedFunc = assembly(func, funcTemp, values);
+      console.log("Parsed is ");
+      console.log(parsedFunc);
       equation = equation.substring(0, i)+parsedFunc+equation.substring(i+func.funcLength+innerRAW.length);
       subEquation = equation.substring(i+func.funcLength+innerRAW.length);
-      console.log("%c" + equation, "color: green");
     }
   }
-  foundTrig.sort(function (a, b) {
-    let returnVal = -1;
-    if (a.index > b.index) {
-      returnVal = 1;
-    }
-    return returnVal;
-  });
+  return equation;
 }
 function getByName(name) {
   for (let func in funcList) {
