@@ -22,7 +22,7 @@ function solveInpr(equation, returnTarget){
       let subEquation = equation;
       let loopNum = 0;
       for (let i = 0; i < equation.length; i++) {
-        if () {
+        if (funcMatch(subEquation.substring(i, i + 5))) {
           if (subEquation.indexOf(func) > -1) {
             let innerRAW = parEncap(subEquation.substring(subEquation.indexOf(func) + func.length));
             let inner = recrSolve(innerRAW.substring(1, innerRAW.length - 1));
@@ -44,15 +44,15 @@ function solveInpr(equation, returnTarget){
 }
 function funcMatch(equation){
   let func4 = ["acsc","asec","acot","asin","acos","atan"];
-  if(func4.indexOf(equation.substring(0,5))){
+  if(func4.includes(equation.substring(0,5))){
     return true;
   }
   let func3 = ["sin","cos","tan","csc","sec","cot","log","mod","d→f"];
-  if(func3.indexOf(equation.substring(0,4))){
+  if(func3.includes(equation.substring(0,4))){
     return true;
   }
   let func2 = ["ln"];
-  if(func2.indexOf(equation.substring(0,3))){
+  if(func2.includes(equation.substring(0,3))){
     return true;
   }
 }
