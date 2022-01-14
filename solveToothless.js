@@ -1,4 +1,6 @@
 solveInpr("1+sin(2)+9");
+
+//create an array full of object that contain name, equation, parse the equation, needs rad of deg, etc.
 function solveInpr(equation, returnTarget){
     var foundTrig = [];
     let funcList = [
@@ -20,9 +22,8 @@ function solveInpr(equation, returnTarget){
         "d→f"
       ];
       let subEquation = equation;
-      let loopNum = 0;
       for (let i = 0; i < equation.length; i++) {
-        if (funcMatch(subEquation.substring(i, i + 5))) {
+        if (funcMatch(subEquation)) {
           if (subEquation.indexOf(func) > -1) {
             let innerRAW = parEncap(subEquation.substring(subEquation.indexOf(func) + func.length));
             let inner = recrSolve(innerRAW.substring(1, innerRAW.length - 1));
