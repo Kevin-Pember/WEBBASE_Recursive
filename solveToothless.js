@@ -150,7 +150,7 @@ function getByName(name) {
 }
 function funcMatch(equation) {
   for (let func in funcList) {
-    let check = equation.substring(0, func.funcLength+1);
+    let check = equation.substring(0, (func.funcLength+1));
     console.log(check);
     if (check == func.func) {
       return func.func;
