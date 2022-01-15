@@ -113,12 +113,12 @@ function solveInpr(equation, returnTarget) {
   for (let i = 0; i < equation.length; i++) {
     console.log("Ran :" + i);
     if (funcMatch(subEquation.substring(i)) != "") {
-      console.log("Found func is "+funcMatch(subEquation));
-      let func = getByName(funcMatch(subEquation));
+      console.log("Found func is "+funcMatch(subEquation.substring(i)));
+      let func = getByName(funcMatch(subEquation.substring(i)));
       console.log("func is ");
       console.log(func);
       let innerRAW = parEncap(
-        subEquation.substring(func.funcLength)
+        subEquation.substring(i+func.funcLength)
       );
       console.log("innerRaw is ");
       console.log(innerRAW);
@@ -143,8 +143,8 @@ function solveInpr(equation, returnTarget) {
   return equation;
 }
 function getByName(name) {
-  for (let func in funcList) {
-    if (func.name == name) {
+  for (let func of funcList) {
+    if (func.func == name) {
       return func;
     }
   }
@@ -152,9 +152,8 @@ function getByName(name) {
 function funcMatch(equation) {
   for (let func of funcList) {
     let check = equation.substring(0, (func.funcLength));
-    console.log(check +" vs. "+func.func);
     if (check == func.func) {
-      console.log("Found func is "+func.name);
+      console.log("Found func is "+func.func);
       return func.func;
     }
   }
@@ -179,9 +178,11 @@ function findMethod(func) {
 function assembly(func, parsedFunc, values) {
   inputs = func.inputs;
   for (let i = 1; i <= inputs; i++) {
-    parsedFunc = parsedFunc.replace("v" + i, values[i - 1]);
+    let index = parsedFunc.indexOf("v" + i);
+    parsedFunc[index] = values[i - 1];
   }
-  return parsedFunc;
+  let parsedString = parsedFunc.join("");
+  return parsedString;
   /*let returnString = "";
   for (let x of array) {
     if (x == "v") {
