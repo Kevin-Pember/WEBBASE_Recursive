@@ -107,7 +107,9 @@ let funcList = [
 ];
 console.log(solveInpr("1+sin(2)+9+mod(3,4)"));
 //create an array full of object that contain name, equation, parse the equation, needs rad of deg, length, or  etc.
-function solveInpr(equation, returnTarget) {
+function solveInpr(equation) {
+  equation = equation.replaceAll('‎','');
+  equation
   console.log('Inpr ran');
   for (let i = 0; i < equation.length; i++) {
     console.log("Ran :" + i);
@@ -178,20 +180,25 @@ function assembly(func, parsedFunc, values) {
 function recrSolve(equation,func) {
   let inputs = func.inputs;
   if(inputs == 1){
-    return [equation];
+    return [equatInner(equation)];
   }else {
     let values = [];
     for(let i = 1; i <= inputs; i++){
       if(i != inputs){
-        values.push(equation.substring(0, equation.indexOf(",")));
+        values.push(equatInner(equation.substring(0, equation.indexOf(","))));
         equation = equation.substring(equation.indexOf(",") + 1);
       }else {
-        values.push(equation);
+        values.push(equatInner(equation));
         break;
       }
     }
       return values
   }
+}
+function equatInner(equation){
+  equation = solveInpr(equation);
+  //eval(equation)
+  return equation;
 }
 function parComplete(input) {
   for (let i = 0; i < input.length; i++) {
@@ -220,6 +227,31 @@ function parEncap(sub) {
   }
   return sub;
 }
+function parEncap2(sub) {
+	for (let i = sub.length - 2; i >= 0; i--) {
+		if (sub.charAt(i) == ')') {
+			i = i + parEncap2(sub.substring(0, i + 1)).length;
+		} else if (sub.charAt(i) == '(') {
+			sub = sub.substring(i);
+			break;
+		} else if (i == 0) {
+			sub = "(" + sub;
+			break;
+		}
+	}
+	return sub;
+}
+function supEncap(sub) {
+	for (let i = 5; i < sub.length; i++) {
+		if (sub.substring(i, i + 5) == "<sup>") {
+			i = i + supEncap(sub.substring(i)).length;
+		} else if (sub.substring(i, i + 6) == "</sup>") {
+			sub = sub.substring(0, i + 7);
+			break;
+		}
+	}
+	return sub;
+}
 function funcIndex(func, equation, funcList) {
   let has = false;
   var hasVal = -1;
@@ -236,4 +268,86 @@ function funcIndex(func, equation, funcList) {
   } else {
     return equation.indexOf(func);
   }
+}
+function powMethod(equation){
+  for(let i = 0; i < equation.length; i++){
+    if(equation.substring(i, i + 5) == "<sup>"){
+      let exponent = equatInner(supEncap(equation.substring(i)).substring(5,supEncap(equation.substring(i)).length-6));
+      let exponentRAW = supEncap(equation.substring(i)).substring(5,supEncap(equation.substring(i)).length-6);
+      if(equation.charAt(i-1) == ")"){
+
+      }else{
+
+      }
+    }
+  }
+}
+function backward(sub) {
+	let outputSub = "";
+	for (i = 0; i <= sub.length - 1; i++) {
+		if (sub.charAt(i) != '×' && sub.charAt(i) != '*' && sub.charAt(i) != '÷' && sub.charAt(i) != '/' && sub.charAt(i) != '√' && sub.charAt(i) != '²' && sub.charAt(i) != '^' && sub.charAt(i) != '(' && sub.charAt(i) != ')' && sub.charAt(i) != '%' && sub.charAt(i) != '!' && sub.charAt(i) != 'π' && sub.charAt(i) != 'e' && sub.charAt(i) != ',' && sub.charAt(i) != '|') {
+			if (i == sub.length - 1) {
+				outputSub = sub.substring(0, i + 1);
+				break;
+			} else if (sub.charAt(i) == '+') {
+				if (sub.charAt(i - 1) == 'E') {
+
+				} else {
+					outputSub = sub.substring(0, i);
+					break;
+				}
+			} else if (sub.charAt(i) == '-') {
+				if (i == 0) {
+
+				} else if (sub.charAt(i - 1) == 'E') {
+
+				} else {
+					outputSub = sub.substring(0, i);
+					break;
+				}
+			}
+		} else if (i == 0) {
+			outputSub = "";
+			break;
+		} else {
+			outputSub = sub.substring(0, i);
+			break;
+		}
+	}
+	return outputSub;
+}
+function forward(sub) {
+	let outputSub = "";
+	for (let i = sub.length - 1; i >= 0; i--) {
+		if (sub.charAt(i) != '×' && sub.charAt(i) != '*' && sub.charAt(i) != '÷' && sub.charAt(i) != '/' && sub.charAt(i) != '√' && sub.charAt(i) != '²' && sub.charAt(i) != '^' && sub.charAt(i) != '(' && sub.charAt(i) != ')' && sub.charAt(i) != '%' && sub.charAt(i) != '!' && sub.charAt(i) != 'π' && sub.charAt(i) != 'e' && sub.charAt(i) != ',' && sub.charAt(i) != '|') {
+			if (i == 0) {
+				outputSub = sub.substring(i);
+				break;
+			} else if (sub.charAt(i) == '+') {
+				if (sub.charAt(i - 1) == 'E') {
+
+				} else {
+					outputSub = sub.substring(i + 1);
+					break;
+				}
+			} else if (sub.charAt(i) == '-') {
+				if (i == 0) {
+
+				} else if (sub.charAt(i - 1) == 'E') {
+
+				} else {
+					outputSub = sub.substring(i + 1);
+					break;
+				}
+			}
+		} else if (i == sub.length - 1) {
+			outputSub = "";
+			break;
+		} else {
+			outputSub = sub.substring(i + 1);
+			break;
+		}
+	}
+	console.log("Outputsub is " + outputSub);
+	return outputSub;
 }
