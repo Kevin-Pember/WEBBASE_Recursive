@@ -105,11 +105,10 @@ let funcList = [
     'funcLength': 3,
   },
 ];
-console.log(solveInpr("1+sin(2)+9+(6)<sup>2</sup>+5"));
+console.log(solveInpr("‎9+√9"));
 //create an array full of object that contain name, equation, parse the equation, needs rad of deg, length, or  etc.
 function solveInpr(equation) {
-  equation = equation.replaceAll('‎','');
-  equation = powMethod(equation);
+  equation = builtInFunc(equation);
   console.log('Inpr ran');
   for (let i = 0; i < equation.length; i++) {
     console.log("Ran :" + i);
@@ -269,7 +268,10 @@ function funcIndex(func, equation, funcList) {
     return equation.indexOf(func);
   }
 }
-function powMethod(equation){
+function builtInFunc(equation){
+  equation = equation.replaceAll('‎','');
+  equation = equation.replaceAll('×','*');
+  equation = equation.replaceAll('÷','/');
   for(let i = 0; i < equation.length; i++){
     if(equation.substring(i, i + 5) == "<sup>"){
       let exponent = equatInner(supEncap(equation.substring(i)).substring(5,supEncap(equation.substring(i)).length-7));
@@ -284,6 +286,46 @@ function powMethod(equation){
         baseRAW = forward(equation.substring(0,i));
       }
       equation = equation.substring(0,i-baseRAW.length) + "Math.pow(" + base + "," + exponent + ")" + equation.substring(i+exponentRAW.length-1);
+    }else if(equation.charAt(i) == "^"){
+      let exponent = "";
+      let exponentRAW = "";
+      let base = "";
+      let baseRAW = "";
+      if(equation.charAt(i-1) == ")"){
+        base = equatInner(parEncap2(equation.substring(0,i)).substring(1,parEncap2(equation.substring(0,i)).length-1));
+        baseRAW = parEncap2(equation.substring(0,i));
+      }else{
+        base = forward(equation.substring(0,i));
+        baseRAW = forward(equation.substring(0,i));
+      }
+      if(equation.charAt(i+1) == "("){
+        exponent = equatInner(parEncap(equation.substring(i+1)));
+        exponentRAW = parEncap(equation.substring(i+1));
+      }else{
+        exponent = backward(equation.substring(i+1));
+        exponentRAW = backward(equation.substring(i+1));
+      }
+      equation = equation.substring(0,i-baseRAW.length) + "Math.pow(" + base + "," + exponent + ")" + equation.substring(i+exponentRAW.length+1);
+    }else if(equation.charAt(i) == "√"){
+      if (equation.charAt(i + 1) == '(') {
+        equation = equation.substring(0, i) + "Math.sqrt" + equation.substring(i + 1);
+      } else {
+        let inner = equatInner(backward(equation.substring(i + 1)));
+        console.log("Inner is " + inner);
+        let innerRAW = backward(equation.substring(i + 1));
+        equation = equation.substring(0, i) + "Math.sqrt(" + inner + ")" + equation.substring(i+innerRAW.length + 1);
+        console.log("Equation is post" + equation);
+        i = i + inner.length +7;
+      }
+    }else if(equation.charAt(i) == "π"){
+      let parseString = "Math.PI";
+      if(backward(equation.substring(i+1)).length > 0){
+        parseString = parseString + '*';
+      }
+      if(forward(equation.substring(0,i)).length > 0){
+        parseString = "*" + parseString;
+      }
+      equation = equation.substring(0, i) + parseString + equation.substring(i + 1);
     }
   }
   return equation;

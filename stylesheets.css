@@ -495,6 +495,10 @@ button:focus, input[type="button"]:focus {
   #customFuncDisplayRecentText{
     right: 5px;
     top: 5px;
+    left: 2.5%;
+    width: 95%;
+    text-align: left;
+    color: transparent;
     color: var(--textColor);
     background-color: var(--numbersColor);
     text-align: right;
@@ -651,11 +655,21 @@ button:focus, input[type="button"]:focus {
     z-index: -1;
     visibility: hidden;
   }
-  #minusFunctionEx{
-    left: 50px;
-  }
+  
   #displayText{
     visibility: hidden;
+  }
+  #addFunctionEx{
+    z-index: 1;
+    left: unset;
+    right: 60px;
+    top: 8.5px;
+  }
+  #minusFunctionEx{
+    z-index: 1;
+    left: unset;
+    right: 20px;
+    top: 8.5px;
   }
   @keyframes buttonSlide{
     from {}
@@ -722,7 +736,7 @@ button:focus, input[type="button"]:focus {
     visibility: hidden;
   }
 }
-@media only screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 2/1)  {
+@media only screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 2/1){
   
   #displayClip{
     width: 66.6666%;
@@ -760,24 +774,7 @@ button:focus, input[type="button"]:focus {
     z-index: 1;
     border-radius: 0 0 0 0;
   }
-  #customFuncDisplayRecentText{
-    left: 2.5%;
-    width: 95%;
-    text-align: left;
-    color: transparent;
-  }
-  #addFunctionEx{
-    z-index: 1;
-    left: unset;
-    right: 48px;
-    top: 8.5px;
-  }
-  #minusFunctionEx{
-    z-index: 1;
-    left: unset;
-    right: 10px;
-    top: 8.5px;
-  }
+  
   #backExMini{
     position: absolute;
     z-index: 1;
@@ -799,8 +796,74 @@ button:focus, input[type="button"]:focus {
   .text-area{
     direction: rtl;
   }
+  #customFuncDisplayRecentText{
+    color: transparent;
+  }
 }
-@media only screen and (min-aspect-ratio: 5/3)  {
+@media only screen and (max-height: 450px) {
+  #displayClip{
+    width: 66.6666%;
+    max-width: 100%;
+    border-radius: 0 25px 25px 0;
+  }
+  .mainCacGrid {
+    width: 66.6666%;
+    bottom: 0;
+    padding: 0px;
+  }
+  #extendedFuncGrid{
+    top: 0;
+    height: 100%;
+    width: 33.3333%;
+    left: 66.6666%;
+    max-width: 100%;
+  }
+  #arrowIcon{
+      opacity: 0;
+      animation: 0.25s ease-in 0s 1 normal forwards running toDown;
+  }
+  #extraFuncPopUp{
+    visibility: hidden;
+  }
+  #overlayDiv{
+    width: 66.6666%;
+  }
+  #customFuncDisplay{
+    background-color: var(--functionsColor);
+    visibility: visible;
+    width: 33.333%;
+    left: 100%;
+    position: absolute;
+    z-index: 1;
+    border-radius: 0 0 0 0;
+  }
+  
+  #backExMini{
+    position: absolute;
+    z-index: 1;
+    left: 10px;
+    top: 8.5px;
+  }
+  #customFuncDisplayGrid .button {
+    width: 95%;
+    height: 90%;
+    top: 5%;
+    right: 2.5%;
+    border-radius: 25px;
+    border: none;
+    background-color: var(--numbersColor);
+  }
+  #customFuncDisplayGrid{
+    grid-template-columns: 100%;
+  }
+  .text-area{
+    direction: rtl;
+  }
+  #customFuncDisplayRecentText{
+    color: transparent;
+  }
+}
+@media only screen and (min-aspect-ratio: 5/3)  and (min-height: 451px){
   #displayClip{
     width: 40%;
     max-width: 100%;
@@ -841,17 +904,6 @@ button:focus, input[type="button"]:focus {
   #customFuncDisplayRecentText{
     color: var(--textColor);
     text-align: center;
-  }
-  #addFunctionEx{
-    z-index: 1;
-    right: calc(40px + 2.5%);
-    top: 8.5px;
-  }
-  #minusFunctionEx{
-    z-index: 1;
-    left: unset;
-    right: 2.5%;
-    top: 8.5px;
   }
   #customFuncDisplayGrid{
     grid-template-columns: 50% 50%;
@@ -1343,6 +1395,9 @@ button:focus, input[type="button"]:focus {
   .navButtons{
     text-indent: 100px;
     height: 100px;
+  }
+  #customFuncDisplayGrid{
+    visibility: hidden;
   }
 }
 @media only screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) {

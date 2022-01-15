@@ -104,7 +104,7 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('pars').addEventListener("click", function () { parsMethod(); });
   document.getElementById('pow').addEventListener("click", function () { pow('1'); });
   document.getElementById('mutiplication').addEventListener("click", function () { frontButtonPressed('×'); });
-  document.getElementById('enter').addEventListener("click", function () { console.log(document.getElementById('enterHeader').innerHTML); });
+  document.getElementById('enter').addEventListener("click", function () { console.log(solveInpr(document.getElementById('enterHeader').innerHTML)); enterPressed(document.getElementById('enterHeader').innerHTML)});
   document.getElementById('pow2').addEventListener("click", function () { pow('2'); });
   document.getElementById('sqrt').addEventListener("click", function () { frontButtonPressed('√'); });
   document.getElementById('divison').addEventListener("click", function () { frontButtonPressed('÷'); });
@@ -135,9 +135,8 @@ if (document.getElementById("mainBody") != null) {
     document.getElementById('customFuncDisplay').style.animation = null;
     document.getElementById('customFuncDisplay').style.animation = "0.15s ease-in 0s 1 normal reverse running slideFromSide";
     setTimeout(function(){
-      document.getElementById('customFuncDisplay').style.visibility = "unset";
-      document.getElementById('customFuncDisplay').style.animation = 'unset';
-      document.getElementById('extendedFuncGrid').style.visibility = "unset";
+      document.getElementById('customFuncDisplay').style = undefined;
+      document.getElementById('extendedFuncGrid').style = undefined;
 
     }, 150);
     document.getElementById('extendedFuncGrid').style.animation = "0.15s ease-in 0s 1 normal reverse running slideFromSide";
@@ -687,7 +686,7 @@ function tabOpen(intialize) {
 }
 function enterPressed(input) {
   let display = document.getElementById('enterHeader');
-  input = translate(display.innerHTML);
+  input = solveInpr(input);
   console.log('Fresh out of the input ' + input);
   historyMethod(input);
   var mySolver = new Solver({
@@ -695,8 +694,8 @@ function enterPressed(input) {
   })
   display.innerHTML = mySolver.solve({})["s"];
   console.log(mySolver.solve({})["s"]);
-  setSelect(display.childNodes[display.childNodes.length - 1], display.childNodes[display.childNodes.length - 1].length);
   document.getElementById('uifCalculator').scrollTop = document.getElementById('uifCalculator').scrollHeight;
+  setSelect(display.childNodes[display.childNodes.length - 1], display.childNodes[display.childNodes.length - 1].length);
 }
 function historyMethod(equation) {
   let historyHeader = document.getElementById('historyHeader');
