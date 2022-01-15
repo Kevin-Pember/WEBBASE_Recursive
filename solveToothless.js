@@ -105,7 +105,7 @@ let funcList = [
     'funcLength': 3,
   },
 ];
-console.log(solveInpr("1+sin(2)+9"));
+console.log(solveInpr("1+sin(2)+9+cos(3)"));
 //create an array full of object that contain name, equation, parse the equation, needs rad of deg, length, or  etc.
 function solveInpr(equation, returnTarget) {
   console.log('Inpr ran');
@@ -128,11 +128,6 @@ function solveInpr(equation, returnTarget) {
       let funcTemp = findMethod(func);
       console.log("funcTemp is ");
       console.log(funcTemp);
-      /*subEquation =
-        subEquation.substring(0, subEquation.indexOf(func)) +
-        subEquation.substring(
-          subEquation.indexOf(func) + func.length + innerRAW.length
-        );*/
       let parsedFunc = assembly(func, funcTemp, values);
       console.log("Parsed is ");
       console.log(parsedFunc);
@@ -161,19 +156,17 @@ function funcMatch(equation) {
 }
 function findMethod(func) {
   let degRad = true;
+  let array = func.funcParse;
   if (func.funcRadDeg) {
     if(degRad){
-      if(func.funcParse.includes("toDeg")){
-        return func.funcParse.splice(func.funcParse.indexOf("toDeg"), 1, "*(Math.PI/180)");
+      if(array.includes("toDeg")){
+        array.splice(func.funcParse.indexOf("toDeg"), 1, "*(Math.PI/180)");
       }else{
-        return func.funcParse.splice(func.funcParse.indexOf("toRad"), 1, "*(180/Math.PI)");
+        array.splice(func.funcParse.indexOf("toRad"), 1, "*(180/Math.PI)");
       }
-    }else {
-      return func.funcParse;
     }
-  }else{
-    return func.funcParse;
   }
+  return array;
 }
 function assembly(func, parsedFunc, values) {
   inputs = func.inputs;
