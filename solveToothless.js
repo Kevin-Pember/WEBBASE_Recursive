@@ -147,7 +147,6 @@ function funcMatch(equation) {
   for (let func of funcList) {
     let check = equation.substring(0, (func.funcLength));
     if (check == func.func) {
-      console.log("Found func is "+func.func);
       return func.func;
     }
   }
@@ -170,7 +169,6 @@ function findMethod(func) {
 function assembly(func, parsedFunc, values) {
   inputs = func.inputs;
   for (let i = 1; i <= inputs; i++) {
-    console.log("Value is v"+i);
     let index = parsedFunc.indexOf("v" + i);
     parsedFunc[index] = values[i - 1];
   }
@@ -188,7 +186,6 @@ function recrSolve(equation,func) {
         values.push(equation.substring(0, equation.indexOf(",")));
         equation = equation.substring(equation.indexOf(",") + 1);
       }else {
-        console.log("End is "+equation);
         values.push(equation);
         break;
       }
@@ -203,7 +200,6 @@ function parComplete(input) {
         i + parEncap(input.substring(i)).length >= input.length &&
         input.charAt(input.length - 1) != ")"
       ) {
-        console.log("par coimplete complete par");
         input += ")";
       }
     }
@@ -230,13 +226,11 @@ function funcIndex(func, equation, funcList) {
   for (let i = funcList.length - 1; i >= 0; i--) {
     if (funcList[i].func == func) {
       has = true;
-      console.log(funcList[i].index);
       if (hasVal < funcList[i].index) {
         hasVal = funcList[i].index + funcList[i].func.length;
       }
     }
   }
-  console.log("Has is " + has + " hasVal index is " + hasVal);
   if (has) {
     return hasVal + equation.substring(hasVal).indexOf(func);
   } else {
