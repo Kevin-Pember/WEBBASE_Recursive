@@ -99,26 +99,25 @@ let funcList = [
   },
   {
     'func': "mod",
-    'funcParse': ["v1 % v2"],
+    'funcParse': ["v1", "%", "v2"],
     'inputs': 2,
     'funcRadDeg': false,
     'funcLength': 3,
   },
 ];
-console.log(solveInpr("1+sin(2)+9+cos(3)"));
+console.log(solveInpr("1+sin(2)+9+mod(3,4)"));
 //create an array full of object that contain name, equation, parse the equation, needs rad of deg, length, or  etc.
 function solveInpr(equation, returnTarget) {
   console.log('Inpr ran');
-  let subEquation = equation;
   for (let i = 0; i < equation.length; i++) {
     console.log("Ran :" + i);
-    if (funcMatch(subEquation.substring(i)) != "") {
-      console.log("Found func is "+funcMatch(subEquation.substring(i)));
-      let func = getByName(funcMatch(subEquation.substring(i)));
+    if (funcMatch(equation.substring(i)) != "") {
+      console.log("Found func is "+funcMatch(equation.substring(i)));
+      let func = getByName(funcMatch(equation.substring(i)));
       console.log("func is ");
       console.log(func);
       let innerRAW = parEncap(
-        subEquation.substring(i+func.funcLength)
+        equation.substring(i+func.funcLength)
       );
       console.log("innerRaw is ");
       console.log(innerRAW);
@@ -132,7 +131,7 @@ function solveInpr(equation, returnTarget) {
       console.log("Parsed is ");
       console.log(parsedFunc);
       equation = equation.substring(0, i)+parsedFunc+equation.substring(i+func.funcLength+innerRAW.length);
-      subEquation = equation.substring(i+func.funcLength+innerRAW.length);
+      i = i+parsedFunc.length-1;
     }
   }
   return equation;
@@ -171,20 +170,12 @@ function findMethod(func) {
 function assembly(func, parsedFunc, values) {
   inputs = func.inputs;
   for (let i = 1; i <= inputs; i++) {
+    console.log("Value is v"+i);
     let index = parsedFunc.indexOf("v" + i);
     parsedFunc[index] = values[i - 1];
   }
   let parsedString = parsedFunc.join("");
   return parsedString;
-  /*let returnString = "";
-  for (let x of array) {
-    if (x == "v") {
-      returnString += inner;
-    } else {
-      returnString += x;
-    }
-  }
-  return returnString;*/
 }
 function recrSolve(equation,func) {
   let inputs = func.inputs;
@@ -197,7 +188,9 @@ function recrSolve(equation,func) {
         values.push(equation.substring(0, equation.indexOf(",")));
         equation = equation.substring(equation.indexOf(",") + 1);
       }else {
-        values.push(equation.substring(0, equation.indexOf(")")));
+        console.log("End is "+equation);
+        values.push(equation);
+        break;
       }
     }
       return values
