@@ -105,11 +105,11 @@ let funcList = [
     'funcLength': 3,
   },
 ];
-console.log(solveInpr("1+sin(2)+9+mod(3,4)"));
+console.log(solveInpr("1+sin(2)+9+(6)<sup>2</sup>+5"));
 //create an array full of object that contain name, equation, parse the equation, needs rad of deg, length, or  etc.
 function solveInpr(equation) {
   equation = equation.replaceAll('‎','');
-  equation
+  equation = powMethod(equation);
   console.log('Inpr ran');
   for (let i = 0; i < equation.length; i++) {
     console.log("Ran :" + i);
@@ -272,15 +272,21 @@ function funcIndex(func, equation, funcList) {
 function powMethod(equation){
   for(let i = 0; i < equation.length; i++){
     if(equation.substring(i, i + 5) == "<sup>"){
-      let exponent = equatInner(supEncap(equation.substring(i)).substring(5,supEncap(equation.substring(i)).length-6));
-      let exponentRAW = supEncap(equation.substring(i)).substring(5,supEncap(equation.substring(i)).length-6);
+      let exponent = equatInner(supEncap(equation.substring(i)).substring(5,supEncap(equation.substring(i)).length-7));
+      let exponentRAW = supEncap(equation.substring(i));
+      let base = "";
+      let baseRAW = "";
       if(equation.charAt(i-1) == ")"){
-
+        base = equatInner(parEncap2(equation.substring(0,i)).substring(1,parEncap2(equation.substring(0,i)).length-1));
+        baseRAW = parEncap2(equation.substring(0,i));
       }else{
-
+        base = forward(equation.substring(0,i));
+        baseRAW = forward(equation.substring(0,i));
       }
+      equation = equation.substring(0,i-baseRAW.length) + "Math.pow(" + base + "," + exponent + ")" + equation.substring(i+exponentRAW.length-1);
     }
   }
+  return equation;
 }
 function backward(sub) {
 	let outputSub = "";

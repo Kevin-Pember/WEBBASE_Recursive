@@ -104,7 +104,7 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('pars').addEventListener("click", function () { parsMethod(); });
   document.getElementById('pow').addEventListener("click", function () { pow('1'); });
   document.getElementById('mutiplication').addEventListener("click", function () { frontButtonPressed('×'); });
-  document.getElementById('enter').addEventListener("click", function () { console.log(document.getElementById('uifCalculator').childNodes[1].innerHTML); enterPressed(document.getElementById('uifCalculator').childNodes[1].innerHTML); });
+  document.getElementById('enter').addEventListener("click", function () { console.log(document.getElementById('enterHeader').innerHTML); });
   document.getElementById('pow2').addEventListener("click", function () { pow('2'); });
   document.getElementById('sqrt').addEventListener("click", function () { frontButtonPressed('√'); });
   document.getElementById('divison').addEventListener("click", function () { frontButtonPressed('÷'); });
