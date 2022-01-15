@@ -113,6 +113,7 @@ function solveInpr(equation, returnTarget) {
   for (let i = 0; i < equation.length; i++) {
     console.log("Ran :" + i);
     if (funcMatch(subEquation.substring(i)) != "") {
+      console.log("Found func is "+funcMatch(subEquation));
       let func = getByName(funcMatch(subEquation));
       console.log("func is ");
       console.log(func);
@@ -149,10 +150,11 @@ function getByName(name) {
   }
 }
 function funcMatch(equation) {
-  for (let func in funcList) {
-    let check = equation.substring(0, (func.funcLength+1));
-    console.log(check);
+  for (let func of funcList) {
+    let check = equation.substring(0, (func.funcLength));
+    console.log(check +" vs. "+func.func);
     if (check == func.func) {
+      console.log("Found func is "+func.name);
       return func.func;
     }
   }
