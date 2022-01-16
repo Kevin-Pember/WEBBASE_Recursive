@@ -1003,12 +1003,14 @@ function newCustFuncTab(text) {
     console.log("text is "+text);
     let varGrid = clon.getElementById("varGrid")
     let equationDIV = clon.getElementById("EquationFunc");
+    let resultPane = clon.getElementById("modeSwitcher");
     let backupClon = clon;
     clon.getElementById("EquationFunc").innerHTML = text;
     clon.getElementById('functionMode').addEventListener("click", function () {
-      console.log("Before")
-      parseVariables(tab,text);
-      console.log("after")
+      //console.log("Before")
+      //parseVariables(tab,text);
+      //console.log("after")
+      animateModes(0,75,resultPane);
     });
     clon.getElementById("EquationFunc").addEventListener("focus", function (e) {
       let initEquation = e.target.parentNode.parentNode.dataset.tab;
@@ -1033,6 +1035,31 @@ function newCustFuncTab(text) {
     let equationArea = clon.getElementById('EquationFunc');
     document.getElementById("mainBody").appendChild(clon);
     findVar(equation, backupClon, varGrid, equationArea);
+  }
+}
+function animateModes(from,to,element){
+  console.log("Anmiate modes ran")
+  console.log(element);
+  if(from == 0 || to == 75){
+    //0 to 75
+    element.querySelector('DIV').style.animation = "0.15s ease-in 0s 0.5 normal forwards running modeSwitch"
+  }else if(from == 0 || to == 150){
+    //0 to 150
+
+  }else if(from == 75 || to == 150){
+    //75 to 150
+
+  }else if(from == 75 || to == 0){
+    //75 to 0
+
+  }else if(from == 150 || to == 75){
+    //150 to 75
+
+  }else if(from == 150 || to == 0){
+    //150 to 0
+
+  }else {
+    console.log(same)
   }
 }
 //Takes a tab element and returns the variables in the tab with their data in json format

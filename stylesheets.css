@@ -729,6 +729,17 @@ button:focus, input[type="button"]:focus {
       top: 100%;
     }
   }
+  @keyframes modeSwitch{
+    0%{
+      left: 0px;
+    }
+    50%{
+      left: 75px;
+    }
+    100% {
+      left: 150px
+    }
+  }
   #DisplayColorPicker{
     initial-value: var(--displayColor);
   }
