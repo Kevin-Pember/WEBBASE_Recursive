@@ -78,8 +78,25 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById("uifCalculator").scrollTop = document.getElementById("uifCalculator").scrollHeight;
   document.getElementById('mainTab').addEventListener("click", function (e) { openElement(document.getElementById('mainTab')) });
   document.getElementById('settingsCogIcon').addEventListener("click", function () { document.location = 'Settings.html' });
-  document.getElementById('MRCOverlay').addEventListener("click", function () { if (document.getElementById('memoryText').innerHTML == document.getElementById('uifCalculator').childNodes[1].innerHTML) { document.getElementById('memoryText').innerHTML = "" } });
-  document.getElementById('MAddOverlay').addEventListener("click", function () { document.getElementById('memoryTextBoarder').style.visibility = "visible"; document.getElementById('memoryText').innerHTML = document.getElementById('uifCalculator').childNodes[1].innerHTML; });
+  document.getElementById('MRCOverlay').addEventListener("click", function () { 
+    let enteredText = document.getElementById('enterHeader').innerHTML
+    let mrmText = document.getElementById('memoryText').innerHTML;
+    console.log("Targeted Section: " +enteredText.substring(enteredText.length - mrmText.length))
+    if (mrmText == enteredText.substring(enteredText.length - mrmText.length)) { 
+    document.getElementById('memoryText').innerHTML = "" 
+    document.getElementById('memoryTextBoarder').style = undefined;
+  } else {
+    document.getElementById('enterHeader').innerHTML = document.getElementById('enterHeader').innerHTML + document.getElementById('memoryText').innerHTML;
+  }
+  });
+  document.getElementById('MAddOverlay').addEventListener("click", function () { 
+    document.getElementById('memoryTextBoarder').style.visibility = "visible"; 
+    let enteredText = document.getElementById('enterHeader').innerHTML;
+    var mySolver = new Solver({
+      s: solveInpr(enteredText),
+    })
+    document.getElementById('memoryText').innerHTML = mySolver.solve({})["s"]; 
+  });
   document.getElementById('leftOverlayNav').addEventListener("click", function () { navigateButtons(false) });
   document.getElementById('rightOverlayNav').addEventListener("click", function () { navigateButtons(true) });
   document.getElementById('num1').addEventListener("click", function () { frontButtonPressed('1'); });
