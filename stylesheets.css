@@ -180,14 +180,14 @@ button:focus, input[type="button"]:focus {
 #num1{
   border-radius: 15px 0 0 0;
 }
+#num3{
+  border-radius: 0 15px 0 0;
+}
 #piButton{
   border-radius: 0 0 0 15px;
 }
 #pointButton{
   border-radius: 0 0 15px 0;
-}
-#num3{
-  border-radius: 0 15px 0 0;
 }
 .specialElements{
   background-color: var(--functionsColor);
@@ -259,6 +259,13 @@ button:focus, input[type="button"]:focus {
     grid-template-rows: 16.6666% 16.6666% 16.6666% 16.6666% 16.6666% 16.6666%;
     background-color: #00000000;
     position: absolute;
+    grid-template-areas: 
+      "num1 num2 num3 moreFuncBut"
+      "num4 num5 num6 backspace"
+      "num7 num8 num9 plus"
+      "pi num0 point minus"
+      "percent pars pow mutiplication"
+      "enter pow2 sqrt division";
   }
   #extendedFuncGrid{
     height: 100%;
@@ -274,6 +281,16 @@ button:focus, input[type="button"]:focus {
     background-color: #00000000;
     position: absolute;
     z-index: 1;
+    grid-template-areas: 
+    "help func"
+    "arrowBack arrowForward"
+    "history d-f"
+    "abs mod"
+    "sin csc"
+    "cos sec"
+    "tan cot"
+    "ln e"
+    "log fact";
   }
   .button-item {
     padding: 0px;
@@ -438,6 +455,7 @@ button:focus, input[type="button"]:focus {
     text-indent: -30px;
     border-style: none;
     position: relative;
+    grid-area: moreFuncBut;
   }
   #customFuncDisplay{
     visibility: hidden;
@@ -577,6 +595,7 @@ button:focus, input[type="button"]:focus {
   }
   #backspace{
     flex-shrink: 0;
+    grid-area: backspace;
   }
   #backspaceDiv{
     display:flex;
@@ -719,6 +738,13 @@ button:focus, input[type="button"]:focus {
     }
     .mainCacGrid{
       width: 100%;
+      grid-template-areas: 
+      "num1 num2 num3 moreFuncBut"
+      "num4 num5 num6 backspace"
+      "num7 num8 num9 plus"
+      "pi num0 point minus"
+      "percent pars pow mutiplication"
+      "enter pow2 sqrt division";
     }
     #extendedFuncGrid{
       left: 100%;
@@ -803,16 +829,39 @@ button:focus, input[type="button"]:focus {
     color: transparent;
   }
 }
+
 @media only screen and (max-height: 450px) {
   #displayClip{
     width: 66.6666%;
     max-width: 100%;
+    max-height: 45%;
     border-radius: 0 25px 25px 0;
+  }
+  #Container{
+    background-color: var(--functionsColor);
+  }
+  #overlayDiv{
+    bottom: 55%;
   }
   .mainCacGrid {
     width: 66.6666%;
+    height: 55%;
+    top: 45%;
     bottom: 0;
     padding: 0px;
+    grid-template-columns: 16.666% 16.666% 16.666% 16.666% 16.666% 16.666%;
+    grid-template-rows: 25% 25% 25% 25%;
+    grid-template-areas: 
+      "pow num1 num2 num3 plus moreFuncBut"
+      "pow2 num4 num5 num6 minus backspace"
+      "sqrt num7 num8 num9 mutiplication pars"
+      "enter pi num0 point division percent";
+  }
+  #piButton{
+    border-radius: 0
+  }
+  #pointButton{
+    border-radius: 0
   }
   #extendedFuncGrid{
     top: 0;
@@ -820,6 +869,15 @@ button:focus, input[type="button"]:focus {
     width: 33.3333%;
     left: 66.6666%;
     max-width: 100%;
+    grid-template-columns: 33.3333% 33.3333% 33.3333%;
+    grid-template-rows: 16.6666% 16.6666% 16.6666% 16.6666% 16.6666% 16.6666%;
+    grid-template-areas: 
+    "history help func"
+    "arrowBack arrowForward fact"
+    "abs mod d-f"
+    "sin cos tan"
+    "csc sec cot"
+    "log ln e";
   }
   #arrowIcon{
       opacity: 0;
@@ -861,6 +919,9 @@ button:focus, input[type="button"]:focus {
   }
   .text-area{
     direction: rtl;
+  }
+  #displayClip{
+    height : 100%;
   }
   #customFuncDisplayRecentText{
     color: transparent;

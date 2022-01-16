@@ -108,7 +108,7 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('num5').addEventListener("click", function () { frontButtonPressed('5'); });
   document.getElementById('num6').addEventListener("click", function () { frontButtonPressed('6'); });
   document.getElementById('backspace').addEventListener("click", function () { backPressed(); });
-  document.getElementById('ac').addEventListener("click", function () { clearMain(); });
+  document.getElementById('ac').addEventListener("click", function () { clearMain(); document.getElementById('uifCalculator').scrollTop = document.getElementById('uifCalculator').scrollHeight;});
   document.getElementById('num7').addEventListener("click", function () { frontButtonPressed('7'); });
   document.getElementById('num8').addEventListener("click", function () { frontButtonPressed('8'); });
   document.getElementById('num9').addEventListener("click", function () { frontButtonPressed('9'); });
@@ -323,6 +323,7 @@ function frontButtonPressed(input) {
   range.collapse(true);
   sel.removeAllRanges()
   sel.addRange(range);
+  document.getElementById('uifCalculator').scrollTop = document.getElementById('uifCalculator').scrollHeight;
 }
 function preventFocus() {
   var ae = document.activeElement;
@@ -419,6 +420,7 @@ function backPressed() {
       }
     }
   }
+  document.getElementById('uifCalculator').scrollTop = document.getElementById('uifCalculator').scrollHeight;
 }
 function plainSup(sel) {
   if (sel.focusNode.parentElement.tagName == "SUP") {
