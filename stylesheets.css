@@ -20,6 +20,9 @@ hr{
   background-color: var(--textColor);
   border: none;
 }
+sup{
+  color: inherit;
+}
 #uifCalculator::-webkit-scrollbar {
   width: 2vh;
   

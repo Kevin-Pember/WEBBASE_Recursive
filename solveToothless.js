@@ -274,7 +274,7 @@ function builtInFunc(equation){
   equation = equation.replaceAll('÷','/');
   for(let i = 0; i < equation.length; i++){
     if(equation.substring(i, i + 5) == "<sup>"){
-      let exponent = equatInner(supEncap(equation.substring(i)).substring(5,supEncap(equation.substring(i)).length-7));
+      let exponent = equatInner(supEncap(equation.substring(i)).substring(5,supEncap(equation.substring(i)).length-6));
       let exponentRAW = supEncap(equation.substring(i));
       let base = "";
       let baseRAW = "";
@@ -285,7 +285,7 @@ function builtInFunc(equation){
         base = forward(equation.substring(0,i));
         baseRAW = forward(equation.substring(0,i));
       }
-      equation = equation.substring(0,i-baseRAW.length) + "Math.pow(" + base + "," + exponent + ")" + equation.substring(i+exponentRAW.length-1);
+      equation = equation.substring(0,i-baseRAW.length) + "Math.pow(" + base + "," + exponent + ")" + equation.substring(i+exponentRAW.length);
     }else if(equation.charAt(i) == "^"){
       let exponent = "";
       let exponentRAW = "";

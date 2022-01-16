@@ -54,7 +54,7 @@ if (document.getElementById("mainBody") != null) {
   console.log(document.getElementById("mainBody").style.height);
 
   document.getElementById('uifCalculator').addEventListener("click", function (e) {
-    if (e.target = document.getElementById('enterHeader')) {
+    if (e.target != document.getElementById('enterHeader')) {
       console.log("uifCalculator clicked")
       console.log(e.target.childNodes[1]);
       let enterheader = document.getElementById('enterHeader');
@@ -116,7 +116,7 @@ if (document.getElementById("mainBody") != null) {
     document.getElementById('customFuncDisplay').style.animation = "0.15s ease-in 0s 1 normal forwards running slideFromSide";
     }
    });
-  document.getElementById('historyEx').addEventListener("click", function () { popup(); });
+  document.getElementById('historyEx').addEventListener("click", function () { deleteHistory(); });
   document.getElementById('deciToFracEx').addEventListener("click", function () { frontButtonPressed('d→f('); });
   document.getElementById('absEx').addEventListener("click", function () { frontButtonPressed('|'); });
   document.getElementById('modEx').addEventListener("click", function () { frontButtonPressed('mod('); });
@@ -158,7 +158,7 @@ if (document.getElementById("mainBody") != null) {
   });
   document.getElementById('minusIconPopup').addEventListener("click", function () {});
   document.getElementById('functionPopup').addEventListener("click", function () { console.log("Things"); });
-  document.getElementById('historyPopup').addEventListener("click", function () { console.log("Things"); });
+  document.getElementById('historyPopup').addEventListener("click", function () { deleteHistory(); });
   document.getElementById('deciToFracPopup').addEventListener("click", function () { frontButtonPressed('d→f('); });
   document.getElementById('helpPopup').addEventListener("click", function () { document.location = 'help.html'; });
   document.getElementById('log10Popup').addEventListener("click", function () { frontButtonPressed('log₁₀('); });
@@ -295,7 +295,7 @@ function frontButtonPressed(input) {
     lower = sel.anchorOffset;
   }
   console.log(sel);
-  if (display.innerHTML != '') {
+  if (sel.anchorNode != null) {
     let appendString = sel.focusNode.nodeValue.substring(0, lower) + input;
     sel.focusNode.nodeValue = appendString + sel.focusNode.nodeValue.substring(higher);
     range.setStart(sel.focusNode, appendString.length);
@@ -686,9 +686,9 @@ function tabOpen(intialize) {
 }
 function enterPressed(input) {
   let display = document.getElementById('enterHeader');
+  historyMethod(input);
   input = solveInpr(input);
   console.log('Fresh out of the input ' + input);
-  historyMethod(input);
   var mySolver = new Solver({
     s: input,
   })
@@ -700,7 +700,7 @@ function enterPressed(input) {
 function historyMethod(equation) {
   let historyHeader = document.getElementById('historyHeader');
   var mySolver = new Solver({
-    s: equation,
+    s: solveInpr(equation),
   })
   let exportedValue = "<h3 id='historyTimeSubHeader'>" + getTime() + "</h3>" + equation + "=" + mySolver.solve({})["s"] + "<br> <br> ";
   let dates = document.getElementsByClassName('historyDateHeader');
@@ -728,6 +728,10 @@ function getDate() {
   const d = new Date();
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   return months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+}
+function deleteHistory() {
+  document.getElementById('historyHeader').innerHTML = "";
+  localStorage.setItem("historyOut", "");
 }
 function setSelect(node, index) {
   let sel = window.getSelection();
