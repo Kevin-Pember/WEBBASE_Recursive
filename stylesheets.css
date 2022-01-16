@@ -740,6 +740,22 @@ button:focus, input[type="button"]:focus {
       left: 150px
     }
   }
+  @keyframes sveForSwitch{
+    0%{
+      left: 75px;
+    }
+    100% {
+      left: 0px
+    }
+  }
+  @keyframes sveBacSwitch{
+    0%{
+      left: 75px;
+    }
+    100% {
+      left: 150px
+    }
+  }
   #DisplayColorPicker{
     initial-value: var(--displayColor);
   }
@@ -1800,7 +1816,6 @@ button:focus, input[type="button"]:focus {
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 25px;
-  visibility: visible;
   background-color: var(--displayColor);
   position: absolute;
 }

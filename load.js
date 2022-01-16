@@ -1001,16 +1001,36 @@ function newCustFuncTab(text) {
     text = text.substring(text.indexOf("»") + 1).substring(0,text.indexOf("»"));
     text = text.substring(0,text.indexOf("»"));
     console.log("text is "+text);
-    let varGrid = clon.getElementById("varGrid")
+    let varGrid = clon.getElementById("varGrid");
     let equationDIV = clon.getElementById("EquationFunc");
     let resultPane = clon.getElementById("modeSwitcher");
+    let movable = clon.getElementById("selectorUnder");
+    let funcTabs = [clon.getElementById('resultDiv'), clon.getElementById('graphDiv'), clon.getElementById('tableDiv')];
+    movable.dataset.pos = 0;
     let backupClon = clon;
     clon.getElementById("EquationFunc").innerHTML = text;
+    varGrid.addEventListener("change", function (e) {
+      console.log("%c Vargid Changed", "color: red;");
+    });
     clon.getElementById('functionMode').addEventListener("click", function () {
-      //console.log("Before")
-      //parseVariables(tab,text);
-      //console.log("after")
-      animateModes(0,75,resultPane);
+      console.log("function pressed");
+      funcTabs[0].style.visibility = "inherit";
+      hidModes(parseInt(movable.dataset.pos),funcTabs);
+      animateModes(parseInt(movable.dataset.pos),0,movable);
+    });
+    clon.getElementById("graphMode").addEventListener("click", function () {
+      console.log("graph pressed");
+      console.log("Mode Changed  pos: " + movable.dataset.pos+" futPos: "+ 75);
+      funcTabs[1].style.visibility = "inherit";
+      hidModes(parseInt(movable.dataset.pos),funcTabs);
+      animateModes(parseInt(movable.dataset.pos),75,movable);
+    });
+    clon.getElementById("tableMode").addEventListener("click", function () {
+      console.log("table pressed");
+      console.log("Mode Changed  pos: " + movable.dataset.pos+" futPos: "+ 150);
+      funcTabs[2].style.visibility = "inherit";
+      hidModes(parseInt(movable.dataset.pos),funcTabs);
+      animateModes(parseInt(movable.dataset.pos),150,movable);
     });
     clon.getElementById("EquationFunc").addEventListener("focus", function (e) {
       let initEquation = e.target.parentNode.parentNode.dataset.tab;
@@ -1037,27 +1057,55 @@ function newCustFuncTab(text) {
     findVar(equation, backupClon, varGrid, equationArea);
   }
 }
+function hidModes(num,tabs){
+  if(num == 0){
+    tabs[0].style.visibility = "hidden";
+  }else if(num == 75){
+    tabs[1].style.visibility = "hidden";
+  }else if(num == 150){
+    tabs[2].style.visibility = "hidden";
+  }
+}
 function animateModes(from,to,element){
-  console.log("Anmiate modes ran")
-  console.log(element);
-  if(from == 0 || to == 75){
+  console.log("Anmiate modes ran");
+  if(from == 0 && to == 75){
     //0 to 75
-    element.querySelector('DIV').style.animation = "0.15s ease-in 0s 0.5 normal forwards running modeSwitch"
-  }else if(from == 0 || to == 150){
+    console.log("0 to 75")
+    element.style.animation = undefined;
+    element.style.animation = "0.15s ease-in 0s 0.5 normal forwards running modeSwitch";
+    setTimeout(function () { element.style.left = "75px"; element.style.animation = undefined}, 150);
+    element.dataset.pos = 75;
+  }else if(from == 0 && to == 150){
     //0 to 150
-
-  }else if(from == 75 || to == 150){
+    console.log("0 to 150")
+    element.style.animation = undefined;
+    element.style.animation = "0.15s ease-in 0s 1 normal forwards running modeSwitch"
+    setTimeout(function () { element.style.left = "150px"; element.style.animation = undefined}, 150);
+    element.dataset.pos = 150;
+  }else if(from == 75 && to == 150){
     //75 to 150
-
-  }else if(from == 75 || to == 0){
+    element.style.animation = undefined;
+    element.style.animation = "0.15s ease-in 0s 1 normal forwards running sveBacSwitch"
+    setTimeout(function () { element.style.left = "150px"; element.style.animation = undefined}, 150);
+    element.dataset.pos = 150;
+  }else if(from == 75 && to == 0){
     //75 to 0
-
-  }else if(from == 150 || to == 75){
+    element.style.animation = undefined;
+    element.style.animation = "0.15s ease-in 0s 1 normal forwards running sveForSwitch"
+    setTimeout(function () { element.style.left = "0px"; element.style.animation = undefined}, 150);
+    element.dataset.pos = 0;
+  }else if(from == 150 && to == 75){
     //150 to 75
-
-  }else if(from == 150 || to == 0){
+    element.style.animation = undefined;
+    element.style.animation = "0.15s ease-in 0s 0.5 reverse forwards running modeSwitch"
+    setTimeout(function () { element.style.left = "75px"; element.style.animation = undefined}, 150);
+    element.dataset.pos = 75;
+  }else if(from == 150 && to == 0){
     //150 to 0
-
+    element.style.animation = undefined;
+    element.style.animation = "0.15s ease-in 0s 1 reverse forwards running modeSwitch"
+    setTimeout(function () { element.style.left = "0px"; element.style.animation = undefined}, 150);
+    element.dataset.pos = 0;
   }else {
     console.log(same)
   }
@@ -1171,8 +1219,6 @@ function checkVar(equation, varGrid,equationArea) {
     elementValues.push(existingVars[i].querySelector('h3').innerHTML);
   }
   sortedList = [];
-  console.log("Text Values array: " + textValues);
-  console.log("Index Values array: " + textValues);
   const duplatcated = textValues.slice();
   for (let i = 0; i < textValues.length; i++) {
     let matched = false;
@@ -1186,18 +1232,12 @@ function checkVar(equation, varGrid,equationArea) {
       }
     }
     if (!matched) {
-      console.log("Before")
-      console.log("I is a " + duplatcated)
       let resulted = duplatcated.indexOf(textValues[i]);
       sortedList.push({ func: true, value: textValues[i], indexOf: resulted })
-      console.log(sortedList[sortedList.length - 1])
-    }
   }
   elementValues.forEach(function (value, index, array) {
     sortedList.push({ func: false, value: value, indexOf: index })
   });
-  console.log("Sorted list");
-  console.log(sortedList)
   sortedList.forEach(function (valueList, index, array) {
     if (valueList.func == true) {
       let tempvar = document.getElementsByClassName("variableTemplate")[0];
@@ -1205,20 +1245,15 @@ function checkVar(equation, varGrid,equationArea) {
       varClon.getElementById('variableName').innerHTML = valueList.value;
       varClon.getElementById('variableEntry').addEventListener('input', function (e) {
         if(varClon.getElementById('variableEntry') != ''){
-          console.log("2nd variable Change Ran");
-            console.log('given equation '+equation)
-            console.log(equationArea);
             equationArea.innerHTML = equation;
             for(let i =0; i < varGrid.getElementsByClassName('variableContainer').length; i++){
               if(varGrid.getElementsByClassName('variableContainer')[i].querySelector('input').value != ''){
-                console.log("Has Value");
                 equationArea.innerHTML = setVar(varGrid.getElementsByClassName('variableContainer')[i].querySelector('h3').innerHTML,varGrid.getElementsByClassName('variableContainer')[i].querySelector('input').value, equation);
               }
             }
             parseVariables(varGrid, equation);
           }
       });
-      console.log("Index of Element is " + valueList.indexOf)
       if (valueList.indexOf < varGrid.getElementsByClassName("variableContainer").length) {
         varGrid.insertBefore(varClon, varGrid.getElementsByClassName("variableContainer")[i - 1]);
       } else {
@@ -1228,13 +1263,13 @@ function checkVar(equation, varGrid,equationArea) {
       let varElements = varGrid.getElementsByClassName('variableContainer');
       for (let i = 0; i < varElements.length; i++) {
         if (varElements[i].querySelector('h3').innerHTML == valueList.value) {
-          console.log('Matching Value found')
           varGrid.removeChild(varElements[i])
           break;
         }
       }
     }
   });
+}
 }
 function findVar(equation, clon, varGrid, equationArea) {
   for (let i = 0; i < equation.length; i++) {
@@ -1248,19 +1283,15 @@ function findVar(equation, clon, varGrid, equationArea) {
           }
         }
         if (!varExists) {
-          console.log(document.getElementsByClassName("variableTemplate"));
           let tempvar = document.getElementsByClassName("variableTemplate")[0];
           let varClon = tempvar.content.cloneNode(true);
           varClon.getElementById('variableName').innerHTML = equation.charAt(i);
           varClon.getElementById('variableEntry').addEventListener('input', function (e) {
-            console.log("2nd variable Change Ran");
-            console.log('given equation '+equation)
             equationArea.innerHTML = equation;
             let count = 0;
             let variableContainers = varGrid.getElementsByClassName('variableContainer');
             for(let i =0; i < variableContainers.length; i++){
               if(variableContainers[i].querySelector('input').value != ''){
-                console.log("Has Value");
                 count++;
                 equationArea.innerHTML = setVar(variableContainers[i].querySelector('h3').innerHTML,variableContainers[i].querySelector('input').value, equationArea.innerHTML);
               }
@@ -1269,7 +1300,6 @@ function findVar(equation, clon, varGrid, equationArea) {
               
             }
           });
-          console.log(varGrid)
           varGrid.appendChild(varClon)
         }
       } else {
@@ -1318,14 +1348,11 @@ function isVar(entry, charPos, fullInput) {
 
 }
 function setVar(name,value, equation) {
-  console.log("Setting Variable Equation: "+equation);
-  console.log("Variable "+name+ ' with value '+value)
   let varName = name;
   let varValue = value;
   for(let i = 0; i < equation.length; i++){
     if(equation.charAt(i) == varName){
       equation = equation.substring(0, i) + "(" + varValue + ")" + equation.substring(i + 1);
-      console.log("equation after = "+equation);
       break;
     }
   }
@@ -1353,7 +1380,6 @@ function newTheme() {
   }
   createTheme(document.getElementById("DisplayColorPicker").value, document.getElementById("NumbersColorPicker").value, document.getElementById("FunctionsColorPicker").value, textColor, "New Theme", true);
   let h3 = document.getElementsByClassName('theme')[document.getElementsByClassName('theme').length - 1].querySelector('h3');
-  console.log(h3)
   if (h3 != null) {
     let sel = window.getSelection();
     let range = document.createRange();
@@ -1364,7 +1390,6 @@ function newTheme() {
   }
   document.getElementById('ThemesDiv').scrollLeft = document.getElementById('ThemesDiv').scrollWidth;
   localStorage.setItem('theme' + numThemes, document.getElementById("DisplayColorPicker").value + "»" + document.getElementById("NumbersColorPicker").value + "»" + document.getElementById("FunctionsColorPicker").value + "»" + textColor + "»" + "New Theme" + "»");
-  console.log("New Theme is " + "Theme" + numThemes + "and is " + localStorage.getItem('theme' + numThemes));
   numThemes++;
 }
 function createTheme(displayColor, numbersColor, functionsColor, textColor, themeName, editable) {
@@ -1373,7 +1398,6 @@ function createTheme(displayColor, numbersColor, functionsColor, textColor, them
   let exist = false;
   let existing = document.getElementsByClassName("displayBaseThemeType");
   for (i = 0; i < existing.length; i++) {
-    console.log(existing[i].style.backgroundColor + " & " + document.getElementsByClassName("DisplayColorPicker").value);
     if (rgbToHex(existing[i].style.backgroundColor) == displayColor && rgbToHex(existing[i].getElementById("numsDisplayBase").style.backgroundColor) == numbersColor && rgbToHex(existing[i].getElementById("functionsDisplayBase").style.backgroundColor) == functionsColor && rgbToHex(existing[i].getElementById("textDisplayBase").style.color) == textColor) {
       exist = true;
       break;
@@ -1392,7 +1416,6 @@ function createTheme(displayColor, numbersColor, functionsColor, textColor, them
     }
     let themes = document.getElementsByClassName('theme');
     if (themes.length > 4 && themes[4].querySelector('img').style.visibility == "visible") {
-      console.log(themes[4]);
       clon.getElementById("removeButton").style.visibility = "visible";
     }
     clon.getElementById("themeName").setAttribute("contenteditable", editable);
@@ -1404,13 +1427,11 @@ function createTheme(displayColor, numbersColor, functionsColor, textColor, them
 }
 function themeRadioPressed(elem) {
   let tempRadio = document.getElementsByClassName('radio')
-  console.log(getComputedStyle(elem.parentNode.childNodes[3], '::after').content !== 'none');
   for (let i = 0; i < tempRadio.length; i++) {
     if (tempRadio[i] != elem) {
       tempRadio[i].checked = false;
     }
   }
-  console.log(elem.parentNode.parentNode.querySelector("div"));
   let displayBase = elem.parentNode.parentNode.querySelector("div");
   let textBase = displayBase.childNodes[1];
   let numsBase = displayBase.childNodes[3];
