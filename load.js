@@ -241,7 +241,7 @@ if (document.getElementById("mainBody") != null) {
     document.getElementById('minusIcon').src = "Images/minusIcon.svg";
     document.getElementById('ColorsIcon').src = "Images/Colors.svg";
     document.getElementById('PreferencesIcon').src = "Images/Calipiers.svg";
-    document.getElementById('AboutIcon').src = "Images/AboutUS.svg";
+    document.getElementById('AboutIcon').src = "Images/aboutUS.svg";
     let backIcons = document.getElementsByClassName('backIcon');
     for (let item of backIcons) {
       item.src = "Images/MoreFuncArrow.svg";
