@@ -399,3 +399,10 @@ function forward(sub) {
 	console.log("Outputsub is " + outputSub);
 	return outputSub;
 }
+function getNameList(){
+  let nameList = [];
+  for(let func of funcList){
+    nameList.push(func.func);
+  }
+  return nameList;
+}

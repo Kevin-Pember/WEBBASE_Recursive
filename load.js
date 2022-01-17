@@ -1003,7 +1003,6 @@ function newCustFuncTab(text) {
     console.log("text is "+text);
     let varGrid = clon.getElementById("varGrid");
     let equationDIV = clon.getElementById("EquationFunc");
-    let resultPane = clon.getElementById("modeSwitcher");
     let movable = clon.getElementById("selectorUnder");
     let funcTabs = [clon.getElementById('resultDiv'), clon.getElementById('graphDiv'), clon.getElementById('tableDiv')];
     movable.dataset.pos = 0;
@@ -1042,7 +1041,7 @@ function newCustFuncTab(text) {
     });
     clon.getElementById('EquationFunc').addEventListener("input", function (e) {
       console.log("Equation equals "+e.target.innerHTML)
-      checkVar(e.target.innerHTML, varGrid, equationDIV);
+      checkVar(e.target.innerHTML, varGrid, equationDIV,funcTabs);
       let liveTab = e.target.parentNode.parentNode;
       let currentTab = liveTab.dataset.tab;
       let matchPage = matchTab(currentTab, true);
@@ -1054,7 +1053,7 @@ function newCustFuncTab(text) {
     let equation = text; 
     let equationArea = clon.getElementById('EquationFunc');
     document.getElementById("mainBody").appendChild(clon);
-    findVar(equation, backupClon, varGrid, equationArea);
+    findVar(equation, backupClon, varGrid, equationArea,funcTabs);
   }
 }
 function hidModes(num,tabs){
@@ -1110,21 +1109,48 @@ function animateModes(from,to,element){
     console.log(same)
   }
 }
-//Takes a tab element and returns the variables in the tab with their data in json format
-function parseVariables(element,parsedEquation){
-  console.log("Parse Variables ran");
+function varListAssbely(element){
   let variables = element.getElementsByClassName("variableContainer");
   console.log(variables[0].querySelector('label'));
-  let varData = "";
+  let varData = [];
   for(i = 0; i < variables.length; i++){
-    if(i != variables.length-1){
-      varData += '"'+variables[i].querySelector('label').querySelector('h3').innerHTML+'":"'+variables[i].querySelector('label').querySelector('input').value+'",';
-    }else{
-      varData += '"'+variables[i].querySelector('label').querySelector('h3').innerHTML+'":"'+variables[i].querySelector('label').querySelector('input').value+'"';
+    let temp = {
+      "Name": variables[i].querySelector('label').querySelector('h3').innerHTML,
+      "Value":variables[i].querySelector('label').querySelector('input').value
+  };
+    varData.push(temp);
+  }
+  return varData;
+}
+//Takes a tab element and returns the variables in the tab with their data in json format
+function parseVariables(element,parsedEquation, funcTabs){
+  console.log("Parse Variables ran");
+  let varData = varListAssbely(element);
+  console.log("%c parsedEquation: "+parsedEquation,"color:red");
+  let all = true;
+  for(let Vars of varData){
+    if(Vars.Value == ''){
+      all = false;
     }
   }
-  console.log(JSON.parse("{"+varData+"}"));
-  return varData;
+  if(all){
+    for(let data of varData){
+      for(let i = 0; i < parsedEquation.length; i++){
+        if(funcMatch(parsedEquation.substring(i)) != ""){
+          i += funcMatch(parsedEquation.substring(i)).length;
+        }else if(parsedEquation.charAt(i) == data.Name){
+          parsedEquation = parsedEquation.substring(0,i) + "("+data.Value+")" + parsedEquation.substring(i+1);
+        }
+      }
+    }
+    var mySolver = new Solver({
+      s: solveInpr(parsedEquation),
+    })
+    let result = "="+mySolver.solve({})["s"];
+    console.log("%c result: "+result,"color:green");
+    funcTabs[0].childNodes[1].innerHTML = result; 
+    console.log(funcTabs[0].childNodes[1]);
+  }
 }
 function parseEquation(element,parsedEquation){
   console.log("Parse Equation ran");
@@ -1191,7 +1217,7 @@ function matchData(info) {
   }
   return null;
 }
-function checkVar(equation, varGrid,equationArea) {
+function checkVar(equation, varGrid,equationArea,funcTabs) {
   existingVars = varGrid.getElementsByClassName("variableContainer");
   console.log("Check Var Start");
   console.log('given equation '+equation)
@@ -1246,12 +1272,8 @@ function checkVar(equation, varGrid,equationArea) {
       varClon.getElementById('variableEntry').addEventListener('input', function (e) {
         if(varClon.getElementById('variableEntry') != ''){
             equationArea.innerHTML = equation;
-            for(let i =0; i < varGrid.getElementsByClassName('variableContainer').length; i++){
-              if(varGrid.getElementsByClassName('variableContainer')[i].querySelector('input').value != ''){
-                equationArea.innerHTML = setVar(varGrid.getElementsByClassName('variableContainer')[i].querySelector('h3').innerHTML,varGrid.getElementsByClassName('variableContainer')[i].querySelector('input').value, equation);
-              }
-            }
-            parseVariables(varGrid, equation);
+            equationArea.innerHTML = setVar(varGrid, equation);
+            parseVariables(varGrid, equation,funcTabs);
           }
       });
       if (valueList.indexOf < varGrid.getElementsByClassName("variableContainer").length) {
@@ -1271,7 +1293,8 @@ function checkVar(equation, varGrid,equationArea) {
   });
 }
 }
-function findVar(equation, clon, varGrid, equationArea) {
+function findVar(equation, clon, varGrid, equationArea,funcTabs) {
+  console.log("Find Var Start");
   for (let i = 0; i < equation.length; i++) {
     if (equation.charCodeAt(i) > 92 && equation.charCodeAt(i) < 123) {
       if (isVar(equation.charAt(i), i, equation) === 0) {
@@ -1287,17 +1310,10 @@ function findVar(equation, clon, varGrid, equationArea) {
           let varClon = tempvar.content.cloneNode(true);
           varClon.getElementById('variableName').innerHTML = equation.charAt(i);
           varClon.getElementById('variableEntry').addEventListener('input', function (e) {
-            equationArea.innerHTML = equation;
-            let count = 0;
-            let variableContainers = varGrid.getElementsByClassName('variableContainer');
-            for(let i =0; i < variableContainers.length; i++){
-              if(variableContainers[i].querySelector('input').value != ''){
-                count++;
-                equationArea.innerHTML = setVar(variableContainers[i].querySelector('h3').innerHTML,variableContainers[i].querySelector('input').value, equationArea.innerHTML);
-              }
-            }
-            if(variableContainers.length -1 - count == 1){
-              
+            if(varClon.getElementById('variableEntry') != ''){
+              equationArea.innerHTML = equation;
+              equationArea.innerHTML = setVar(varGrid, equation);
+              parseVariables(varGrid, equation, funcTabs);
             }
           });
           varGrid.appendChild(varClon)
@@ -1347,15 +1363,23 @@ function isVar(entry, charPos, fullInput) {
   return 0;
 
 }
-function setVar(name,value, equation) {
-  let varName = name;
-  let varValue = value;
-  for(let i = 0; i < equation.length; i++){
-    if(equation.charAt(i) == varName){
-      equation = equation.substring(0, i) + "(" + varValue + ")" + equation.substring(i + 1);
-      break;
+function setVar(element, equation) {
+  console.log("Parse Variables ran");
+  let varData = varListAssbely(element);
+  console.log("%c parsedEquation: "+equation,"color:red");
+  for(let data of varData){
+    for(let i = 0; i < equation.length; i++){
+      if(funcMatch(equation.substring(i)) != ""){
+          i += funcMatch(equation.substring(i)).length;
+      }else if(equation.charAt(i) == data.Name){
+        if(data.Value != ""){
+          equation = equation.substring(0,i) + "("+data.Value+")" + equation.substring(i+1);
+        }
+      }
     }
   }
+  
+  console.log(varData)
   return equation;
 }
 function containsValue(fullInput, checkValue, parPos, contain) {
