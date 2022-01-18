@@ -1152,7 +1152,7 @@ function parseVariables(element,parsedEquation, funcTabs){
     console.log(funcTabs[0].childNodes[1]);
   }
 }
-function parseEquation(element,parsedEquation){
+/*function parseEquation(element,parsedEquation){
   console.log("Parse Equation ran");
   let variables = element.getElementsByClassName("variableContainer");
   let varData = '"f":"'+parsedEquation+'",';
@@ -1165,7 +1165,7 @@ function parseEquation(element,parsedEquation){
   }
   console.log(JSON.parse("{"+varData+"}"));
   return varData;
-}
+}*/
 //Method that finds all instances of the defined function value in buttons and 
 function updateCustomButtons(oldVal, newValue) {
   console.log('Old Val is ' + oldVal + " New Value is " + newValue);
@@ -1218,80 +1218,21 @@ function matchData(info) {
   return null;
 }
 function checkVar(equation, varGrid,equationArea,funcTabs) {
-  let existingVars = varGrid.getElementsByClassName("variableContainer");
-  console.log("Check Var Start");
-  console.log('given equation '+equation)
-  console.log(existingVars);
-  let textValues = [];
-  for (let j = 0; j < equation.length; j++) {
-    if (equation.charCodeAt(j) > 92 && equation.charCodeAt(j) < 123) {
-      if (isVar(equation.charAt(j), j, equation) == 0) {
-        let exist = false;
-        console.log("Index of Variable " + equation.charAt(j) + " : " + equation.indexOf(equation.charAt(j)));
-        if (j != equation.indexOf(equation.charAt(j))) {
-          exist = true;
-        }
-        if (!exist) {
-          console.log(equation.charAt(j));
-          textValues.push(equation.charAt(j));
-        }
-      } else {
-        j += isVar(equation.charAt(j), j, equation) - 1;
-      }
+  let tabVarContainers = varGrid.getElementsByClassName("variableContainer");
+  let varExisting = [];
+  for(let cont of tabVarContainers){
+    let name = cont.querySelector('h3').innerHTML;
+    varExisting.push({
+      name:name,
+      element:cont
+    });
+  }
+  let varEquation = [];
+  for(let i = 0; i < equation.length; i++){
+    if(){
+      
     }
   }
-  let elementValues = [];
-  for (let i = 0; i < existingVars.length; i++) {
-    elementValues.push(existingVars[i].querySelector('h3').innerHTML);
-  }
-  sortedList = [];
-  const duplatcated = textValues.slice();
-  for (let i = 0; i < textValues.length; i++) {
-    let matched = false;
-    for (let j = 0; j < elementValues.length; j++) {
-      if (textValues[i] == elementValues[j]) {
-        textValues.splice(i, i + 1);
-        elementValues.splice(j, j + 1)
-        matched = true;
-        i--;
-        break;
-      }
-    }
-    if (!matched) {
-      let resulted = duplatcated.indexOf(textValues[i]);
-      sortedList.push({ func: true, value: textValues[i], indexOf: resulted })
-  }
-  elementValues.forEach(function (value, index, array) {
-    sortedList.push({ func: false, value: value, indexOf: index })
-  });
-  sortedList.forEach(function (valueList, index, array) {
-    if (valueList.func == true) {
-      let tempvar = document.getElementsByClassName("variableTemplate")[0];
-      let varClon = tempvar.content.cloneNode(true);
-      varClon.getElementById('variableName').innerHTML = valueList.value;
-      varClon.getElementById('variableEntry').addEventListener('input', function (e) {
-        if(varClon.getElementById('variableEntry') != ''){
-            equationArea.innerHTML = equation;
-            equationArea.innerHTML = setVar(varGrid, equation);
-            parseVariables(varGrid, equation,funcTabs);
-          }
-      });
-      if (valueList.indexOf < varGrid.getElementsByClassName("variableContainer").length) {
-        varGrid.insertBefore(varClon, varGrid.getElementsByClassName("variableContainer")[i - 1]);
-      } else {
-        varGrid.appendChild(varClon);
-      }
-    } else {
-      let varElements = varGrid.getElementsByClassName('variableContainer');
-      for (let i = 0; i < varElements.length; i++) {
-        if (varElements[i].querySelector('h3').innerHTML == valueList.value) {
-          varGrid.removeChild(varElements[i])
-          break;
-        }
-      }
-    }
-  });
-}
 }
 function findVar(equation, clon, varGrid, equationArea,funcTabs) {
   console.log("Find Var Start");
