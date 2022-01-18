@@ -1295,7 +1295,7 @@ function findVar(equation, clon, varGrid, equationArea,funcTabs) {
           varClon.getElementById('variableName').innerHTML = equation.charAt(i);
           varClon.getElementById('variableEntry').addEventListener('input', function (e) {
             if(varClon.getElementById('variableEntry') != ''){
-              clon.getElementById('EquationFunc').innerHTML = setVar(e.target, equation);
+              clon.getElementById('EquationFunc').innerHTML = setVar(varGrid, equation);
               parseVariables(varGrid, equation,funcTabs);
             }
           });
