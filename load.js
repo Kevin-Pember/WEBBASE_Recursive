@@ -121,7 +121,7 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('pars').addEventListener("click", function () { parsMethod(); });
   document.getElementById('pow').addEventListener("click", function () { pow('1'); });
   document.getElementById('mutiplication').addEventListener("click", function () { frontButtonPressed('×'); });
-  document.getElementById('enter').addEventListener("click", function () { console.log(solveInpr(document.getElementById('enterHeader').innerHTML)); enterPressed(document.getElementById('enterHeader').innerHTML)});
+  document.getElementById('enter').addEventListener("click", function () { console.log(document.getElementById('enterHeader').innerHTML); enterPressed(document.getElementById('enterHeader').innerHTML)});
   document.getElementById('pow2').addEventListener("click", function () { pow('2'); });
   document.getElementById('sqrt').addEventListener("click", function () { frontButtonPressed('√'); });
   document.getElementById('divison').addEventListener("click", function () { frontButtonPressed('÷'); });
@@ -1218,7 +1218,7 @@ function matchData(info) {
   return null;
 }
 function checkVar(equation, varGrid,equationArea,funcTabs) {
-  existingVars = varGrid.getElementsByClassName("variableContainer");
+  let existingVars = varGrid.getElementsByClassName("variableContainer");
   console.log("Check Var Start");
   console.log('given equation '+equation)
   console.log(existingVars);
@@ -1297,7 +1297,7 @@ function findVar(equation, clon, varGrid, equationArea,funcTabs) {
   console.log("Find Var Start");
   for (let i = 0; i < equation.length; i++) {
     if (equation.charCodeAt(i) > 92 && equation.charCodeAt(i) < 123) {
-      if (isVar(equation.charAt(i), i, equation) === 0) {
+      if (isVar(equation.substring(i)) === 0) {
         existingVars = varGrid.getElementsByClassName("variableContainer")
         varExists = false;
         for (var j = 0; j < existingVars.length; j++) {
@@ -1311,57 +1311,26 @@ function findVar(equation, clon, varGrid, equationArea,funcTabs) {
           varClon.getElementById('variableName').innerHTML = equation.charAt(i);
           varClon.getElementById('variableEntry').addEventListener('input', function (e) {
             if(varClon.getElementById('variableEntry') != ''){
-              equationArea.innerHTML = equation;
-              equationArea.innerHTML = setVar(varGrid, equation);
-              parseVariables(varGrid, equation, funcTabs);
+              clon.getElementById('EquationFunc').innerHTML = setVar(e.target, equation);
+              parseVariables(varGrid, equation,funcTabs);
             }
           });
           varGrid.appendChild(varClon)
         }
       } else {
-        i += isVar(equation.charAt(i), i, equation) - 1;
+        i += isVar(equation.substring(i)) - 1;
       }
     }
   }
 }
-function isVar(entry, charPos, fullInput) {
-  if (entry === 'e') {
-    return 1;
-  } else if (entry === 's') {
-    if (containsValue(fullInput, "sin", charPos, charPos + 3)) {
-      return 3;
-    } else if (containsValue(fullInput, "sec", charPos, charPos + 3)) {
-      return 3;
-    }
-  } else if (entry === 'c') {
-    if (containsValue(fullInput, "cos", charPos, charPos + 3)) {
-      return 3;
-    } else if (containsValue(fullInput, "csc", charPos, charPos + 3)) {
-      return 3;
-    } else if (containsValue(fullInput, "cot", charPos, charPos + 3)) {
-      return 3;
-    }
-  } else if (entry === 't') {
-    if (containsValue(fullInput, "tan", charPos, charPos + 3)) {
-      return 3;
-    }
-  } else if (entry === 'a') {
-    if (containsValue(fullInput, "arcsin", charPos, charPos + 6)) {
-      return 6;
-    } else if (containsValue(fullInput, "arccos", charPos, charPos + 6)) {
-      return 6;
-    } else if (containsValue(fullInput, "arctan", charPos, charPos + 6)) {
-      return 6;
-    }
-  } else if (entry === 'l') {
-    if (containsValue(fullInput, "ln", charPos, charPos + 2)) {
-      return 2;
-    } else if (containsValue(fullInput, "log₁₀", charPos, charPos + 5)) {
-      return 5;
-    }
+function isVar(entry) {
+  let func = funcMatch(entry);
+  if(func != ""){
+    let object = getByName(func);
+    return object.funcLength;
+  }else{
+    return 0;
   }
-  return 0;
-
 }
 function setVar(element, equation) {
   console.log("Parse Variables ran");

@@ -1,7 +1,7 @@
 {
   "name": "Recursive",
   "description": "Easliy programable calculator",
-  "version": "2.0",
+  "version": "2.1",
   "manifest_version": 3,
   "background":{
     "service_worker": "load.js"
@@ -26,7 +26,7 @@
     {
        "matches":    ["http://www.google.com/*"],
        "css":        ["./stylesheets.css"],
-       "js":         ["./Main.js"]
+       "js":         ["./solveToothless.js"]
     }
  ]
  
