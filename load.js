@@ -1053,7 +1053,7 @@ function newCustFuncTab(text) {
     let equation = text; 
     let equationArea = clon.getElementById('EquationFunc');
     document.getElementById("mainBody").appendChild(clon);
-    findVar(equation, backupClon, varGrid, equationArea,funcTabs);
+    checkVar(e.target.innerHTML, varGrid, equationDIV,funcTabs);
   }
 }
 function hidModes(num,tabs){
@@ -1223,16 +1223,59 @@ function checkVar(equation, varGrid,equationArea,funcTabs) {
   for(let cont of tabVarContainers){
     let name = cont.querySelector('h3').innerHTML;
     varExisting.push({
-      name:name,
-      element:cont
+      "name":name,
+      "element":cont
     });
   }
-  let varEquation = [];
-  for(let i = 0; i < equation.length; i++){
-    if(){
-      
+  let varEquation = varInEquat(equation);
+  let newVars = [];
+  for(let eVar of varEquation){
+    matching = false;
+    for(let cVar of varExisting){
+      if(eVar == cVar.name){
+        let indexOfVar = varExisting.indexOf(cVar);
+        varExisting.splice(indexOfVar, 1);
+        matching = true;
+        break;
+      }
+    }
+    if(!matching){
+      newVars.push(eVar);
     }
   }
+  for(let oldVar of varExisting){
+    varGrid.removeChild(oldVar.element);
+  }
+  for(let newVar of newVars){
+    newVariable(newVar,varGrid,equationArea,funcTabs,equation);
+  }
+}
+function newVariable(name, varGrid,equationArea,funcTabs,equation){
+  let tempvar = document.getElementsByClassName("variableTemplate")[0];
+  let varClon = tempvar.content.cloneNode(true);
+  varClon.getElementById('variableName').innerHTML = name;
+  varClon.getElementById('variableEntry').addEventListener('input', function (e) {
+  if(varClon.getElementById('variableEntry') != ''){
+    equationArea.innerHTML = setVar(e.target, equation);
+    parseVariables(varGrid, equation,funcTabs);
+  }
+  });
+  varGrid.appendChild(varClon)
+}
+function varInEquat(equation){
+  let varArray = [];
+  for(let i = 0; i < equation.length; i++){
+    if (equation.charCodeAt(i) > 92 && equation.charCodeAt(i) < 123) {
+      if(isVar(equation.substring(i)) === 0){
+        if(!varArray.includes(equation.substring(i,i+1))){
+          varArray.push(equation.substring(i,i+1));
+        }
+      }else {
+        i += isVar(equation.substring(i));
+      }
+    }
+  }
+  return varArray;
 }
 function findVar(equation, clon, varGrid, equationArea,funcTabs) {
   console.log("Find Var Start");
