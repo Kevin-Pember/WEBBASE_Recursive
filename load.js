@@ -1053,7 +1053,7 @@ function newCustFuncTab(text) {
     let equation = text; 
     let equationArea = clon.getElementById('EquationFunc');
     document.getElementById("mainBody").appendChild(clon);
-    checkVar(e.target.innerHTML, varGrid, equationDIV,funcTabs);
+    checkVar(equationDIV.innerHTML, varGrid, equationDIV,funcTabs);
   }
 }
 function hidModes(num,tabs){
@@ -1111,22 +1111,26 @@ function animateModes(from,to,element){
 }
 function varListAssbely(element){
   let variables = element.getElementsByClassName("variableContainer");
-  console.log(variables[0].querySelector('label'));
   let varData = [];
+  console.log(variables)
   for(i = 0; i < variables.length; i++){
     let temp = {
-      "Name": variables[i].querySelector('label').querySelector('h3').innerHTML,
-      "Value":variables[i].querySelector('label').querySelector('input').value
+      "Name": variables[i].querySelector('h3').innerHTML,
+      "Value":variables[i].querySelector('input').value
   };
     varData.push(temp);
   }
+  console.log("retruned list")
+  console.log(varData)
   return varData;
 }
 //Takes a tab element and returns the variables in the tab with their data in json format
 function parseVariables(element,parsedEquation, funcTabs){
   console.log("Parse Variables ran");
+  console.log(element)
   let varData = varListAssbely(element);
   console.log("%c parsedEquation: "+parsedEquation,"color:red");
+  console.log(varData)
   let all = true;
   for(let Vars of varData){
     if(Vars.Value == ''){
@@ -1143,6 +1147,8 @@ function parseVariables(element,parsedEquation, funcTabs){
         }
       }
     }
+    console.log("%c parsedEquation post op: "+parsedEquation,"color:green");
+    console.log(parsedEquation);
     var mySolver = new Solver({
       s: solveInpr(parsedEquation),
     })
@@ -1256,7 +1262,7 @@ function newVariable(name, varGrid,equationArea,funcTabs,equation){
   varClon.getElementById('variableName').innerHTML = name;
   varClon.getElementById('variableEntry').addEventListener('input', function (e) {
   if(varClon.getElementById('variableEntry') != ''){
-    equationArea.innerHTML = setVar(e.target, equation);
+    equationArea.innerHTML = setVar(varGrid, equation);
     parseVariables(varGrid, equation,funcTabs);
   }
   });
