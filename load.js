@@ -1,4 +1,4 @@
-console.log(navigator);
+console.log(Function("let value = 9+83; return value")());
 let TextColorGlobal = "";
 if (document.getElementById("mainBody") != null) {
   console.log(localStorage.getItem('textColor'));

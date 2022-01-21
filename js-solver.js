@@ -33,12 +33,12 @@ var Solver = (function () {
             lastNull = 0;
 
         for (var key = 0; key < this.params.length; key++) {
-            eval(this.params[key] + '=undefined')
+            Function("return "+this.params[key] + '=undefined')()
         }
 
         for (var key in obj) {
             if (this.params.indexOf(key) != -1 && (obj[key]==0 || obj[key])) {
-                eval(key + '=' + obj[key]),
+                Function("return "+key + '=' + obj[key])(),
                 out[key] = obj[key]
             }
         }
@@ -47,7 +47,7 @@ var Solver = (function () {
             lastNull = nullCount;
             for (var eq in equations) {
                 with(Math)
-                    var result = eval(equations[eq]);
+                    var result = Function("return "+equations[eq])();
                 if (result) {
                     out[eq] = result;
                     equations[eq] = undefined;

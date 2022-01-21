@@ -246,6 +246,7 @@ button:focus, input[type="button"]:focus {
   #enterHeader{
     font-weight: lighter;
     font-size: 30px;
+    text-indent: 5px;
     direction: ltr;
   }
   .mainCacGrid {
