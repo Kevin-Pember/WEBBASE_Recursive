@@ -1233,7 +1233,7 @@ function checkVar(equation, varGrid,equationArea,funcTabs) {
       "element":cont
     });
   }
-  let varEquation = varInEquat(equation);
+  let varEquation = varInEquat(equationArea.innerHTML);
   let newVars = [];
   for(let eVar of varEquation){
     matching = false;
@@ -1315,6 +1315,7 @@ function findVar(equation, clon, varGrid, equationArea,funcTabs) {
 }
 function isVar(entry) {
   let func = funcMatch(entry);
+  let secondaryMath = [];
   if(func != ""){
     let object = getByName(func);
     return object.funcLength;
