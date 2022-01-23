@@ -270,6 +270,7 @@ function funcIndex(func, equation, funcList) {
 }
 function builtInFunc(equation){
   equation = equation.replaceAll('‎','');
+  equation = equattion.replaceAll('e','Math.E');
   equation = equation.replaceAll('×','*');
   equation = equation.replaceAll('÷','/');
   for(let i = 0; i < equation.length; i++){
