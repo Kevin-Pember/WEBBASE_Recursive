@@ -105,6 +105,10 @@ let funcList = [
     'funcLength': 3,
   },
 ];
+let secondList = [
+  "<sup>",
+  "</sup>",
+];
 console.log(solveInpr("‎9+√9"));
 //create an array full of object that contain name, equation, parse the equation, needs rad of deg, length, or  etc.
 function solveInpr(equation) {
@@ -149,6 +153,12 @@ function funcMatch(equation) {
     let check = equation.substring(0, (func.funcLength));
     if (check == func.func) {
       return func.func;
+    }
+  }
+  for (let func of secondList) {
+    let check = equation.substring(0, (func.funcLength));
+    if (check == func) {
+      return func;
     }
   }
   return "";

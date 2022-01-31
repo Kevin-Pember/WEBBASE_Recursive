@@ -1283,7 +1283,7 @@ function varInEquat(equation){
   }
   return varArray;
 }
-function findVar(equation, clon, varGrid, equationArea,funcTabs) {
+/*function findVar(equation, clon, varGrid, equationArea,funcTabs) {
   console.log("Find Var Start");
   for (let i = 0; i < equation.length; i++) {
     if (equation.charCodeAt(i) > 92 && equation.charCodeAt(i) < 123) {
@@ -1312,7 +1312,7 @@ function findVar(equation, clon, varGrid, equationArea,funcTabs) {
       }
     }
   }
-}
+}*/
 function isVar(entry) {
   let func = funcMatch(entry);
   let secondaryMath = [];
