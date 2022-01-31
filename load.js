@@ -1,7 +1,5 @@
-console.log(Function("let value = 9+83; return value")());
 let TextColorGlobal = "";
 if (document.getElementById("mainBody") != null) {
-  console.log(localStorage.getItem('textColor'));
   let rootCss = document.querySelector(':root');
   if (localStorage.getItem('displayColor') != null) {
     rootCss.style.setProperty('--displayColor', localStorage.getItem('displayColor'));
@@ -51,23 +49,17 @@ if (document.getElementById("mainBody") != null) {
     let funcEquation = savedVal.substring(0, savedVal.indexOf('»'));
     custButton(funcEquation, funcname, ['customFuncDisplayGrid', 'custFuncGridPopup']);
   }
-  console.log(document.getElementById("mainBody").style.height);
 
   document.getElementById('uifCalculator').addEventListener("click", function (e) {
     if (e.target != document.getElementById('enterHeader')) {
-      console.log("uifCalculator clicked")
-      console.log(e.target.childNodes[1]);
       let enterheader = document.getElementById('enterHeader');
       let range = document.createRange();
       let sel = window.getSelection();
-      console.log(enterheader.innerHTML.length)
       if (enterheader.innerHTML.length == 0) {
-        console.log("IF complete")
         let textNode = document.createTextNode("‎");
         enterheader.appendChild(textNode);
       }
       range.setStart(enterheader.lastChild, enterheader.firstChild.data.length);
-      console.log(range)
       range.collapse(true);
       sel.removeAllRanges()
       sel.addRange(range);
@@ -81,7 +73,6 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('MRCOverlay').addEventListener("click", function () { 
     let enteredText = document.getElementById('enterHeader').innerHTML
     let mrmText = document.getElementById('memoryText').innerHTML;
-    console.log("Targeted Section: " +enteredText.substring(enteredText.length - mrmText.length))
     if (mrmText == enteredText.substring(enteredText.length - mrmText.length)) { 
     document.getElementById('memoryText').innerHTML = "" 
     document.getElementById('memoryTextBoarder').style = undefined;
@@ -121,7 +112,7 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('pars').addEventListener("click", function () { parsMethod(); });
   document.getElementById('pow').addEventListener("click", function () { pow('1'); });
   document.getElementById('mutiplication').addEventListener("click", function () { frontButtonPressed('×'); });
-  document.getElementById('enter').addEventListener("click", function () { console.log(document.getElementById('enterHeader').innerHTML); enterPressed(document.getElementById('enterHeader').innerHTML)});
+  document.getElementById('enter').addEventListener("click", function () {enterPressed(document.getElementById('enterHeader').innerHTML)});
   document.getElementById('pow2').addEventListener("click", function () { pow('2'); });
   document.getElementById('sqrt').addEventListener("click", function () { frontButtonPressed('√'); });
   document.getElementById('divison').addEventListener("click", function () { frontButtonPressed('÷'); });
@@ -160,7 +151,6 @@ if (document.getElementById("mainBody") != null) {
   });
   document.getElementById('addFunctionEx').addEventListener("click", function () {
     if (!custFuncExisting(document.getElementById('enterHeader').innerHTML, 'New Function', false)) {
-      console.log("Custom Function Button Created")
       custButton(document.getElementById('enterHeader').innerHTML, 'New Function', ['customFuncDisplayGrid', 'custFuncGridPopup']);
       localStorage.setItem(('Func' + numOfSaved()), 'New Function' + "»" + document.getElementById('enterHeader').innerHTML + "»");
     }
@@ -168,7 +158,6 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('minusFunctionEx').addEventListener("click", function () { console.log("Things" + document.getElementById("enterHeader").value); });
   document.getElementById('addIconPopup').addEventListener("click", function () {
     if (!custFuncExisting(document.getElementById('enterHeader').innerHTML, 'New Function', false)) {
-      console.log("Custom Function Button Created")
       custButton(document.getElementById('enterHeader').innerHTML, 'New Function', ['customFuncDisplayGrid', 'custFuncGridPopup']);
       localStorage.setItem(('Func' + numOfSaved()), 'New Function' + "»" + document.getElementById('enterHeader').innerHTML + "»");
     }
@@ -217,7 +206,6 @@ if (document.getElementById("mainBody") != null) {
     const x = e.pageX - elem.offsetLeft;
     const walk = (x - startX) * 3;
     elem.scrollLeft = scrollLeft - walk;
-    console.log(walk);
   });
 } else if (document.getElementById("settingsBody") != null) {
   let rootCss = document.querySelector(':root');
@@ -253,7 +241,6 @@ if (document.getElementById("mainBody") != null) {
   let themeRaw;
   while (i != -1) {
     try {
-      console.log('theme' + i);
       themeRaw = localStorage.getItem('theme' + i);
       let displayColor = themeRaw.substring(0, themeRaw.indexOf("»"));
       themeRaw = themeRaw.substring(themeRaw.indexOf("»") + 1);
@@ -286,7 +273,7 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('selectorBlack').addEventListener("click", function(){dropPressed('Black')});
   document.getElementById('selectorWhite').addEventListener("click", function(){dropPressed('White')});
   document.getElementById('addIcon').addEventListener("click", function(){newTheme()});
-  document.getElementById('minusIcon').addEventListener("click", function(){console.log("Remove pressed");removeThemes()});
+  document.getElementById('minusIcon').addEventListener("click", function(){removeThemes()});
   document.getElementById('PreferencesBack').addEventListener("click", function(){SettingsBack('PreferencesTab')});
   document.getElementById('AboutBack').addEventListener("click", function(){SettingsBack('AboutTab')});
 } else if (document.getElementById('helpBody') != null) {
@@ -295,7 +282,6 @@ if (document.getElementById("mainBody") != null) {
   rootCss.style.setProperty('--numbersColor', localStorage.getItem('numsColor'));
   rootCss.style.setProperty('--functionsColor', localStorage.getItem('funcColor'));
   rootCss.style.setProperty('--textColor', localStorage.getItem('textColor'));
-  console.log("Help Started");
 }
 function frontButtonPressed(input) {
   let display = document.getElementById('enterHeader');
@@ -311,7 +297,6 @@ function frontButtonPressed(input) {
     higher = sel.focusOffset;
     lower = sel.anchorOffset;
   }
-  console.log(sel);
   if (sel.anchorNode != null) {
     let appendString = sel.focusNode.nodeValue.substring(0, lower) + input;
     sel.focusNode.nodeValue = appendString + sel.focusNode.nodeValue.substring(higher);
@@ -377,7 +362,6 @@ function backPressed() {
   }
   if (!(plainSup(sel) && sel.focusNode.nodeValue.length <= 1)) {
     if (sel.anchorOffset == sel.focusOffset) {
-      console.log(sel.focusNode.nodeValue);
       if (sel.focusNode.nodeValue.charAt(sel.anchorOffset - 1) != '‎' && uifCalculator.childNodes[1] != sel.focusNode) {
         let short = sel.focusNode.nodeValue.substring(0, sel.anchorOffset - 1);
         sel.focusNode.nodeValue = short + sel.focusNode.nodeValue.substring(sel.focusOffset);
@@ -393,7 +377,6 @@ function backPressed() {
             range.collapse(true);
             sel.removeAllRanges();
             sel.addRange(range);
-            console.log(document.getElementById('enterHeader').childNodes);
           }
         }
       }
@@ -406,7 +389,6 @@ function backPressed() {
       sel.addRange(range);
     }
   } else {
-    console.log(sel.focusNode.parentNode.parentNode.childNodes);
     let childNodes = sel.focusNode.parentNode.parentNode.childNodes;
     for (let i = 0; i < childNodes.length; i++) {
       if (childNodes[i] == sel.focusNode.parentNode) {
@@ -414,7 +396,6 @@ function backPressed() {
         range.collapse(true);
         sel.removeAllRanges();
         sel.addRange(range);
-        console.log(sel.focusNode.parentNode);
         childNodes[i + 1].nodeValue = childNodes[i + 1].nodeValue.substring(1)
         document.getElementById('uifCalculator').childNodes[1].removeChild(childNodes[i]);
       }
@@ -431,11 +412,9 @@ function plainSup(sel) {
 }
 function diagnostic() {
   let sel = window.getSelection();
-  console.log(sel.focusNode);
 }
 function pow(type) {
   let display = document.getElementById('enterHeader');
-  console.log("pow " + type + " ran");
   let sel = window.getSelection();
   let range = document.createRange();
   let index = 0;
@@ -456,7 +435,6 @@ function pow(type) {
   }
   let backend = sel.focusNode.nodeValue.substring(higher);
   sel.focusNode.nodeValue = sel.focusNode.nodeValue.substring(0, lower);
-  console.log(backend);
   let superSr = document.createElement("sup");
   if (type == "2") {
     superSr.appendChild(document.createTextNode('‎2'));
@@ -471,10 +449,8 @@ function pow(type) {
   } else {
     display.insertBefore(document.createTextNode(backend), display.childNodes[index + 1]);
   }
-  console.log(display.childNodes[index + 1])
   window.addEventListener('keydown', keepBlank);
   display.insertBefore(superSr, display.childNodes[index + 1]);
-  console.log(display.childNodes);
   if (type == "2") {
     range.setStart(display.childNodes[index + 2], 1);
   } else {
@@ -485,7 +461,6 @@ function pow(type) {
   sel.addRange(range);
 }
 function keepBlank(eve) {
-  console.log("keepBlank Ran");
   let sel = window.getSelection();
   let range = document.createRange();
   let higher = 0;
@@ -497,9 +472,7 @@ function keepBlank(eve) {
     higher = sel.focusOffset;
     lower = sel.anchorOffset;
   }
-  console.log(sel.focusNode.nodeValue + "Things");
   if (eve.keyCode == 8 && (sel.focusNode.nodeValue.substring(lower, higher).includes('‎') || sel.focusNode.nodeValue == '‎') && sel.focusNode.parentNode == document.getElementById('enterHeader')) {
-    console.log("Event Consumed");
     eve.preventDefault();
     let childNodes = document.getElementById('enterHeader').childNodes;
     for (let i = 0; i < childNodes.length; i++) {
@@ -508,7 +481,6 @@ function keepBlank(eve) {
         range.collapse(true);
         sel.removeAllRanges();
         sel.addRange(range);
-        console.log(document.getElementById('enterHeader').childNodes);
       }
     }
   }
@@ -527,23 +499,17 @@ function navigateButtons(direction) {
     higher = sel.focusOffset;
     lower = sel.anchorOffset;
   }
-  console.log(sel.focusNode.parentNode.tagName == 'SUP');
   if (sel.focusNode.parentNode.tagName == 'SUP') {
-    console.log("is SUP");
     parentElement = sel.focusNode.parentNode.parentNode;
     isSup = true;
   } else {
-    console.log("is normal");
     parentElement = sel.focusNode.parentNode;
   }
   let childNodes = parentElement.childNodes;
   if (!direction) {
-    console.log(parentElement);
     if (lower == 0 || sel.focusNode.nodeValue.charAt(lower - 1) == '‎') {
-      console.log(childNodes);
       for (let i = 0; i < childNodes.length; i++) {
         if ((isSup && sel.focusNode.parentNode == childNodes[i]) || sel.focusNode == childNodes[i]) {
-          console.log(childNodes[i - 1]);
           if (childNodes[i - 1].tagName != 'SUP') {
             range.setStart(childNodes[i - 1], childNodes[i - 1].nodeValue.length);
             range.collapse(true);
@@ -570,7 +536,6 @@ function navigateButtons(direction) {
     if (lower == sel.focusNode.nodeValue.length) {
       for (let i = 0; i < childNodes.length; i++) {
         if ((isSup && sel.focusNode.parentNode == childNodes[i]) || sel.focusNode == childNodes[i]) {
-          console.log(sel.focusNode);
           if (childNodes[i + 1].tagName != 'SUP') {
             range.setStart(childNodes[i + 1], 1);
           } else {
@@ -596,7 +561,6 @@ function clearMain() {
   let sel = document.getSelection();
   enterHeader.innerHTML = '‎';
   range.setStart(enterHeader.lastChild, enterHeader.firstChild.data.length);
-  console.log(range)
   range.collapse(true);
   sel.removeAllRanges()
   sel.addRange(range);
@@ -629,15 +593,12 @@ function custFuncExisting(equation, name, duplicates) {
   return exist;
 }
 function custButton(equation, name, target) {
-  console.log(document);
   let temp = document.getElementsByClassName("customFuncTemplate")[0], clon = temp.content.cloneNode(true);
   clon.getElementById("customFuncButton").innerHTML = "<h2>" + equation + "</h2>" + name;
   for (let i = 0; i < target.length; i++) {
     let clonClone = clon.cloneNode(true);
     let buttonNode = clonClone.getElementById("customFuncButton");
     buttonNode.addEventListener('click', function (e) {
-      console.log("CustButtonPressed");
-      console.log(buttonNode.innerHTML);
       let equation = buttonNode.querySelector('h2').innerHTML;
       let Name = buttonNode.childNodes[1].innerHTML;
       if (!tabOpen(name + "»" + equation + "»")) {
@@ -664,14 +625,12 @@ function custButton(equation, name, target) {
           }
         });
         tabClon.getElementById('tabRemove').addEventListener('click', function (e) {
-          console.log("Remove Tab")
           removeCustFunc(e);
         })
         document.getElementById('tab').appendChild(tabClon);
         highlightTab(highlight);
       }
     });
-    console.log(clonClone)
     document.getElementById(target[i]).appendChild(clonClone);
   }
 
@@ -685,10 +644,8 @@ function numOfSaved() {
 }
 function removeCustFunc(event) {
   tabLink = event.target.parentElement;
-  console.log(event.target);
   document.getElementById('mainBody').removeChild(matchTab(tabLink.dataset.tabmap, false));
   document.getElementById('tab').removeChild(tabLink);
-  console.log('Switching to main');
   openElement(document.getElementById('mainTab'));
 }
 function tabOpen(intialize) {
@@ -700,19 +657,16 @@ function tabOpen(intialize) {
       return true;
     }
   }
-  console.log("returned False")
   return false;
 }
 function enterPressed(input) {
   let display = document.getElementById('enterHeader');
   historyMethod(input);
   input = solveInpr(input);
-  console.log('Fresh out of the input ' + input);
   var mySolver = new Solver({
     s: input,
   })
   display.innerHTML = mySolver.solve({})["s"];
-  console.log(mySolver.solve({})["s"]);
   document.getElementById('uifCalculator').scrollTop = document.getElementById('uifCalculator').scrollHeight;
   setSelect(display.childNodes[display.childNodes.length - 1], display.childNodes[display.childNodes.length - 1].length);
 }
@@ -763,10 +717,7 @@ function setSelect(node, index) {
   sel.addRange(range);
 }
 function openElement(evt) {
-  console.log("element is ")
-  console.log(evt)
   let evtElement = evt;
-  console.log(evtElement.dataset.tabmap)
   let match;
   let tabs = document.getElementsByClassName('tabcontent');
   if (evtElement.dataset.tabmap != "mainTab") {
@@ -781,7 +732,6 @@ function openElement(evt) {
     document.getElementById('customFuncDisplay').style.visibility = "";
   }
   match = matchTab(evtElement.dataset.tabmap, false);
-  console.log(evtElement.dataset.tabmap);
   for (let i = 0; i < tabs.length; i++) {
     if (matchTab != tabs[i]) {
       tabs[i].style.visibility = 'hidden';
@@ -823,14 +773,12 @@ function trigPressed(input) {
 }
 function popup() {
   if (document.getElementById('arrowIcon').style.animation == "0.25s ease-in 0s 1 normal forwards running toUp") {
-    console.log("To down");
     document.getElementById('arrowIcon').style.animation = "0.25s ease-in 0s 1 normal forwards running toDown";
     document.getElementById('extraFuncPopUp').style.animation = "0.25s ease-in 0s 1 normal forwards running toSlideDown";
     setTimeout(donothing, 500);
     document.getElementById('arrowIcon').style.transform = 'rotate(90deg);';
   } else {
     document.getElementById('arrowIcon').style.animation = "0.25s ease-in 0s 1 normal forwards running toUp";
-    console.log("To up");
     document.getElementById('extraFuncPopUp').style.animation = "0.25s ease-in 0s 1 normal forwards running toSlideUp";
     setTimeout(donothing, 500);
     document.getElementById('arrowIcon').style.transform = 'rotate(270deg);';
@@ -846,7 +794,6 @@ function settingsTabChange(name) {
     }
     if (name == 'colorsTab') {
       document.getElementById("colorsTab").style.visibility = "visible";
-      console.log("lookn ran");
     } else if (name == 'PreferencesTab') {
       document.getElementById('PreferencesTab').style.visibility = "visible";
     } else if (name == 'AboutTab') {
@@ -864,7 +811,6 @@ function settingsTabChange(name) {
       document.getElementById("colorsBack").style.visibility = "visible";
       document.getElementById("colorsTab").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideLeft";
       setTimeout(function () { document.getElementById("navColumn").style.visibility = "hidden"; }, 150);
-      console.log("lookn ran");
     } else if (name == 'PreferencesTab') {
       document.getElementById("PreferencesTab").style.visibility = "visible";
       document.getElementById("PreferencesTab").style.width = "100%";
@@ -919,7 +865,6 @@ function settingExit() {
   if (document.getElementById('dropbtn').childNodes[0].nodeValue === "Black ") {
     localStorage.setItem('textColor', "#000000");
   } else {
-    console.log('else ran');
     localStorage.setItem('textColor', "#FFFFFF");
   }
   document.location = 'Recursive.html';
@@ -944,7 +889,6 @@ function backMoreFunction() {
   }
 }
 function updatePreview(event) {
-  console.log(event.target.id)
   if (event.target.id == "DisplayColorPicker") {
     document.getElementById("displayPreview").style.backgroundColor = event.target.value;
   } else if (event.target.id == "NumbersColorPicker") {
@@ -959,7 +903,6 @@ function customFunctionPress() {
   setTimeout(function () { document.getElementById('nameArea').value = ""; document.getElementById('equationArea').value = ""; document.getElementById('newFunctionsPage').style.visibility = "hidden"; }, 250);
 }
 function dropPressed(color) {
-  console.log(document.getElementById('dropbtn').innerHTML);
   if (color == "Black") {
     document.getElementById("showcaseTextColor").style.color = "#000000";
     document.getElementById('dropbtn').innerHTML = "Black <h3 id='displayText' style='color: black;'>t</h3>";
@@ -978,15 +921,17 @@ function newCustFuncTab(text) {
     }
   }
   if (!exist) {
-    console.log(text)
-    clon.getElementById('customFuncTab').dataset.tab = text;
-    clon.getElementById("customValue").innerHTML = text;
-    clon.getElementById("nameFunc").value = text.substring(0, text.indexOf("»"));
+    let funcINIT = text;
+    let name = text.substring(0, text.indexOf("»"));
+    text = text.substring(text.indexOf("»") + 1).substring(0,text.indexOf("»"));
+    equation = text.substring(0,text.indexOf("»"));
+    clon.getElementById('customFuncTab').dataset.tab = funcINIT;
+    clon.getElementById("customValue").innerHTML = funcINIT;
+    clon.getElementById("nameFunc").value = name;
     let tab = clon.getElementById('customFuncTab');
     
     let currentTab = clon.getElementById('customFuncTab').dataset.tab;
     clon.getElementById('nameFunc').addEventListener("input", function (e) {
-      console.log("Input")
       let tabsElements = document.getElementsByClassName('tablinks')
       let liveTab = e.target.parentNode;
       let currentTab = e.target.parentNode.dataset.tab;
@@ -998,34 +943,28 @@ function newCustFuncTab(text) {
       matchPage.dataset.tabmap = e.target.value + currentTab.substring(currentTab.indexOf("»"));
       liveTab.dataset.tab = e.target.value + currentTab.substring(currentTab.indexOf("»"))
     });
-    text = text.substring(text.indexOf("»") + 1).substring(0,text.indexOf("»"));
-    text = text.substring(0,text.indexOf("»"));
-    console.log("text is "+text);
     let varGrid = clon.getElementById("varGrid");
     let equationDIV = clon.getElementById("EquationFunc");
     let movable = clon.getElementById("selectorUnder");
     let funcTabs = [clon.getElementById('resultDiv'), clon.getElementById('graphDiv'), clon.getElementById('tableDiv')];
     movable.dataset.pos = 0;
     let backupClon = clon;
-    clon.getElementById("EquationFunc").innerHTML = text;
+    clon.getElementById("EquationFunc").innerHTML = equation;
     varGrid.addEventListener("change", function (e) {
       console.log("%c Vargid Changed", "color: red;");
     });
     clon.getElementById('functionMode').addEventListener("click", function () {
-      console.log("function pressed");
       funcTabs[0].style.visibility = "inherit";
       hidModes(parseInt(movable.dataset.pos),funcTabs);
       animateModes(parseInt(movable.dataset.pos),0,movable);
     });
     clon.getElementById("graphMode").addEventListener("click", function () {
-      console.log("graph pressed");
       console.log("Mode Changed  pos: " + movable.dataset.pos+" futPos: "+ 75);
       funcTabs[1].style.visibility = "inherit";
       hidModes(parseInt(movable.dataset.pos),funcTabs);
       animateModes(parseInt(movable.dataset.pos),75,movable);
     });
     clon.getElementById("tableMode").addEventListener("click", function () {
-      console.log("table pressed");
       console.log("Mode Changed  pos: " + movable.dataset.pos+" futPos: "+ 150);
       funcTabs[2].style.visibility = "inherit";
       hidModes(parseInt(movable.dataset.pos),funcTabs);
@@ -1035,13 +974,11 @@ function newCustFuncTab(text) {
       let initEquation = e.target.parentNode.parentNode.dataset.tab;
       initEquation = initEquation.substring(initEquation.indexOf("»") + 1);
       initEquation = initEquation.substring(0, initEquation.indexOf("»"));
-      console.log("Changed to initEquation "+initEquation);
       equationDIV.innerHTML = initEquation;
       setSelect(equationDIV, equationDIV.innerHTML.length);
     });
     clon.getElementById('EquationFunc').addEventListener("input", function (e) {
-      console.log("Equation equals "+e.target.innerHTML)
-      checkVar(e.target.innerHTML, varGrid, equationDIV,funcTabs);
+      checkVar(varGrid, equationDIV,funcTabs);
       let liveTab = e.target.parentNode.parentNode;
       let currentTab = liveTab.dataset.tab;
       let matchPage = matchTab(currentTab, true);
@@ -1050,10 +987,9 @@ function newCustFuncTab(text) {
       matchPage.dataset.tabmap = currentTab.substring(0, currentTab.indexOf("»") + 1) + e.target.innerHTML + "»";
       liveTab.dataset.tab = currentTab.substring(0, currentTab.indexOf("»") + 1) + e.target.innerHTML + "»";
     });
-    let equation = text; 
     let equationArea = clon.getElementById('EquationFunc');
     document.getElementById("mainBody").appendChild(clon);
-    checkVar(equationDIV.innerHTML, varGrid, equationDIV,funcTabs);
+    checkVar(varGrid, equationDIV,funcTabs);
   }
 }
 function hidModes(num,tabs){
@@ -1066,17 +1002,14 @@ function hidModes(num,tabs){
   }
 }
 function animateModes(from,to,element){
-  console.log("Anmiate modes ran");
   if(from == 0 && to == 75){
     //0 to 75
-    console.log("0 to 75")
     element.style.animation = undefined;
     element.style.animation = "0.15s ease-in 0s 0.5 normal forwards running modeSwitch";
     setTimeout(function () { element.style.left = "75px"; element.style.animation = undefined}, 150);
     element.dataset.pos = 75;
   }else if(from == 0 && to == 150){
     //0 to 150
-    console.log("0 to 150")
     element.style.animation = undefined;
     element.style.animation = "0.15s ease-in 0s 1 normal forwards running modeSwitch"
     setTimeout(function () { element.style.left = "150px"; element.style.animation = undefined}, 150);
@@ -1112,7 +1045,6 @@ function animateModes(from,to,element){
 function varListAssbely(element){
   let variables = element.getElementsByClassName("variableContainer");
   let varData = [];
-  console.log(variables)
   for(i = 0; i < variables.length; i++){
     let temp = {
       "Name": variables[i].querySelector('h3').innerHTML,
@@ -1120,17 +1052,15 @@ function varListAssbely(element){
   };
     varData.push(temp);
   }
-  console.log("retruned list")
+  console.log("retruned Variable list")
   console.log(varData)
   return varData;
 }
 //Takes a tab element and returns the variables in the tab with their data in json format
 function parseVariables(element,parsedEquation, funcTabs){
   console.log("Parse Variables ran");
-  console.log(element)
   let varData = varListAssbely(element);
   console.log("%c parsedEquation: "+parsedEquation,"color:red");
-  console.log(varData)
   let all = true;
   for(let Vars of varData){
     if(Vars.Value == ''){
@@ -1148,7 +1078,6 @@ function parseVariables(element,parsedEquation, funcTabs){
       }
     }
     console.log("%c parsedEquation post op: "+parsedEquation,"color:green");
-    console.log(parsedEquation);
     var mySolver = new Solver({
       s: solveInpr(parsedEquation),
     })
@@ -1185,7 +1114,6 @@ function updateCustomButtons(oldVal, newValue) {
   console.log(newName + " and " + newFunction);
   for (let i = 0; i < functionLinks.length; i++) {
     console.log("Checking " + functionLinks[i].childNodes[1].data + " and " + functionLinks[i].childNodes[0].innerHTML);
-    console.log(functionLinks[i].childNodes);
     if (functionLinks[i].childNodes[1].data == Name && functionLinks[i].childNodes[0].innerHTML == Function) {
       console.log("Matching Found");
       functionLinks[i].innerHTML = "<h2>" + newFunction + "</h2>" + newName;
@@ -1223,9 +1151,10 @@ function matchData(info) {
   }
   return null;
 }
-function checkVar(equation, varGrid,equationArea,funcTabs) {
+function checkVar(varGrid,equationArea,funcTabs) {
   let tabVarContainers = varGrid.getElementsByClassName("variableContainer");
   let varExisting = [];
+  let equation = equationArea.innerHTML;
   for(let cont of tabVarContainers){
     let name = cont.querySelector('h3').innerHTML;
     varExisting.push({
@@ -1315,10 +1244,13 @@ function varInEquat(equation){
 }*/
 function isVar(entry) {
   let func = funcMatch(entry);
-  let secondaryMath = [];
   if(func != ""){
-    let object = getByName(func);
-    return object.funcLength;
+    if(getByName(func) != null){
+      let object = getByName(func);
+      return object.funcLength;
+    }else {
+      return func.length
+    }
   }else{
     return 0;
   }

@@ -106,35 +106,23 @@ let funcList = [
   },
 ];
 let secondList = [
-  "<sup>",
-  "</sup>",
+  "sup>",
+  "",
 ];
-console.log(solveInpr("‎9+√9"));
+//console.log(solveInpr("‎9+√9"));
 //create an array full of object that contain name, equation, parse the equation, needs rad of deg, length, or  etc.
 function solveInpr(equation) {
   equation = builtInFunc(equation);
   console.log('Inpr ran');
   for (let i = 0; i < equation.length; i++) {
-    console.log("Ran :" + i);
     if (funcMatch(equation.substring(i)) != "") {
-      console.log("Found func is "+funcMatch(equation.substring(i)));
       let func = getByName(funcMatch(equation.substring(i)));
-      console.log("func is ");
-      console.log(func);
       let innerRAW = parEncap(
         equation.substring(i+func.funcLength)
       );
-      console.log("innerRaw is ");
-      console.log(innerRAW);
       let values = recrSolve(innerRAW.substring(1, innerRAW.length - 1),func);
-      console.log("Values are ");
-      console.log(values);
       let funcTemp = findMethod(func);
-      console.log("funcTemp is ");
-      console.log(funcTemp);
       let parsedFunc = assembly(func, funcTemp, values);
-      console.log("Parsed is ");
-      console.log(parsedFunc);
       equation = equation.substring(0, i)+parsedFunc+equation.substring(i+func.funcLength+innerRAW.length);
       i = i+parsedFunc.length-1;
     }
@@ -147,6 +135,7 @@ function getByName(name) {
       return func;
     }
   }
+  return null;
 }
 function funcMatch(equation) {
   for (let func of funcList) {
@@ -321,10 +310,8 @@ function builtInFunc(equation){
         equation = equation.substring(0, i) + "Math.sqrt" + equation.substring(i + 1);
       } else {
         let inner = equatInner(backward(equation.substring(i + 1)));
-        console.log("Inner is " + inner);
         let innerRAW = backward(equation.substring(i + 1));
         equation = equation.substring(0, i) + "Math.sqrt(" + inner + ")" + equation.substring(i+innerRAW.length + 1);
-        console.log("Equation is post" + equation);
         i = i + inner.length +7;
       }
     }else if(equation.charAt(i) == "π"){
