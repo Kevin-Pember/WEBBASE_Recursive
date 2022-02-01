@@ -244,10 +244,11 @@ function supEncap(sub) {
 		if (sub.substring(i, i + 5) == "<sup>") {
 			i = i + supEncap(sub.substring(i)).length;
 		} else if (sub.substring(i, i + 6) == "</sup>") {
-			sub = sub.substring(0, i + 7);
+			sub = sub.substring(0, i + 6);
 			break;
 		}
 	}
+  console.log("Sub is " + sub);
 	return sub;
 }
 function funcIndex(func, equation, funcList) {
@@ -274,10 +275,7 @@ function builtInFunc(equation){
   equation = equation.replaceAll('÷','/');
   for(let i = 0; i < equation.length; i++){
     if(equation.substring(i, i + 5) == "<sup>"){
-      if(i+supEncap(equation.substring(i)).length == equation.length){
-        
-      }
-      let exponent = equatInner(supEncap(equation.substring(i)).substring(5,supEncap(equation.substring(i)).length-7));
+      let exponent = equatInner(supEncap(equation.substring(i)).substring(5,supEncap(equation.substring(i)).length-6));
       let exponentRAW = supEncap(equation.substring(i));
       let base = "";
       let baseRAW = "";
@@ -288,7 +286,7 @@ function builtInFunc(equation){
         base = forward(equation.substring(0,i));
         baseRAW = forward(equation.substring(0,i));
       }
-      equation = equation.substring(0,i-baseRAW.length) + "Math.pow(" + base + "," + exponent + ")" + equation.substring(i+exponentRAW.length-1);
+      equation = equation.substring(0,i-baseRAW.length) + "Math.pow(" + base + "," + exponent + ")" + equation.substring(i+exponentRAW.length);
     }else if(equation.charAt(i) == "^"){
       let exponent = "";
       let exponentRAW = "";

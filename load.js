@@ -954,6 +954,7 @@ function newCustFuncTab(text) {
     let backupClon = clon;
     console.log("Equation given to the function: " + equation);
     clon.getElementById("EquationFunc").innerHTML = equation;
+    clon.getElementById("EquationFunc").dataset.baseE = equation;
     varGrid.addEventListener("change", function (e) {
       console.log("%c Vargid Changed", "color: red;");
     });
@@ -986,6 +987,7 @@ function newCustFuncTab(text) {
       let liveTab = e.target.parentNode.parentNode;
       let currentTab = liveTab.dataset.tab;
       let matchPage = matchTab(currentTab, true);
+      equationDIV.dataset.baseE = equationDIV.innerHTML;
       localStorage.setItem(matchData(currentTab), currentTab.substring(0, currentTab.indexOf("»") + 1) + e.target.innerHTML + "»");
       updateCustomButtons(currentTab, currentTab.substring(0, currentTab.indexOf("»") + 1) + e.target.innerHTML + "»");
       matchPage.dataset.tabmap = currentTab.substring(0, currentTab.indexOf("»") + 1) + e.target.innerHTML + "»";
@@ -1061,9 +1063,10 @@ function varListAssbely(element){
   return varData;
 }
 //Takes a tab element and returns the variables in the tab with their data in json format
-function parseVariables(element,parsedEquation, funcTabs){
+function parseVariables(element,equationDIV, funcTabs){
   console.log("Parse Variables ran");
   let varData = varListAssbely(element);
+  let parsedEquation = equationDIV.dataset.baseE
   console.log("%c parsedEquation: "+parsedEquation,"color:red");
   let all = true;
   for(let Vars of varData){
@@ -1196,8 +1199,8 @@ function newVariable(name, varGrid,equationArea,funcTabs,equation){
   varClon.getElementById('variableName').innerHTML = name;
   varClon.getElementById('variableEntry').addEventListener('input', function (e) {
   if(varClon.getElementById('variableEntry') != ''){
-    equationArea.innerHTML = setVar(varGrid, equation);
-    parseVariables(varGrid, equation,funcTabs);
+    equationArea.innerHTML = setVar(varGrid, equationArea.dataset.baseE);
+    parseVariables(varGrid, equationArea,funcTabs);
   }
   });
   varGrid.appendChild(varClon)
