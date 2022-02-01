@@ -107,7 +107,6 @@ let funcList = [
 ];
 let secondList = [
   "sup>",
-  "",
 ];
 //console.log(solveInpr("‎9+√9"));
 //create an array full of object that contain name, equation, parse the equation, needs rad of deg, length, or  etc.
@@ -145,8 +144,9 @@ function funcMatch(equation) {
     }
   }
   for (let func of secondList) {
-    let check = equation.substring(0, (func.funcLength));
+    let check = equation.substring(0, (func.length));
     if (check == func) {
+      console.log("%cfuncG: " + func, "color: red");
       return func;
     }
   }
@@ -269,7 +269,7 @@ function funcIndex(func, equation, funcList) {
 }
 function builtInFunc(equation){
   equation = equation.replaceAll('‎','');
-  equation = equattion.replaceAll('e','Math.E');
+  equation = equation.replaceAll('e','Math.E');
   equation = equation.replaceAll('×','*');
   equation = equation.replaceAll('÷','/');
   for(let i = 0; i < equation.length; i++){

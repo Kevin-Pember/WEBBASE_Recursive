@@ -1210,6 +1210,8 @@ function varInEquat(equation){
       }
     }
   }
+  console.log("VarInEquat");
+  console.log(varArray);
   return varArray;
 }
 /*function findVar(equation, clon, varGrid, equationArea,funcTabs) {
@@ -1243,12 +1245,15 @@ function varInEquat(equation){
   }
 }*/
 function isVar(entry) {
+  console.log("%cIs Var Start", "color: green");
   let func = funcMatch(entry);
   if(func != ""){
     if(getByName(func) != null){
       let object = getByName(func);
+      console.log("Object: " + object.name);
       return object.funcLength;
     }else {
+      console.log(func)
       return func.length
     }
   }else{
