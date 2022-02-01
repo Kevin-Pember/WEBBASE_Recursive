@@ -663,6 +663,7 @@ function enterPressed(input) {
   let display = document.getElementById('enterHeader');
   historyMethod(input);
   input = solveInpr(input);
+  console.log("Equation after interpeter " + input);
   var mySolver = new Solver({
     s: input,
   })
@@ -672,8 +673,10 @@ function enterPressed(input) {
 }
 function historyMethod(equation) {
   let historyHeader = document.getElementById('historyHeader');
+  let interpetedEquat = solveInpr(equation);
+  console.log("%cEquation after interpeter " + interpetedEquat, "color: #00ff00");
   var mySolver = new Solver({
-    s: solveInpr(equation),
+    s: interpetedEquat,
   })
   let exportedValue = "<h3 id='historyTimeSubHeader'>" + getTime() + "</h3>" + equation + "=" + mySolver.solve({})["s"] + "<br> <br> ";
   let dates = document.getElementsByClassName('historyDateHeader');
@@ -1078,9 +1081,10 @@ function parseVariables(element,parsedEquation, funcTabs){
         }
       }
     }
-    console.log("%c parsedEquation post op: "+parsedEquation,"color:green");
+    let fullyParsed = solveInpr(parsedEquation);
+    console.log("%c parsedEquation post op: "+fullyParsed,"color:green");
     var mySolver = new Solver({
-      s: solveInpr(parsedEquation),
+      s: solveInpr(fullyParsed),
     })
     let result = "="+mySolver.solve({})["s"];
     console.log("%c result: "+result,"color:green");
