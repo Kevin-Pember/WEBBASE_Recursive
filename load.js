@@ -923,7 +923,7 @@ function newCustFuncTab(text) {
   if (!exist) {
     let funcINIT = text;
     let name = text.substring(0, text.indexOf("»"));
-    text = text.substring(text.indexOf("»") + 1).substring(0,text.indexOf("»"));
+    text = text.substring(text.indexOf("»") + 1);
     equation = text.substring(0,text.indexOf("»"));
     clon.getElementById('customFuncTab').dataset.tab = funcINIT;
     clon.getElementById("customValue").innerHTML = funcINIT;
@@ -949,6 +949,7 @@ function newCustFuncTab(text) {
     let funcTabs = [clon.getElementById('resultDiv'), clon.getElementById('graphDiv'), clon.getElementById('tableDiv')];
     movable.dataset.pos = 0;
     let backupClon = clon;
+    console.log("Equation given to the function: " + equation);
     clon.getElementById("EquationFunc").innerHTML = equation;
     varGrid.addEventListener("change", function (e) {
       console.log("%c Vargid Changed", "color: red;");
@@ -1210,7 +1211,8 @@ function varInEquat(equation){
       }
     }
   }
-  console.log("VarInEquat");
+  console.log("VarInEquat equtaion: " + equation);
+
   console.log(varArray);
   return varArray;
 }
