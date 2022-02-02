@@ -1,6 +1,7 @@
 {
     "short_name": "Recursive",
     "name": "Recursive Calculator",
+    "start_url": "Recursive.html",
     "display": "Standalone",
     "icons": [
         {
@@ -28,6 +29,7 @@
           "purpose": "maskable"
         }
       ],
-    "background_Color": "#FFFFFF",
+    "theme_color": "#000000",
+    "background_color": "#FFFFFF",
     "scope": "/"
 }
