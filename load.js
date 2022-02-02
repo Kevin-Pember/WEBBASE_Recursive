@@ -1,4 +1,17 @@
 let TextColorGlobal = "";
+let BackgroundColorGlobal = "";
+if(localStorage.getItem('funcColor') != undefined){
+  BackgroundColorGlobal = localStorage.getItem('funcColor');
+}else{
+  BackgroundColorGlobal = "#000000";
+}
+var allMetaElements = document.getElementsByTagName('meta');
+for (var i=0; i<allMetaElements.length; i++) { 
+  if (allMetaElements[i].getAttribute("name") == "theme-color") { 
+     allMetaElements[i].setAttribute('content', BackgroundColorGlobal); 
+     break;
+  } 
+} 
 if (document.getElementById("mainBody") != null) {
   let rootCss = document.querySelector(':root');
   if (localStorage.getItem('displayColor') != null) {
