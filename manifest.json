@@ -2,7 +2,7 @@
     "short_name": "Recursive",
     "name": "Recursive Calculator",
     "start_url": "Recursive.html",
-    "display": "Standalone",
+    "display": "fullscreen",
     "icons": [
       {
         "src": "icons/manifest-icon-192.maskable.png",
