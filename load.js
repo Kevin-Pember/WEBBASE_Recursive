@@ -33,7 +33,7 @@ if (document.getElementById("mainBody") != null) {
   }
   if (localStorage.getItem('textColor') == "#000000") {
     document.getElementById('settingsCogIcon').src = "Images/SettingsCog.svg";
-    document.getElementById('backspcaeIcon').src = "Images/backIcon.png";
+    document.getElementById('backspcaeIcon').src = "Images/backIcon.svg";
     let helpIcons = document.getElementsByClassName("helpIcon");
     for (let item of helpIcons) {
       item.src = "Images/help.png";
@@ -626,10 +626,10 @@ function custButton(equation, name, target) {
         document.getElementById('arrowIcon').style.transform = 'rotate(90deg);';
         document.getElementById('customFuncDisplay').style.visibility = "hidden";
         let tabClon = document.getElementsByClassName('newTab')[0].content.cloneNode(true);
-        tabClon.getElementById('tabButton').innerHTML = "<h3>" + name + "</h3><img id='tabRemove' src='Images/xIconWhite.png' width='31.5px'>";
+        tabClon.getElementById('tabButton').innerHTML = "<h3>" + name + "</h3><img id='tabRemove' src='Images/xIconWhite.svg' width='31.5px'>";
         tabClon.getElementById('tabButton').dataset.tabmap = name + "»" + equation + "»";
         if(TextColorGlobal == "#000000"){
-          tabClon.getElementById('tabRemove').src = "Images/xIcon.png";
+          tabClon.getElementById('tabRemove').src = "Images/xIcon.svg";
         }
         let highlight = tabClon.getElementById('tabButton');
         tabClon.getElementById('tabButton').addEventListener("click", function (e) {
@@ -952,7 +952,7 @@ function newCustFuncTab(text) {
       let liveTab = e.target.parentNode;
       let currentTab = e.target.parentNode.dataset.tab;
       let matchPage = matchTab(currentTab, true);
-      matchPage.innerHTML = "<h3>" + e.target.value + "</h3><img id='tabRemove' src='Images/xIcon.png' width='31.5px'>";
+      matchPage.innerHTML = "<h3>" + e.target.value + "</h3><img id='tabRemove' src='Images/xIcon.svg' width='31.5px'>";
       matchPage.querySelector("IMG").addEventListener('click', function (e) { removeCustFunc(e); });
       localStorage.setItem(matchData(currentTab), e.target.value + currentTab.substring(currentTab.indexOf("»")));
       updateCustomButtons(currentTab, e.target.value + currentTab.substring(currentTab.indexOf("»")));
@@ -1355,7 +1355,7 @@ function createTheme(displayColor, numbersColor, functionsColor, textColor, them
     clon.getElementById('themeRadio').addEventListener("click", function(e){themeRadioPressed(e.target)})
     clon.getElementById('removeButton').addEventListener("click", function(e){removeStoredTheme(e.target)});
     if (localStorage.getItem('textColor') == "#000000") {
-      clon.getElementById("removeButton").src = "Images/xIcon.png";
+      clon.getElementById("removeButton").src = "Images/xIcon.svg";
     }
     let themes = document.getElementsByClassName('theme');
     if (themes.length > 4 && themes[4].querySelector('img').style.visibility == "visible") {

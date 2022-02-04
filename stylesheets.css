@@ -1432,24 +1432,32 @@ button:focus, input[type="button"]:focus {
 }
 #AboutUsDiv{
   background-color: var(--functionsColor);
-  height: 235px;
+  height: auto;
   border-radius: 25px;
-  align-self: center;
-  position: absolute;
-  top: 40px;
+  position: relative;
+  top: 5px;
   left: 2.5%;
   width: 95%;
 }
+#aboutUsHeader{
+  top: 10px;
+  background-color: var(--numbersColor);
+  padding: 5px 10px;
+  border-radius: 25px;
+}
 #aboutTag{
-  top: 60px;
+  padding-top: 50px;
+  padding-left: 1%;
+  padding-bottom: 20px;
+  width: 98%;
+  position: relative;
 }
 #VersionDiv{
   background-color: var(--functionsColor);
   height: 90px;
   border-radius: 25px;
-  align-self: center;
-  position: absolute;
-  top: 285px;
+  position: relative;
+  margin-top: 20px;
   left: 2.5%;
   width: 95%;
 }
