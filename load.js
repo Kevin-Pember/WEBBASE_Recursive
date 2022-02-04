@@ -36,7 +36,7 @@ if (document.getElementById("mainBody") != null) {
     document.getElementById('backspcaeIcon').src = "Images/backIcon.svg";
     let helpIcons = document.getElementsByClassName("helpIcon");
     for (let item of helpIcons) {
-      item.src = "Images/help.png";
+      item.src = "Images/help.svg";
     }
     let historyIcons = document.getElementsByClassName('historyIcon');
     for (let item of historyIcons) {
@@ -176,7 +176,7 @@ if (document.getElementById("mainBody") != null) {
     }
   });
   document.getElementById('minusIconPopup').addEventListener("click", function () {});
-  document.getElementById('functionPopup').addEventListener("click", function () { console.log("Things"); });
+  document.getElementById('functionPopup').addEventListener("click", function () { console.log("variables Fill In"); });
   document.getElementById('historyPopup').addEventListener("click", function () { deleteHistory(); });
   document.getElementById('deciToFracPopup').addEventListener("click", function () { frontButtonPressed('d→f('); });
   document.getElementById('helpPopup').addEventListener("click", function () { document.location = 'help.html'; });
