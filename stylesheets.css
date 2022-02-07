@@ -704,9 +704,11 @@ button:focus, input[type="button"]:focus {
     display: grid;
     justify-items: center;
     align-items: center;
+    visibility: hidden;
   }
   #entryDiv{
     width:80%;
+    max-width: 400px;
     height: 30%;
     border-radius: 30px;
     background-color: var(--functionsColor);

@@ -142,14 +142,10 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('absEx').addEventListener("click", function () { frontButtonPressed('|'); });
   document.getElementById('modEx').addEventListener("click", function () { frontButtonPressed('mod('); });
   document.getElementById('arcEx').addEventListener("click", function () { arcSwitch(); });
-  document.getElementById('sinSide').addEventListener("click", function () { trigPressed('sin('); });
-  document.getElementById('cscEx').addEventListener("click", function () { trigPressed('csc('); });
+  document.getElementById('sinEx').addEventListener("click", function () { trigPressed('sin('); });
   document.getElementById('cosEx').addEventListener("click", function () { trigPressed('cos('); });
-  document.getElementById('secEx').addEventListener("click", function () { trigPressed('sec('); });
   document.getElementById('tanEx').addEventListener("click", function () { trigPressed('tan('); });
-  document.getElementById('cotEx').addEventListener("click", function () { trigPressed('cot('); });
   document.getElementById('factorialEx').addEventListener("click", function () { frontButtonPressed('!'); });
-  document.getElementById('eEx').addEventListener("click", function () { frontButtonPressed('e'); });
   document.getElementById('log10Ex').addEventListener("click", function () { frontButtonPressed('log₁₀('); });
   document.getElementById('lnEx').addEventListener("click", function () { frontButtonPressed('ln('); });
   document.getElementById('backExMini').addEventListener("click", function () {
@@ -163,17 +159,12 @@ if (document.getElementById("mainBody") != null) {
     document.getElementById('extendedFuncGrid').style.animation = "0.15s ease-in 0s 1 normal reverse running slideFromSide";
   });
   document.getElementById('addFunctionEx').addEventListener("click", function () {
-    if (!custFuncExisting(document.getElementById('enterHeader').innerHTML, 'New Function', false)) {
-      custButton(document.getElementById('enterHeader').innerHTML, 'New Function', ['customFuncDisplayGrid', 'custFuncGridPopup']);
-      localStorage.setItem(('Func' + numOfSaved()), 'New Function' + "»" + document.getElementById('enterHeader').innerHTML + "»");
-    }
+    openPopup();
   });
   document.getElementById('minusFunctionEx').addEventListener("click", function () { console.log("Things" + document.getElementById("enterHeader").value); });
   document.getElementById('addIconPopup').addEventListener("click", function () {
-    if (!custFuncExisting(document.getElementById('enterHeader').innerHTML, 'New Function', false)) {
-      custButton(document.getElementById('enterHeader').innerHTML, 'New Function', ['customFuncDisplayGrid', 'custFuncGridPopup']);
-      localStorage.setItem(('Func' + numOfSaved()), 'New Function' + "»" + document.getElementById('enterHeader').innerHTML + "»");
-    }
+    console.log("Icon Popup")
+    openPopup();
   });
   document.getElementById('minusIconPopup').addEventListener("click", function () {});
   document.getElementById('functionPopup').addEventListener("click", function () { console.log("variables Fill In"); });
@@ -193,6 +184,16 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('secPopup').addEventListener("click", function () { trigPressed('sec('); });
   document.getElementById('cotPopup').addEventListener("click", function () { trigPressed('cot('); });
   document.getElementById('modPopup').addEventListener("click", function () { frontButtonPressed('mod(') });
+
+  document.getElementById('confirmNameEntry').addEventListener("click", function () {
+    createFunc();
+    document.getElementById('nameEntry').style.visibility = "hidden";
+  });
+  document.getElementById('exitNameEntry').addEventListener("click", function () {
+    document.getElementById('nameEntry').style.visibility = "hidden";
+    document.getElementById('nameEntry').style.animation = null;
+    document.getElementById('nameEntryArea').value = "";
+  });
 
   const elem = document.getElementById("memoryTextBoarder");
   let isDown = false;
@@ -295,6 +296,18 @@ if (document.getElementById("mainBody") != null) {
   rootCss.style.setProperty('--numbersColor', localStorage.getItem('numsColor'));
   rootCss.style.setProperty('--functionsColor', localStorage.getItem('funcColor'));
   rootCss.style.setProperty('--textColor', localStorage.getItem('textColor'));
+}
+function createFunc(){
+  let name = document.getElementById('nameEntryArea').value;
+  let func = document.getElementById('enterHeader').innerHTML;
+  if (!custFuncExisting(func, name, false)) {
+    custButton(func, name, ['customFuncDisplayGrid', 'custFuncGridPopup']);
+    localStorage.setItem(('Func' + numOfSaved()), name + "»" + func + "»");
+  }
+}
+function openPopup(){
+  console.log("open popup ran")
+  document.getElementById('nameEntry').style.visibility = "visible";
 }
 function frontButtonPressed(input) {
   let display = document.getElementById('enterHeader');
