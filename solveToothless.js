@@ -43,42 +43,42 @@ let funcList = [
   },
   {
     'func': "sin",
-    'funcParse': ["Math.sin(", "v1", ")", "toDeg"],
+    'funcParse': ["Math.sin(", "v1","toDeg",")"],
     'inputs': 1,
     'funcRadDeg': true,
     'funcLength': 3,
   },
   {
     'func': "cos",
-    'funcParse': ["Math.cos(", "v1", ")", "toDeg"],
+    'funcParse': ["Math.cos(", "v1", "toDeg", ")"],
     'inputs': 1,
     'funcRadDeg': true,
     'funcLength': 3,
   },
   {
     'func': "tan",
-    'funcParse': ["Math.tan(", "v1", ")", "toDeg"],
+    'funcParse': ["Math.tan(", "v1", "toDeg", ")"],
     'inputs': 1,
     'funcRadDeg': true,
     'funcLength': 3,
   },
   {
     'func': "csc",
-    'funcParse': ["Math.asin(1/", "v1", ")", "toDeg"],
+    'funcParse': ["1/Math.sin(", "v1", "toDeg", ")"],
     'inputs': 1,
     'funcRadDeg': true,
     'funcLength': 3,
   },
   {
     'func': "sec",
-    'funcParse': ["Math.acos(1/", "v1", ")", "toDeg"],
+    'funcParse': ["1/Math.cos(1/", "v1", "toDeg", ")"],
     'inputs': 1,
     'funcRadDeg': true,
     'funcLength': 3,
   },
   {
     'func': "cot",
-    'funcParse': ["Math.atan(1/", "v1", ")", "toDeg"],
+    'funcParse': ["1/Math.tan(1/", "v1", "toDeg", ")"],
     'inputs': 1,
     'funcRadDeg': true,
     'funcLength': 3,
@@ -104,13 +104,19 @@ let funcList = [
     'funcRadDeg': false,
     'funcLength': 3,
   },
+  {
+    "func": "abs",
+    "funcParse": ["Math.abs(", "v1", ")"],
+    "inputs": 1,
+    "funcRadDeg": false,
+    "funcLength": 3,
+  }
 ];
 let secondList = [
   "sup>",
 ];
-//console.log(solveInpr("‎9+√9"));
-//create an array full of object that contain name, equation, parse the equation, needs rad of deg, length, or  etc.
-function solveInpr(equation) {
+//Main method called to parse an Equation
+function solveInpr(equation, degRad) {
   equation = builtInFunc(equation);
   console.log('Inpr ran');
   for (let i = 0; i < equation.length; i++) {
@@ -119,8 +125,8 @@ function solveInpr(equation) {
       let innerRAW = parEncap(
         equation.substring(i+func.funcLength)
       );
-      let values = recrSolve(innerRAW.substring(1, innerRAW.length - 1),func);
-      let funcTemp = findMethod(func);
+      let values = recrSolve(innerRAW.substring(1, innerRAW.length - 1),func,degRad);
+      let funcTemp = findMethod(func,degRad);
       let parsedFunc = assembly(func, funcTemp, values);
       equation = equation.substring(0, i)+parsedFunc+equation.substring(i+func.funcLength+innerRAW.length);
       i = i+parsedFunc.length-1;
@@ -128,6 +134,7 @@ function solveInpr(equation) {
   }
   return equation;
 }
+//Func method to find if the current postion has a function defined in the funclist
 function getByName(name) {
   for (let func of funcList) {
     if (func.func == name) {
@@ -136,6 +143,7 @@ function getByName(name) {
   }
   return null;
 }
+//A secondary method to match postions with functions but this one returns the function ength in order to skip through that in a loop
 function funcMatch(equation) {
   for (let func of funcList) {
     let check = equation.substring(0, (func.funcLength));
@@ -152,8 +160,8 @@ function funcMatch(equation) {
   }
   return "";
 }
-function findMethod(func) {
-  let degRad = true;
+//A method to parse for functions that are defined diffrenely depending on weather or not in rad or deg
+function findMethod(func,degRad) {
   let array = func.funcParse;
   if (func.funcRadDeg) {
     if(degRad){
@@ -166,6 +174,7 @@ function findMethod(func) {
   }
   return array;
 }
+//A method to parse a function array into a string so it can be add to the equation string
 function assembly(func, parsedFunc, values) {
   inputs = func.inputs;
   for (let i = 1; i <= inputs; i++) {
@@ -175,29 +184,32 @@ function assembly(func, parsedFunc, values) {
   let parsedString = parsedFunc.join("");
   return parsedString;
 }
-function recrSolve(equation,func) {
+//A method which takes the inputs value from a func object in the funclist and gets how many inputs that function has and parses each
+function recrSolve(equation,func, degRad) {
   let inputs = func.inputs;
   if(inputs == 1){
-    return [equatInner(equation)];
+    return [equatInner(equation, degRad)];
   }else {
     let values = [];
     for(let i = 1; i <= inputs; i++){
       if(i != inputs){
-        values.push(equatInner(equation.substring(0, equation.indexOf(","))));
+        values.push(equatInner(equation.substring(0, equation.indexOf(",")),degRad));
         equation = equation.substring(equation.indexOf(",") + 1);
       }else {
-        values.push(equatInner(equation));
+        values.push(equatInner(equation,degRad));
         break;
       }
     }
       return values
   }
 }
-function equatInner(equation){
-  equation = solveInpr(equation);
+//A method to solve for the inner values of encapsulated functions
+function equatInner(equation,degRad){
+  equation = solveInpr(equation,degRad);
   //eval(equation)
   return equation;
 }
+//A meothod for creating the end of a parenthesis
 function parComplete(input) {
   for (let i = 0; i < input.length; i++) {
     if (input.charAt(i) == "(") {
@@ -211,6 +223,7 @@ function parComplete(input) {
   }
   return input;
 }
+//A method to find the end of a parenthesis and make one if there is none
 function parEncap(sub) {
   for (let i = 1; i < sub.length; i++) {
     if (sub.charAt(i) == "(") {
@@ -225,6 +238,7 @@ function parEncap(sub) {
   }
   return sub;
 }
+//A method to find the beginning of a parenthesis and make one if there is none
 function parEncap2(sub) {
 	for (let i = sub.length - 2; i >= 0; i--) {
 		if (sub.charAt(i) == ')') {
@@ -239,6 +253,7 @@ function parEncap2(sub) {
 	}
 	return sub;
 }
+//A method to find the ending of a superscript html tag. Doesn't make one if there is none
 function supEncap(sub) {
 	for (let i = 5; i < sub.length; i++) {
 		if (sub.substring(i, i + 5) == "<sup>") {
@@ -251,6 +266,7 @@ function supEncap(sub) {
   console.log("Sub is " + sub);
 	return sub;
 }
+//A deprecated Method to find the postion of a function in the equation string
 function funcIndex(func, equation, funcList) {
   let has = false;
   var hasVal = -1;
@@ -268,6 +284,7 @@ function funcIndex(func, equation, funcList) {
     return equation.indexOf(func);
   }
 }
+//A method to parse functions that don't fit into the conventions of the function list 
 function builtInFunc(equation){
   equation = equation.replaceAll('‎','');
   equation = equation.replaceAll('e','Math.E');
@@ -329,6 +346,7 @@ function builtInFunc(equation){
   }
   return equation;
 }
+//A method that finds the end of a number from the start of the number
 function backward(sub) {
 	let outputSub = "";
 	for (i = 0; i <= sub.length - 1; i++) {
@@ -363,6 +381,7 @@ function backward(sub) {
 	}
 	return outputSub;
 }
+//A method that finds the start of a number from the end of the number
 function forward(sub) {
 	let outputSub = "";
 	for (let i = sub.length - 1; i >= 0; i--) {
@@ -398,6 +417,7 @@ function forward(sub) {
 	console.log("Outputsub is " + outputSub);
 	return outputSub;
 }
+//A method that returns an array of the names of the funcs that are in the Funclist
 function getNameList(){
   let nameList = [];
   for(let func of funcList){

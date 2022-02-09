@@ -97,7 +97,7 @@ if (document.getElementById("mainBody") != null) {
     document.getElementById('memoryTextBoarder').style.visibility = "visible"; 
     let enteredText = document.getElementById('enterHeader').innerHTML;
     var mySolver = new Solver({
-      s: solveInpr(enteredText),
+      s: solveInpr(enteredText,true),
     })
     document.getElementById('memoryText').innerHTML = mySolver.solve({})["s"]; 
   });
@@ -688,7 +688,7 @@ function tabOpen(intialize) {
 function enterPressed(input) {
   let display = document.getElementById('enterHeader');
   historyMethod(input);
-  input = solveInpr(input);
+  input = solveInpr(input,true);
   console.log("Equation after interpeter " + input);
   var mySolver = new Solver({
     s: input,
@@ -699,7 +699,7 @@ function enterPressed(input) {
 }
 function historyMethod(equation) {
   let historyHeader = document.getElementById('historyHeader');
-  let interpetedEquat = solveInpr(equation);
+  let interpetedEquat = solveInpr(equation,true);
   console.log("%cEquation after interpeter " + interpetedEquat, "color: #00ff00");
   var mySolver = new Solver({
     s: interpetedEquat,
@@ -1110,10 +1110,10 @@ function parseVariables(element,equationDIV, funcTabs){
         }
       }
     }
-    let fullyParsed = solveInpr(parsedEquation);
+    let fullyParsed = solveInpr(parsedEquation,true);
     console.log("%c parsedEquation post op: "+fullyParsed,"color:green");
     var mySolver = new Solver({
-      s: solveInpr(fullyParsed),
+      s: fullyParsed,
     })
     let result = "="+mySolver.solve({})["s"];
     console.log("%c result: "+result,"color:green");
