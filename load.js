@@ -340,35 +340,15 @@ function preventFocus() {
   var ae = document.activeElement;
   setTimeout(function () { ae.focus() }, 1);
 }
-function universalBack(type) {
-  if (type == "colorsTab") {
-    document.getElementById("colorsBack").style.visibility = "hidden";
-    if (window.innerWidth / window.innerHeight > 3 / 4) {
-      document.getElementById("colorsTab").style.animation = null;
-    } else {
-      document.getElementById("colorsTab").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
-      setTimeout(function () { document.getElementById("colorsTab").style.animation = null; document.getElementById("colorsTab").style.width = null; }, 150);
-    }
-    document.getElementById("navColumn").style.visibility = "visible";
-  } else if (type == "PreferencesTab") {
-    document.getElementById("PreferencesBack").style.visibility = "hidden";
-    if (window.innerWidth / window.innerHeight > 3 / 4) {
-      document.getElementById("PreferencesTab").style.animation = null;
-    } else {
-      document.getElementById("PreferencesTab").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
-      setTimeout(function () { document.getElementById("PreferencesTab").style.animation = null; document.getElementById("PreferencesTab").style.width = null; }, 150);
-    }
-    document.getElementById("navColumn").style.visibility = "visible";
-  } else if (type == "AboutTab") {
-    document.getElementById("AboutBack").style.visibility = "hidden";
-    if (window.innerWidth / window.innerHeight > 3 / 4) {
-      document.getElementById("AboutTab").style.animation = null;
-    } else {
-      document.getElementById("AboutTab").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
-      setTimeout(function () { document.getElementById("AboutTab").style.animation = null; document.getElementById("AboutTab").style.width = null; }, 150);
-    }
-    document.getElementById("navColumn").style.visibility = "visible";
-  }else if(type == "backButton"){
+function universalBack() {
+  let page = document.getElementById('body').id;
+  if(id == 'settingsBody'){
+
+  }else if(id=='mainBody'){
+
+  }else if(id == "helpBody"){
+
+  }else if(id == "extenedBody"){
 
   }
 }
