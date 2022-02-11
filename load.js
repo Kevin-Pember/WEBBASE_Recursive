@@ -1,5 +1,6 @@
 let TextColorGlobal = "";
 let BackgroundColorGlobal = "";
+console.log(window.innerHeight/window.innerWidth);
 if(localStorage.getItem('funcColor') != undefined){
   BackgroundColorGlobal = localStorage.getItem('funcColor');
 }else{
@@ -103,7 +104,7 @@ if (document.getElementById("mainBody") != null) {
   });
   document.getElementById('leftOverlayNav').addEventListener("click", function () { navigateButtons(false) });
   document.getElementById('rightOverlayNav').addEventListener("click", function () { navigateButtons(true) });
-  document.getElementById('num1').addEventListener("click", function () { frontButtonPressed('1'); });
+  document.getElementById('num1').addEventListener("click", function () { frontButtonPressed('1'); console.log(window.devicePixelRatio);});
   document.getElementById('num2').addEventListener("click", function () { frontButtonPressed('2'); });
   document.getElementById('num3').addEventListener("click", function () { frontButtonPressed('3'); });
   document.getElementById('moreFunctionsButton').addEventListener("click", function () { document.location = 'moreFunctions.html'; });
@@ -340,14 +341,34 @@ function preventFocus() {
   var ae = document.activeElement;
   setTimeout(function () { ae.focus() }, 1);
 }
+let facingBack = [
+  {
+    "elm": "custFunc",
+    "prtCont": 'main',
+    "mth": function(){
+      openElement(document.getElementById('mainTab'))
+    },
+    "arDepen": false
+  }
+];
 function universalBack() {
   let page = document.getElementById('body').id;
+  let currentElement = sessionStorage.getItem("facing");
+  let aspect = window.innerHeight/window.innerWidth;
   if(id == 'settingsBody'){
+    if(aspect < 4/3){
 
+    }
   }else if(id=='mainBody'){
+    if(aspect < 4/3){
 
+    }else if(aspect > 4/3 || aspect < 2/1){
+
+    }
   }else if(id == "helpBody"){
+    if(aspect < 4/3){
 
+    }
   }else if(id == "extenedBody"){
 
   }
