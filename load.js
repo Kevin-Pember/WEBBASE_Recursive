@@ -297,6 +297,14 @@ if (document.getElementById("mainBody") != null) {
   rootCss.style.setProperty('--numbersColor', localStorage.getItem('numsColor'));
   rootCss.style.setProperty('--functionsColor', localStorage.getItem('funcColor'));
   rootCss.style.setProperty('--textColor', localStorage.getItem('textColor'));
+
+  document.getElementById('backButton').addEventListener("click", function(){document.location = 'Recursive.html';});
+  document.getElementById('LooknFeel').addEventListener("click", function(){helpTabChange('mainCalculatorHelp')});
+  document.getElementById('Preferences').addEventListener("click", function(){helpTabChange('customFuncHelp')});
+  document.getElementById('About').addEventListener("click", function(){helpTabChange('settingsHelp')});
+  document.getElementById('mainCalBack').addEventListener("click", function(){SettingsBack('LooknFeelTab')});
+  document.getElementById('customFuncBack').addEventListener("click", function(){SettingsBack('LooknFeelTab')});
+  document.getElementById('settingsBack').addEventListener("click", function(){SettingsBack('LooknFeelTab')});
 }
 function createFunc(){
   let name = document.getElementById('nameEntryArea').value;
@@ -348,7 +356,71 @@ let facingBack = [
     "mth": function(){
       openElement(document.getElementById('mainTab'))
     },
-    "arDepen": false
+  },
+  {
+    "elm": "mainFlip",
+    "prtCont": 'main',
+    "mth": function(){
+      document.getElementById('customFuncDisplay').style.animation = null;
+      document.getElementById('customFuncDisplay').style.animation = "0.15s ease-in 0s 1 normal reverse running slideFromSide";
+      setTimeout(function(){
+        document.getElementById('customFuncDisplay').style = undefined;
+        document.getElementById('extendedFuncGrid').style = undefined;
+
+      }, 150);
+      document.getElementById('extendedFuncGrid').style.animation = "0.15s ease-in 0s 1 normal reverse running slideFromSide";
+    },
+  },
+  {
+    "elm": "mainPopup",
+    "prtCont": 'main',
+    "mth": function(){
+      popup(); preventFocus();
+    },
+  },
+  {
+    "elm": "createNaming",
+    "prtCont": 'main',
+    "mth": function(){
+      document.getElementById('nameEntry').style.visibility = "hidden";
+      document.getElementById('nameEntry').style.animation = null;
+      document.getElementById('nameEntryArea').value = "";
+    }
+  },
+  {
+    "elm": "settingsOut",
+    "prtCont": 'settings',
+    "mth": function(){
+      settingExit()
+    }
+  },
+  {
+    "elm": "themePageOut",
+    "prtCont": 'settings',
+    "mth": function(){
+      SettingsBack('colorsTab');
+    }
+  },
+  {
+    "elm": "prefPageOut",
+    "prtCont": 'settings',
+    "mth": function(){
+      SettingsBack('PreferencesTab');
+    }
+  },
+  {
+    "elm": "aboutPageOut",
+    "prtCont": 'settings',
+    "mth": function(){
+      SettingsBack('AboutTab');
+    }
+  },
+  {
+    "elm": "helpOut",
+    "prtCont": 'help',
+    "mth": function(){
+      document.location = 'Recursive.html';
+    }
   }
 ];
 function universalBack() {
