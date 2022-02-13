@@ -297,14 +297,24 @@ if (document.getElementById("mainBody") != null) {
   rootCss.style.setProperty('--numbersColor', localStorage.getItem('numsColor'));
   rootCss.style.setProperty('--functionsColor', localStorage.getItem('funcColor'));
   rootCss.style.setProperty('--textColor', localStorage.getItem('textColor'));
+  if(localStorage.getItem('textColor') == "#000000"){
+    let addIcons = document.getElementsByClassName('backIcon');
+    for (let item of addIcons) {
+      item.src = "Images/MoreFuncArrow.svg";
+    }
+    document.getElementById('calcIcon').src = "Images/CalculatorIconWhite.svg";
 
+    document.getElementById('funcsIcon').src = "Images/customFunctionIconWhite.svg";
+
+    document.getElementById('setIcon').src = "Images/settingsPageIconWhite.svg";
+  }
   document.getElementById('backButton').addEventListener("click", function(){document.location = 'Recursive.html';});
   document.getElementById('LooknFeel').addEventListener("click", function(){helpTabChange('mainCalculatorHelp')});
   document.getElementById('Preferences').addEventListener("click", function(){helpTabChange('customFuncHelp')});
   document.getElementById('About').addEventListener("click", function(){helpTabChange('settingsHelp')});
-  document.getElementById('mainCalBack').addEventListener("click", function(){SettingsBack('LooknFeelTab')});
-  document.getElementById('customFuncBack').addEventListener("click", function(){SettingsBack('LooknFeelTab')});
-  document.getElementById('settingsBack').addEventListener("click", function(){SettingsBack('LooknFeelTab')});
+  document.getElementById('mainCalBack').addEventListener("click", function(){helpBack('mainCalculatorHelp');});
+  document.getElementById('customFuncBack').addEventListener("click", function(){helpBack('customFuncHelp')});
+  document.getElementById('settingsBack').addEventListener("click", function(){helpBack('settingsHelp')});
 }
 function createFunc(){
   let name = document.getElementById('nameEntryArea').value;
@@ -420,6 +430,27 @@ let facingBack = [
     "prtCont": 'help',
     "mth": function(){
       document.location = 'Recursive.html';
+    }
+  },
+  {
+    "elm": "mainCalculatorHelp",
+    "prtCont": 'help',
+    "mth": function(){
+      helpBack('mainCalculatorHelp')
+    }
+  },
+  {
+    "elm": "customFuncHelp",
+    "prtCont": 'help',
+    "mth": function(){
+      helpBack('customFuncHelp')
+    }
+  },
+  {
+    "elm": "settingsHelp",
+    "prtCont": 'help',
+    "mth": function(){
+      helpBack('settingsHelp')
     }
   }
 ];

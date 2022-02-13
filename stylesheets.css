@@ -235,6 +235,7 @@ button:focus, input[type="button"]:focus {
     color: var(--displayColor);
   }
   #historyHeader{
+    margin-left: 5px;
     font-weight: lighter;
     font-size: 25px;
     color: var(--functionsColor);
@@ -285,14 +286,14 @@ button:focus, input[type="button"]:focus {
     z-index: 1;
     grid-template-areas: 
     "help func"
-    "arrowBack arrowForward"
-    "history d-f"
-    "abs mod"
-    "sin csc"
-    "cos sec"
-    "tan cot"
-    "ln e"
-    "log fact";
+    "his vars"
+    "arc inv"
+    "sin deg"
+    "cos mod"
+    "tan abs"
+    "d-f fact"
+    "ln log"
+    "log10 e";
   }
   .button-item {
     padding: 0px;
@@ -918,6 +919,7 @@ button:focus, input[type="button"]:focus {
 @media only screen and (max-height: 450px) {
   #displayClip{
     width: 66.6666%;
+    left: 33.3333%;
     max-width: 100%;
     max-height: 45%;
     border-radius: 0 25px 25px 0;
@@ -930,6 +932,7 @@ button:focus, input[type="button"]:focus {
   }
   .mainCacGrid {
     width: 66.6666%;
+    left: 33.3333%;
     height: 55%;
     top: 45%;
     bottom: 0;
@@ -952,17 +955,39 @@ button:focus, input[type="button"]:focus {
     top: 0;
     height: 100%;
     width: 33.3333%;
-    left: 66.6666%;
+    left: 0;
     max-width: 100%;
     grid-template-columns: 33.3333% 33.3333% 33.3333%;
     grid-template-rows: 16.6666% 16.6666% 16.6666% 16.6666% 16.6666% 16.6666%;
     grid-template-areas: 
-    "history help func"
-    "arrowBack arrowForward fact"
-    "abs mod d-f"
+    "his help func"
+    "vars abs d-f"
+    "deg inv arc"
     "sin cos tan"
-    "csc sec cot"
+    "mod log10 fact"
     "log ln e";
+  }
+  #varsDiv{
+    top: 0;
+    height: 100%;
+    width: 33.3333%;
+    left: 0;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    position: absolute;
+    z-index: 4;
+  }
+  #arrowVarIcon{
+    transform: rotate(180deg);
+  }
+  .varItem{
+    font-size: 20px;
+    color: var(--textColor);
+    background-color: var(--displayColor);
+    text-align: center;
+    border-style: none;
   }
   #arrowIcon{
       opacity: 0;
@@ -1934,7 +1959,7 @@ button:focus, input[type="button"]:focus {
   background-color: var(--displayColor); 
 }
 .helpDivs{
-  background-color: var(--functionsColor);
+  background-color: var(--numbersColor);
   position: relative;
   border-radius: 25px;
   width: 95%;
@@ -1948,7 +1973,7 @@ button:focus, input[type="button"]:focus {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 25px;
-  background-color: var(--numbersColor);
+  background-color: var(--functionsColor);
   padding: 5px 10px;
   border-radius: 25px 25px 25px 25px;
   width: 100%;
