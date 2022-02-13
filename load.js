@@ -1679,3 +1679,33 @@ function rgbToHex(rgb) {
   let thrid = rgb.substring(0, rgb.indexOf(')'));
   return "#" + componentToHex(Number(first)) + componentToHex(Number(second)) + componentToHex(Number(thrid));
 }
+function helpBack(tab) {
+  if (tab == "colorsTab") {
+    document.getElementById("colorsBack").style.visibility = "hidden";
+    if (window.innerWidth / window.innerHeight > 3 / 4) {
+      document.getElementById("colorsTab").style.animation = null;
+    } else {
+      document.getElementById("colorsTab").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
+      setTimeout(function () { document.getElementById("colorsTab").style.animation = null; document.getElementById("colorsTab").style.width = null; }, 150);
+    }
+    document.getElementById("navColumn").style.visibility = "visible";
+  } else if (tab == "PreferencesTab") {
+    document.getElementById("PreferencesBack").style.visibility = "hidden";
+    if (window.innerWidth / window.innerHeight > 3 / 4) {
+      document.getElementById("PreferencesTab").style.animation = null;
+    } else {
+      document.getElementById("PreferencesTab").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
+      setTimeout(function () { document.getElementById("PreferencesTab").style.animation = null; document.getElementById("PreferencesTab").style.width = null; }, 150);
+    }
+    document.getElementById("navColumn").style.visibility = "visible";
+  } else if (tab == "AboutTab") {
+    document.getElementById("AboutBack").style.visibility = "hidden";
+    if (window.innerWidth / window.innerHeight > 3 / 4) {
+      document.getElementById("AboutTab").style.animation = null;
+    } else {
+      document.getElementById("AboutTab").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
+      setTimeout(function () { document.getElementById("AboutTab").style.animation = null; document.getElementById("AboutTab").style.width = null; }, 150);
+    }
+    document.getElementById("navColumn").style.visibility = "visible";
+  }
+}
