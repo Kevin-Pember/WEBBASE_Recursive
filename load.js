@@ -1680,31 +1680,31 @@ function rgbToHex(rgb) {
   return "#" + componentToHex(Number(first)) + componentToHex(Number(second)) + componentToHex(Number(thrid));
 }
 function helpBack(tab) {
-  if (tab == "colorsTab") {
-    document.getElementById("colorsBack").style.visibility = "hidden";
+  if (tab == "mainCalculatorHelp") {
+    document.getElementById("mainCalBack").style.visibility = "hidden";
     if (window.innerWidth / window.innerHeight > 3 / 4) {
-      document.getElementById("colorsTab").style.animation = null;
+      document.getElementById("mainCalculatorHelp").style.animation = null;
     } else {
-      document.getElementById("colorsTab").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
-      setTimeout(function () { document.getElementById("colorsTab").style.animation = null; document.getElementById("colorsTab").style.width = null; }, 150);
+      document.getElementById("mainCalculatorHelp").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
+      setTimeout(function () { document.getElementById("mainCalculatorHelp").style.animation = null; document.getElementById("mainCalculatorHelp").style.width = null; }, 150);
     }
     document.getElementById("navColumn").style.visibility = "visible";
-  } else if (tab == "PreferencesTab") {
-    document.getElementById("PreferencesBack").style.visibility = "hidden";
+  } else if (tab == "customFuncHelp") {
+    document.getElementById("customFuncBack").style.visibility = "hidden";
     if (window.innerWidth / window.innerHeight > 3 / 4) {
-      document.getElementById("PreferencesTab").style.animation = null;
+      document.getElementById("customFuncHelp").style.animation = null;
     } else {
-      document.getElementById("PreferencesTab").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
-      setTimeout(function () { document.getElementById("PreferencesTab").style.animation = null; document.getElementById("PreferencesTab").style.width = null; }, 150);
+      document.getElementById("customFuncHelp").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
+      setTimeout(function () { document.getElementById("customFuncHelp").style.animation = null; document.getElementById("customFuncHelp").style.width = null; }, 150);
     }
     document.getElementById("navColumn").style.visibility = "visible";
-  } else if (tab == "AboutTab") {
-    document.getElementById("AboutBack").style.visibility = "hidden";
+  } else if (tab == "settingsHelp") {
+    document.getElementById("settingsBack").style.visibility = "hidden";
     if (window.innerWidth / window.innerHeight > 3 / 4) {
-      document.getElementById("AboutTab").style.animation = null;
+      document.getElementById("settingsHelp").style.animation = null;
     } else {
-      document.getElementById("AboutTab").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
-      setTimeout(function () { document.getElementById("AboutTab").style.animation = null; document.getElementById("AboutTab").style.width = null; }, 150);
+      document.getElementById("settingsHelp").style.animation = "0.15s ease-in 0s 1 normal forwards running toSlideRight";
+      setTimeout(function () { document.getElementById("settingsHelp").style.animation = null; document.getElementById("settingsHelp").style.width = null; }, 150);
     }
     document.getElementById("navColumn").style.visibility = "visible";
   }
