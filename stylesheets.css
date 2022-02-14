@@ -287,10 +287,10 @@ button:focus, input[type="button"]:focus {
     grid-template-areas: 
     "help func"
     "his vars"
-    "arc inv"
+    "mod abs"
     "sin deg"
-    "cos mod"
-    "tan abs"
+    "cos arc"
+    "tan inv"
     "d-f fact"
     "ln log"
     "log10 e";
@@ -571,19 +571,6 @@ button:focus, input[type="button"]:focus {
     font-size: 12px;
     font-family: Arial, Helvetica, sans-serif;
   }
-  #sinSide{
-    flex-shrink: 0;
-    right: 40px;
-    position: relative;
-  }
-  #sinSideDiv{
-    display:flex;
-  }
-  #sinPopup{
-    flex-shrink: 0;
-    right: 40px;
-    position: relative;
-  }
   #sinSlideDiv{
     display:flex;
   }
@@ -752,6 +739,22 @@ button:focus, input[type="button"]:focus {
     left: 10px;
     border-radius: 25px;
   }
+  #varsDiv{
+    display: grid;
+    position: absolute;
+    z-index: 4;
+    visibility: hidden;
+  }
+  .varItem{
+    font-size: 20px;
+    color: var(--textColor);
+    background-color: var(--functionsColor);
+    text-align: center;
+    border-style: none;
+  }
+  #arrowVarIcon{
+    transform: rotate(180deg);
+  }
   @keyframes buttonSlide{
     from {}
     to{}
@@ -870,6 +873,15 @@ button:focus, input[type="button"]:focus {
     left: 66.6666%;
     max-width: 100%;
   }
+  #varsDiv{
+    top: 0;
+    height: 40%;
+    width: 33.3333%;
+    left: 66.6666%;
+    max-width: 100%;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+  }
   #arrowIcon{
       opacity: 0;
       animation: 0.25s ease-in 0s 1 normal forwards running toDown;
@@ -979,16 +991,8 @@ button:focus, input[type="button"]:focus {
     position: absolute;
     z-index: 4;
   }
-  #arrowVarIcon{
-    transform: rotate(180deg);
-  }
-  .varItem{
-    font-size: 20px;
-    color: var(--textColor);
-    background-color: var(--displayColor);
-    text-align: center;
-    border-style: none;
-  }
+  
+  
   #arrowIcon{
       opacity: 0;
       animation: 0.25s ease-in 0s 1 normal forwards running toDown;
