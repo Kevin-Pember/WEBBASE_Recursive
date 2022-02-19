@@ -83,7 +83,7 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('historyHeader').innerHTML = localStorage.getItem("historyOut");
   document.getElementById("uifCalculator").scrollTop = document.getElementById("uifCalculator").scrollHeight;
   document.getElementById('mainTab').addEventListener("click", function (e) { openElement(document.getElementById('mainTab')) });
-  document.getElementById('settingsCogIcon').addEventListener("click", function () { document.location = 'Settings.html' });
+  document.getElementById('settingsCogIcon').addEventListener("click", function () { sessionStorage.setItem("facing","settingsOut"); document.location = 'Settings.html' });
   document.getElementById('MRCOverlay').addEventListener("click", function () { 
     let enteredText = document.getElementById('enterHeader').innerHTML
     let mrmText = document.getElementById('memoryText').innerHTML;
@@ -108,7 +108,7 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('num2').addEventListener("click", function () { frontButtonPressed('2'); });
   document.getElementById('num3').addEventListener("click", function () { frontButtonPressed('3'); });
   document.getElementById('moreFunctionsButton').addEventListener("click", function () { document.location = 'moreFunctions.html'; });
-  document.getElementById('arrowIcon').addEventListener("click", function () { popup(); preventFocus(); });
+  document.getElementById('arrowIcon').addEventListener("click", function () { popup(); preventFocus(); sessionStorage.setItem("facing", "mainPopup")});
   document.getElementById('num4').addEventListener("click", function () { frontButtonPressed('4'); });
   document.getElementById('num5').addEventListener("click", function () { frontButtonPressed('5'); });
   document.getElementById('num6').addEventListener("click", function () { frontButtonPressed('6'); });
@@ -136,6 +136,7 @@ if (document.getElementById("mainBody") != null) {
     document.getElementById('extendedFuncGrid').style.animation = "0.15s ease-in 0s 1 reverse forwards running fadeEffect";
     setTimeout(function () { document.getElementById('extendedFuncGrid').style.visibility = "hidden"; document.getElementById('extendedFuncGrid').style.animation = null; }, 150);
     document.getElementById('customFuncDisplay').style.animation = "0.15s ease-in 0s 1 normal forwards running slideFromSide";
+    sessionStorage.setItem("facing", "mainFlip")
     }
    });
   document.getElementById('historyEx').addEventListener("click", function () { deleteHistory(); });
@@ -191,6 +192,7 @@ if (document.getElementById("mainBody") != null) {
     document.getElementById('nameEntry').style.visibility = "hidden";
   });
   document.getElementById('exitNameEntry').addEventListener("click", function () {
+    console.log("things");
     document.getElementById('nameEntry').style.visibility = "hidden";
     document.getElementById('nameEntry').style.animation = null;
     document.getElementById('nameEntryArea').value = "";
@@ -326,6 +328,7 @@ function createFunc(){
 }
 function openPopup(){
   console.log("open popup ran")
+  sessionStorage.setItem("facing", "createNaming");
   document.getElementById('nameEntry').style.visibility = "visible";
 }
 function frontButtonPressed(input) {
@@ -362,6 +365,7 @@ function preventFocus() {
 let facingBack = [
   {
     "elm": "custFunc",
+    "backElm": "",
     "prtCont": 'main',
     "mth": function(){
       openElement(document.getElementById('mainTab'))
@@ -369,6 +373,7 @@ let facingBack = [
   },
   {
     "elm": "mainFlip",
+    "backElm": "",
     "prtCont": 'main',
     "mth": function(){
       document.getElementById('customFuncDisplay').style.animation = null;
@@ -383,6 +388,7 @@ let facingBack = [
   },
   {
     "elm": "mainPopup",
+    "backElm": "",
     "prtCont": 'main',
     "mth": function(){
       popup(); preventFocus();
@@ -390,6 +396,7 @@ let facingBack = [
   },
   {
     "elm": "createNaming",
+    "backElm": "",
     "prtCont": 'main',
     "mth": function(){
       document.getElementById('nameEntry').style.visibility = "hidden";
@@ -399,13 +406,16 @@ let facingBack = [
   },
   {
     "elm": "settingsOut",
+    "backElm": "",
     "prtCont": 'settings',
     "mth": function(){
       settingExit()
     }
   },
   {
+    //stoped here
     "elm": "themePageOut",
+    "backElm": "settingsOut",
     "prtCont": 'settings',
     "mth": function(){
       SettingsBack('colorsTab');
@@ -413,6 +423,7 @@ let facingBack = [
   },
   {
     "elm": "prefPageOut",
+    "backElm": "settingsOut",
     "prtCont": 'settings',
     "mth": function(){
       SettingsBack('PreferencesTab');
@@ -420,6 +431,7 @@ let facingBack = [
   },
   {
     "elm": "aboutPageOut",
+    "backElm": "settingsOut",
     "prtCont": 'settings',
     "mth": function(){
       SettingsBack('AboutTab');
@@ -427,6 +439,7 @@ let facingBack = [
   },
   {
     "elm": "helpOut",
+    "backElm": "",
     "prtCont": 'help',
     "mth": function(){
       document.location = 'Recursive.html';
@@ -434,6 +447,7 @@ let facingBack = [
   },
   {
     "elm": "mainCalculatorHelp",
+    "backElm": "helpOut",
     "prtCont": 'help',
     "mth": function(){
       helpBack('mainCalculatorHelp')
@@ -441,6 +455,7 @@ let facingBack = [
   },
   {
     "elm": "customFuncHelp",
+    "backElm": "helpOut",
     "prtCont": 'help',
     "mth": function(){
       helpBack('customFuncHelp')
@@ -448,6 +463,7 @@ let facingBack = [
   },
   {
     "elm": "settingsHelp",
+    "backElm": "helpOut",
     "prtCont": 'help',
     "mth": function(){
       helpBack('settingsHelp')
@@ -457,23 +473,12 @@ let facingBack = [
 function universalBack() {
   let page = document.getElementById('body').id;
   let currentElement = sessionStorage.getItem("facing");
-  let aspect = window.innerHeight/window.innerWidth;
-  if(id == 'settingsBody'){
-    if(aspect < 4/3){
-
+  for(let elem of facingBack) {
+    if (elem.elm == currentElement) {
+      elem.mth();
+      sessionStorage.setItem("facing", elem.backElm);
+      break;
     }
-  }else if(id=='mainBody'){
-    if(aspect < 4/3){
-
-    }else if(aspect > 4/3 || aspect < 2/1){
-
-    }
-  }else if(id == "helpBody"){
-    if(aspect < 4/3){
-
-    }
-  }else if(id == "extenedBody"){
-
   }
 }
 function backPressed() {
@@ -752,6 +757,7 @@ function custButton(equation, name, target) {
         tabClon.getElementById('tabButton').addEventListener("click", function (e) {
           if (e.target != highlight.querySelector("IMG")) {
             openElement(highlight)
+            sessionStorage.setItem("facing", "custFunc");
           }
         });
         tabClon.getElementById('tabRemove').addEventListener('click', function (e) {
