@@ -78,48 +78,48 @@
         </div>
     </div>
     <div id="tab">
-        <button class="tablinks active" id="mainTab" data-tabMap="mainTab">
+        <button class="tablinks active" id="mainTab" data-tabMap="mainTab" name="Main Tab">
             <h3>Main</h3>
         </button>
         <template class="newTab">
             <button id="tabButton" class="tablinks" data-tabMap="custFunc">thing<img id="tabRemove"
                     src="Images/xIconWhite.svg" width="35px"></button>
         </template>
-        <img id="settingsCogIcon" src="Images/SettingsCogWhite.svg" height="100%">
+        <img id="settingsCogIcon" src="Images/SettingsCogWhite.svg" height="100%" name="Open Settings">
     </div>
     <div id="MainContent" class="tabcontent" style="display:flex" data-tab="mainTab">
         <div id="displayClip">
             <div contenteditable="true" id="uifCalculator" inputmode="none" class="text-area" name="uifCalculator" value="things"
                 autocorrect="off">
                 <h3 contenteditable="false" id="historyHeader"></h3>
-                <h3 id="enterHeader" contenteditable="true">‎</h3>
+                <h3 id="enterHeader" contenteditable="true" name="Enter Text">‎</h3>
             </div>
         </div>
         <div id="overlayDiv">
-            <button id="MRCOverlay" class="textOverlay">
+            <button id="MRCOverlay" class="textOverlay" name="Memory recall / clear">
                 <div class="matchCircle">
                     <h3 class="memText">MRC</h3>
                 </div>
             </button>
-            <button id="MAddOverlay" class="textOverlay">
+            <button id="MAddOverlay" class="textOverlay" name="Memory Add">
                 <div class="matchCircle">
                     <h3 class="memText">M+</h3>
                 </div>
             </button>
-            <div id="memoryDiv">
+            <div id="memoryDiv" name="Recorded Text">
                 <div id="memoryTextBoarder">
                     <h2 id=memoryText></h2>
                 </div>
             </div>
-            <img img id="leftOverlayNav" class="arrows" src="Images/MoreFuncArrowWhite.svg" width="40" height="40"
+            <img img id="leftOverlayNav" name="backward" class="arrows" src="Images/MoreFuncArrowWhite.svg" width="40" height="40"
                 style="transform: rotate(180deg);">
-            <img img id="rightOverlayNav" class="arrows" class='navLeft' src="Images/MoreFuncArrowWhite.svg" width="40"
+            <img img id="rightOverlayNav" name="forward" class="arrows" class='navLeft' src="Images/MoreFuncArrowWhite.svg" width="40"
                 height="40">
         </div>
         <div class="mainCacGrid">
-            <div id="Container" class="button-item" style="grid-area: num1;"><button class="numsbutton"
+            <div id="Container" name="1" class="button-item" style="grid-area: num1;"><button class="numsbutton"
                     id="num1">1</button></div>
-            <div class="button-item" style="grid-area: num2;"><button class="numsbutton" id="num2">2</button></div>
+            <div class="button-item" name="2" style="grid-area: num2;"><button class="numsbutton" id="num2">2</button></div>
             <div class="specialElements" style="grid-area: num3;"><button class="numsbutton" id="num3">3</button></div>
             <div class="function-item" style="grid-area: moreFuncBut;"><button
                     id="moreFunctionsButton">More<br>Functions</button><img src="Images/MoreFuncArrowWhite.svg"
