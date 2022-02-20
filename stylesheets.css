@@ -1041,6 +1041,9 @@ button:focus, input[type="button"]:focus {
     color: transparent;
   }
 }
+@media only screen and (max-width: 451px){
+  
+}
 @media only screen and (min-aspect-ratio: 5/3)  and (min-height: 451px){
   #displayClip{
     width: 40%;
