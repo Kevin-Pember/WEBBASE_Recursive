@@ -83,6 +83,7 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('historyHeader').innerHTML = localStorage.getItem("historyOut");
   document.getElementById("uifCalculator").scrollTop = document.getElementById("uifCalculator").scrollHeight;
   document.getElementById('mainTab').addEventListener("click", function (e) { openElement(document.getElementById('mainTab')) });
+  document.getElementById('mobileTabs').addEventListener("click", function (e) { mobileTabMethod() });
   document.getElementById('settingsCogIcon').addEventListener("click", function () { sessionStorage.setItem("facing","settingsOut"); document.location = 'Settings.html' });
   document.getElementById('MRCOverlay').addEventListener("click", function () { 
     let enteredText = document.getElementById('enterHeader').innerHTML
@@ -762,7 +763,7 @@ function custButton(equation, name, target) {
         tabClon.getElementById('tabRemove').addEventListener('click', function (e) {
           removeCustFunc(e);
         })
-        document.getElementById('tab').appendChild(tabClon);
+        document.getElementById('tabContainer').appendChild(tabClon);
         highlightTab(highlight);
       }
     });
@@ -1751,4 +1752,26 @@ function helpBack(tab) {
     }
     document.getElementById("navColumn").style.visibility = "visible";
   }
+}
+function mobileTabMethod(){
+  document.getElementById("tab").style = "display: block; height:100%;";
+  let tabs = document.getElementsByClassName('tabcontent');
+  let tablinks = document.getElementsByClassName('tablinks');
+  for(let tab of tabs){
+    tab.style.visibility = "hidden";
+  }
+  for(let tablink of tablinks){
+    tablink.style = "visibility: visible; left: 5%; width: 90%; height: 90%; border-radius: 20px; text-align: center;";
+    var clon;
+    if(tablink.dataset.tabmap == "mainTab"){
+      let temp = document.getElementsByClassName('mainExample')[0];
+      clon = temp.content.cloneNode(true);
+    }else{
+      let temp = document.getElementsByClassName("customFuncTemplate")[0]; 
+      clon = temp.content.cloneNode(true);
+    }
+    let test = clon.cloneNode(true);
+    tablink.appendChild(test);
+  }
+  document.getElementById('tabContainer').style = "display: grid; grid-template-columns: 50% 50%; grid-auto-rows: 300px; position: absolute; visibility: visible; top: 50px; bottom: 0; width: 100%; height: 100%; background-color: var(--translucent); border-radius: 25px 25px 0 0;";
 }

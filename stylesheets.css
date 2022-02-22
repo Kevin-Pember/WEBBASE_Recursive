@@ -62,11 +62,23 @@ input:focus, #EquationFunc:focus, select:focus{
   border:0px;
   height: 35px;
   width: 100%;
-  background-color: var(--functionsColor);
-  display:inline-flex;
+  display: inline-flex;
   z-index: 1;
 }
-#tab button {
+#mobileTabs{
+  visibility: hidden;
+  z-index: 3;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+}
+#tabContainer{
+  position: absolute;
+  left:0;
+  height: 40px;
+  right: 40px;
+}
+.tablinks {
   position: relative;
   background-color: var(--functionsColor);
   color: var(--textColor);
@@ -534,7 +546,6 @@ button:focus, input[type="button"]:focus {
   #settingsCogIcon{
     top: 0;
     right: 0;
-    object-fit: fill;
     position: absolute;
   }
   .tranparentOverlayButtons{
@@ -650,7 +661,7 @@ button:focus, input[type="button"]:focus {
     position:absolute;
     width: 100%;
     left: 0;
-    top: 35px;
+    top: 50px;
     bottom: 0;
   }
   .tabCustomcontent{
@@ -822,6 +833,16 @@ button:focus, input[type="button"]:focus {
     initial-value: var(--displayColor);
   }
   @media only screen and (max-aspect-ratio: 3/4) {
+    #tab{
+      height: 50px;
+    }
+    #mobileTabs{
+      visibility: visible;
+      left:0;
+    }
+    .tablinks{
+      visibility: hidden;
+    }
     #displayClip{
       width: 100%;
     }
@@ -853,9 +874,27 @@ button:focus, input[type="button"]:focus {
   #customFuncDisplay{
     visibility: hidden;
   }
+  #settingsCogIcon{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+  }
 }
 @media only screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 2/1){
-  
+  #tab{
+    height: 40px
+  }
+  #settingsCogIcon{
+    width: 40px;
+    height: 40px;
+    top: 0;
+  }
+  .tabcontent{
+    top: 40px;
+  }
+  .tablinks{
+    left:0;
+  }
   #displayClip{
     width: 66.6666%;
     max-width: 100%;
@@ -929,6 +968,13 @@ button:focus, input[type="button"]:focus {
 }
 
 @media only screen and (max-height: 450px) {
+  #tab{
+    height: 40px
+  }
+  #settingsCogIcon{
+    width: 40px;
+    height: 40px;
+  }
   #displayClip{
     width: 66.6666%;
     left: 33.3333%;
@@ -1303,6 +1349,14 @@ button:focus, input[type="button"]:focus {
 }
 #displayPreview{
   border-width: 0.0000000005px;
+}
+#displayMain{
+  border-width: 0.0000000005px;
+  left: 2.5%;
+  top: 33px;
+  width: 95%;
+  max-width: 300px;
+  border-radius: 20px;
 }
 .displayBase{
   background-color: var(--displayColor);
