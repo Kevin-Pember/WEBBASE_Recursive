@@ -1358,6 +1358,25 @@ button:focus, input[type="button"]:focus {
   max-width: 300px;
   border-radius: 20px;
 }
+#displayFunc{
+  border-width: 0.0000000005px;
+  left: 2.5%;
+  top: 33px;
+  width: 95%;
+  max-width: 300px;
+  border-radius: 20px;
+}
+#bodyFunc{
+  top: 20%;
+  height: 80%;
+}
+#equtDisplayFunc{
+  text-align: start;
+  width: 90%;
+  margin-top: 8px;
+  margin-left: 5%;
+  font-size: 15px;
+}
 .displayBase{
   background-color: var(--displayColor);
   height: 230px;
