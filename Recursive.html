@@ -82,9 +82,20 @@
         <div id="tabContainer">
             <button class="tablinks active" id="mainTab" data-tabMap="mainTab" name="Main Tab">
                 <h3>Main</h3>
+                <div class="displayBase" id="displayMain">
+                    <div id="numsPreview" class="numsBase"></div>
+                    <div id="funcPreview" class="functionBase"></div>
+                </div>
             </button>
             <template class="newTab">
-                <button id="tabButton" class="tablinks" data-tabMap="custFunc">thing<img id="tabRemove" src="Images/xIconWhite.svg" width="35px">
+                <button id="tabButton" class="tablinks" data-tabMap="custFunc">
+                    <h3 id="newTabName"></h3>
+                    <img id="tabRemove" src="Images/xIconWhite.svg" width="31.5px">
+                    <div class="displayBase" id="displayFunc">
+                        <div id="bodyFunc" class="functionBase">
+                            <h2 id="equtDisplayFunc">keep it that way now</h2>
+                        </div>
+                    </div>
                 </button>
             </template>
         </div>

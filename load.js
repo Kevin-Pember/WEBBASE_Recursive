@@ -748,7 +748,7 @@ function custButton(equation, name, target) {
         document.getElementById('arrowIcon').style.transform = 'rotate(90deg);';
         document.getElementById('customFuncDisplay').style.visibility = "hidden";
         let tabClon = document.getElementsByClassName('newTab')[0].content.cloneNode(true);
-        tabClon.getElementById('tabButton').innerHTML = "<h3>" + name + "</h3><img id='tabRemove' src='Images/xIconWhite.svg' width='31.5px'>";
+        tabClon.getElementById('newTabName').innerHTML =   name;
         tabClon.getElementById('tabButton').dataset.tabmap = name + "»" + equation + "»";
         if(TextColorGlobal == "#000000"){
           tabClon.getElementById('tabRemove').src = "Images/xIcon.svg";
@@ -783,9 +783,10 @@ function numOfSaved() {
   }
 }
 function removeCustFunc(event) {
-  tabLink = event.target.parentElement;
+  let tabLink = event.target.parentNode;
+  console.log(tabLink.parentNode);
   document.getElementById('mainBody').removeChild(matchTab(tabLink.dataset.tabmap, false));
-  document.getElementById('tab').removeChild(tabLink);
+  document.getElementById('tabContainer').removeChild(tabLink);
   openElement(document.getElementById('mainTab'));
 }
 function tabOpen(intialize) {
@@ -1768,19 +1769,14 @@ function mobileTabMethod(){
     tablink.style = "visibility: visible; left: 5%; width: 90%; height: 90%; border-radius: 20px; text-align: center;";
     var clon;
     if(tablink.dataset.tabmap == "mainTab"){
-      let temp = document.getElementsByClassName('mainExample')[0];
-      clon = temp.content.cloneNode(true);
+      
     }else{
       console.log("Tabmap is "+ tablink.dataset.tabmap);
       let parse = tablink.dataset.tabmap;
       parse = parse.substring(parse.indexOf('»') + 1);
       parse = parse.substring(0, parse.indexOf('»'));
-      let temp = document.getElementsByClassName("funcExample")[0]; 
-      clon = temp.content.cloneNode(true);
-      clon.getElementById('equtDisplayFunc').innerHTML = parse;
+      
     }
-    let test = clon.cloneNode(true);
-    tablink.appendChild(test);
     
   }
   document.getElementById('tabContainer').style = "display: grid; grid-template-columns: 50% 50%; grid-auto-rows: 300px; position: absolute; visibility: visible; top: 50px; bottom: 0; width: 100%; height: 100%; background-color: var(--translucent); border-radius: 25px 25px 0 0;";

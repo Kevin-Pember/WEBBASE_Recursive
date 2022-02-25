@@ -1357,6 +1357,7 @@ button:focus, input[type="button"]:focus {
   width: 95%;
   max-width: 300px;
   border-radius: 20px;
+  visibility: hidden;
 }
 #displayFunc{
   border-width: 0.0000000005px;
@@ -1365,6 +1366,7 @@ button:focus, input[type="button"]:focus {
   width: 95%;
   max-width: 300px;
   border-radius: 20px;
+  visibility: hidden;
 }
 #bodyFunc{
   top: 20%;
