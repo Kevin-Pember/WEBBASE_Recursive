@@ -754,12 +754,16 @@ function custButton(equation, name, target) {
           tabClon.getElementById('tabRemove').src = "Images/xIcon.svg";
         }
         let highlight = tabClon.getElementById('tabButton');
-        tabClon.getElementById('tabButton').addEventListener("click", {handleEvent:function (e) {
-          if (e.target != highlight.querySelector("IMG")) {
-            openElement(highlight)
-            sessionStorage.setItem("facing", "custFunc");
+        tabClon.getElementById('tabButton').addEventListener("click", function (e) {
+          if(window.innerWidth / window.innerHeight > 3/4){
+            if (e.target != highlight.querySelector("IMG")) {
+              openElement(highlight)
+              sessionStorage.setItem("facing", "custFunc");
+            }
+          }else {
+            
           }
-        }});
+        });
         tabClon.getElementById('tabRemove').addEventListener('click', function (e) {
           removeCustFunc(e);
         })
@@ -1777,14 +1781,7 @@ function mobileTabMethod(){
     }
     let test = clon.cloneNode(true);
     tablink.appendChild(test);
-    //make clon that replaces the tablink in order to clear event listeners
-    tablink.removeEventListener("click", handleEvent);
-    tablink.addEventListener("click", function(){
-      if (e.target != highlight.querySelector("IMG")) {
-        openElement(highlight)
-        sessionStorage.setItem("facing", "custFunc");
-      }
-    });
+    
   }
   document.getElementById('tabContainer').style = "display: grid; grid-template-columns: 50% 50%; grid-auto-rows: 300px; position: absolute; visibility: visible; top: 50px; bottom: 0; width: 100%; height: 100%; background-color: var(--translucent); border-radius: 25px 25px 0 0;";
 }
