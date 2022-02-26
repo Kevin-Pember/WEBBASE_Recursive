@@ -1759,25 +1759,43 @@ function helpBack(tab) {
   }
 }
 function mobileTabMethod(){
-  document.getElementById("tab").style = "display: block; height:100%;";
+  
+  hideAllTabs();
+  changeTabAs(true);
+  document.getElementById('tabContainer').style = "display: grid; grid-template-columns: 50% 50%; grid-auto-rows: 300px; position: absolute; visibility: visible; top: 50px; bottom: 0; width: 100%; height: 100%; background-color: var(--translucent); border-radius: 25px 25px 0 0;";
+}
+function hideAllTabs(){
   let tabs = document.getElementsByClassName('tabcontent');
-  let tablinks = document.getElementsByClassName('tablinks');
   for(let tab of tabs){
     tab.style.visibility = "hidden";
   }
-  for(let tablink of tablinks){
-    tablink.style = "visibility: visible; left: 5%; width: 90%; height: 90%; border-radius: 20px; text-align: center;";
-    var clon;
-    if(tablink.dataset.tabmap == "mainTab"){
-      
-    }else{
-      console.log("Tabmap is "+ tablink.dataset.tabmap);
-      let parse = tablink.dataset.tabmap;
-      parse = parse.substring(parse.indexOf('»') + 1);
-      parse = parse.substring(0, parse.indexOf('»'));
-      
-    }
-    
+}
+function changeTabAs(change){
+  let visibility = "", bases = document.getElementsByClassName('displayBase'), tabstyle = "", tablinks = document.getElementsByClassName('tablinks');
+  if(change){
+    visibility = "visible";
+    tabstyle = "visibility: visible; left: 5%; width: 90%; height: 90%; border-radius: 20px; text-align: center;";
+    document.getElementById("tab").style = "display: block; height:100%;";
+  }else{
+    visibility = "hidden";
+    tabstyle = undefined;
+    document.getElementById("tab").style = undefined;
   }
-  document.getElementById('tabContainer').style = "display: grid; grid-template-columns: 50% 50%; grid-auto-rows: 300px; position: absolute; visibility: visible; top: 50px; bottom: 0; width: 100%; height: 100%; background-color: var(--translucent); border-radius: 25px 25px 0 0;";
+  for(let i = 0; i < bases.length; i++){
+    bases[i].style.visibility = visibility;
+    tablinks[i].style = tabstyle;
+    let parse = tablinks[i].dataset.tabmap;
+    parse = parse.substring(parse.indexOf('»') + 1);
+    parse = parse.substring(0, parse.indexOf('»'));
+    setShowEquat(tablinks[i], parse);
+  }
+}
+function setShowEquat(tablink, equation){
+  if(equation != ""){
+    let childern = tablink.childNodes;
+    console.log(childern);
+    for(let i = 0; i < childern.length; i++){
+
+    }
+  }
 }
