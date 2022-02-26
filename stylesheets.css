@@ -669,7 +669,7 @@ button:focus, input[type="button"]:focus {
     position:absolute;
     width: 100%;
     left: 0;
-    top: 50px;
+    top: 35px;
     bottom: 0;
   }
   .tabCustomcontent{
@@ -854,7 +854,13 @@ button:focus, input[type="button"]:focus {
     .tablinks{
       visibility: hidden;
     }
+    .tabcontent {
+      position:absolute;
+      top: 50px;
+      bottom: 0;
+    }
     #displayClip{
+      border-radius: 20px 20px 0 0;
       width: 100%;
     }
     .mainCacGrid{

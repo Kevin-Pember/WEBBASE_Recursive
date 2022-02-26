@@ -785,6 +785,7 @@ function custButton(equation, name, target) {
             changeTabAs(false);
           }
           removeCustFunc(e);
+          setNumOfTabs();
         })
         document.getElementById('tabContainer').appendChild(tabClon);
         setNumOfTabs();
@@ -1786,13 +1787,15 @@ function mobileTabMethod(){
 }
 function hideAllTabs(){
   let tabs = document.getElementsByClassName('tabcontent');
+  if(document.getElementById('arrowIcon').style.animation == "0.25s ease-in 0s 1 normal forwards running toUp"){
+    popup();
+  }
   for(let tab of tabs){
     tab.style.visibility = "hidden";
   }
 }
 function changeTabAs(change){
   let visibility = "", bases = document.getElementsByClassName('displayBase'), tabstyle = "", tablinks = document.getElementsByClassName('tablinks');
-  console.log("%c Tabs nums: "+tablinks.length, "color: green;");
   if(change){
     visibility = "visible";
     tabstyle = "visibility: visible; left: 5%; width: 90%; height: 90%; border-radius: 20px; text-align: center;";
@@ -1824,6 +1827,5 @@ function setShowEquat(tablink, equation){
 }
 function setNumOfTabs(){
   let tabs = document.getElementsByClassName('tablinks');
-  console.log("%c Tabs nums in update: "+tabs.length, "color: red;");
   document.getElementById("tabNum").innerHTML = tabs.length;
 }
