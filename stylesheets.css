@@ -71,6 +71,14 @@ input:focus, #EquationFunc:focus, select:focus{
   position: absolute;
   background-color: transparent;
   border: none;
+  display: grid;
+  place-items: center;
+}
+#mobileTabs h3{
+  margin: 0;
+}
+#tabNum{
+  margin: 0px;
 }
 #tabContainer{
   position: absolute;
@@ -96,7 +104,7 @@ input:focus, #EquationFunc:focus, select:focus{
 button:focus, input[type="button"]:focus {
   outline: none;
 }
-#tab button h3{
+#tabContainer button h3{
   font-size: 17px;
   font-weight: normal;
   margin-top: 6.5px;
@@ -765,6 +773,9 @@ button:focus, input[type="button"]:focus {
   }
   #arrowVarIcon{
     transform: rotate(180deg);
+  }
+  #tabNum{
+    position: absolute;
   }
   @keyframes buttonSlide{
     from {}

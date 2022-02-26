@@ -35,6 +35,7 @@ if (document.getElementById("mainBody") != null) {
   if (localStorage.getItem('textColor') == "#000000") {
     document.getElementById('settingsCogIcon').src = "Images/SettingsCog.svg";
     document.getElementById('backspcaeIcon').src = "Images/backIcon.svg";
+    document.getElementById('mobileTabIcon').src = "Images/mobileTabsIcon.svg";
     let helpIcons = document.getElementsByClassName("helpIcon");
     for (let item of helpIcons) {
       item.src = "Images/help.svg";
@@ -82,8 +83,23 @@ if (document.getElementById("mainBody") != null) {
   });
   document.getElementById('historyHeader').innerHTML = localStorage.getItem("historyOut");
   document.getElementById("uifCalculator").scrollTop = document.getElementById("uifCalculator").scrollHeight;
-  document.getElementById('mainTab').addEventListener("click", function (e) { openElement(document.getElementById('mainTab')) });
-  document.getElementById('mobileTabs').addEventListener("click", function (e) { mobileTabMethod() });
+  document.getElementById('mainTab').addEventListener("click", function (e) { 
+    if(window.innerWidth / window.innerHeight < 3/4){
+      changeTabAs(false);
+    }
+    openElement(document.getElementById('mainTab')) 
+  });
+  document.getElementById('mobileTabs').addEventListener("click", function (e) { 
+    if(document.getElementById('tabContainer').style.visibility != "visible"){
+      console.log("toggled")
+      hideAllTabs();
+      changeTabAs(true);
+    }else{
+      console.log("toggled other")
+      openElement(document.getElementById('mainTab'))
+      changeTabAs(false);
+    }
+   });
   document.getElementById('settingsCogIcon').addEventListener("click", function () { sessionStorage.setItem("facing","settingsOut"); document.location = 'Settings.html' });
   document.getElementById('MRCOverlay').addEventListener("click", function () { 
     let enteredText = document.getElementById('enterHeader').innerHTML
@@ -755,23 +771,28 @@ function custButton(equation, name, target) {
         }
         let highlight = tabClon.getElementById('tabButton');
         tabClon.getElementById('tabButton').addEventListener("click", function (e) {
-          if(window.innerWidth / window.innerHeight > 3/4){
+          if(window.innerWidth / window.innerHeight < 3/4){
+            changeTabAs(false);
+          }
             if (e.target != highlight.querySelector("IMG")) {
               openElement(highlight)
               sessionStorage.setItem("facing", "custFunc");
             }
-          }else {
-            
-          }
+          
         });
         tabClon.getElementById('tabRemove').addEventListener('click', function (e) {
+          if(window.innerWidth / window.innerHeight < 3/4){
+            changeTabAs(false);
+          }
           removeCustFunc(e);
         })
         document.getElementById('tabContainer').appendChild(tabClon);
+        setNumOfTabs();
         highlightTab(highlight);
       }
     });
     document.getElementById(target[i]).appendChild(clonClone);
+    setNumOfTabs();
   }
 
 }
@@ -1759,10 +1780,9 @@ function helpBack(tab) {
   }
 }
 function mobileTabMethod(){
-  
   hideAllTabs();
   changeTabAs(true);
-  document.getElementById('tabContainer').style = "display: grid; grid-template-columns: 50% 50%; grid-auto-rows: 300px; position: absolute; visibility: visible; top: 50px; bottom: 0; width: 100%; height: 100%; background-color: var(--translucent); border-radius: 25px 25px 0 0;";
+  
 }
 function hideAllTabs(){
   let tabs = document.getElementsByClassName('tabcontent');
@@ -1772,30 +1792,38 @@ function hideAllTabs(){
 }
 function changeTabAs(change){
   let visibility = "", bases = document.getElementsByClassName('displayBase'), tabstyle = "", tablinks = document.getElementsByClassName('tablinks');
+  console.log("%c Tabs nums: "+tablinks.length, "color: green;");
   if(change){
     visibility = "visible";
     tabstyle = "visibility: visible; left: 5%; width: 90%; height: 90%; border-radius: 20px; text-align: center;";
     document.getElementById("tab").style = "display: block; height:100%;";
+    document.getElementById('tabContainer').style = "display: grid; grid-template-columns: 50% 50%; grid-auto-rows: 300px; position: absolute; visibility: visible; top: 50px; bottom: 0; width: 100%; height: 100%; background-color: var(--translucent); border-radius: 25px 25px 0 0;";
   }else{
     visibility = "hidden";
     tabstyle = undefined;
     document.getElementById("tab").style = undefined;
+    document.getElementById('tabContainer').style = undefined;
   }
   for(let i = 0; i < bases.length; i++){
     bases[i].style.visibility = visibility;
     tablinks[i].style = tabstyle;
-    let parse = tablinks[i].dataset.tabmap;
-    parse = parse.substring(parse.indexOf('»') + 1);
-    parse = parse.substring(0, parse.indexOf('»'));
-    setShowEquat(tablinks[i], parse);
+    if(change){
+      let parse = tablinks[i].dataset.tabmap;
+      parse = parse.substring(parse.indexOf('»') + 1);
+      parse = parse.substring(0, parse.indexOf('»'));
+      setShowEquat(tablinks[i], parse);
+    }
   }
 }
 function setShowEquat(tablink, equation){
   if(equation != ""){
     let childern = tablink.childNodes;
     console.log(childern);
-    for(let i = 0; i < childern.length; i++){
-
-    }
+    tablink.querySelector("#equtDisplayFunc").innerHTML = equation;
   }
+}
+function setNumOfTabs(){
+  let tabs = document.getElementsByClassName('tablinks');
+  console.log("%c Tabs nums in update: "+tabs.length, "color: red;");
+  document.getElementById("tabNum").innerHTML = tabs.length;
 }
