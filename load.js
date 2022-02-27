@@ -1106,7 +1106,7 @@ function newCustFuncTab(text) {
       let liveTab = e.target.parentNode;
       let currentTab = e.target.parentNode.dataset.tab;
       let matchPage = matchTab(currentTab, true);
-      matchPage.innerHTML = "<h3>" + e.target.value + "</h3><img id='tabRemove' src='Images/xIcon.svg' width='31.5px'>";
+      matchPage.querySelector("#newTabName").innerHTML = e.target.value;
       matchPage.querySelector("IMG").addEventListener('click', function (e) { removeCustFunc(e); });
       localStorage.setItem(matchData(currentTab), e.target.value + currentTab.substring(currentTab.indexOf("»")));
       updateCustomButtons(currentTab, e.target.value + currentTab.substring(currentTab.indexOf("»")));
