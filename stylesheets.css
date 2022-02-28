@@ -443,7 +443,46 @@ button:focus, input[type="button"]:focus {
     display:flex;
     flex-shrink: 0;
   }
-  
+  #funcModify {
+    align-content: center;
+    position: absolute;
+    display: inline-block;
+    left: 1.5px;
+    padding-top: 10px;
+  }
+  #funcModify:hover .drop-cont {
+    display: block;
+  }
+  .drop-cont {
+    display: none;
+    position: absolute;
+    background-color: var(--displayColor);
+    min-width: 50px;
+    z-index: 1;
+    border-radius: 0px 0 15px 15px;
+  }
+  .drop-cont a {
+    color: var(--textColor);
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+  }
+  #funcModify:hover #modBtn {
+    border-radius: 15px 15px 0px 0px;
+  }
+  #modBtn {
+    background-color: var(--displayColor);
+    color: var(--textColor);
+    border-radius: 25px;
+    width: 50px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    height: 35px;
+    -webkit-tap-highlight-color: transparent;
+  }
   .customFuncDisplayBackgroundPopup{
     height: 44.4444%;
     left: 0;
