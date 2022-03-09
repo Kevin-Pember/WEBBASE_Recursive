@@ -336,10 +336,16 @@ function builtInFunc(equation){
     }else if(equation.charAt(i) == "π"){
       let parseString = "Math.PI";
       if(backward(equation.substring(i+1)).length > 0){
-        parseString = parseString + '*';
+        let number = backward(equation.substring(i+1));
+        parseString = Math.PI * Number(number);
+        equation = equation.substring(0, i)+ parseString + equation.substring(i+number.length+1);
+        break;
       }
       if(forward(equation.substring(0,i)).length > 0){
-        parseString = "*" + parseString;
+        let number = forward(equation.substring(0,i));
+        parseString = Math.PI * Number(number);
+        equation = equation.substring(0,i-number.length) + parseString + equation.substring(i+1);
+        break;
       }
       equation = equation.substring(0, i) + parseString + equation.substring(i + 1);
     }

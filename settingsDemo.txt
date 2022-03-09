@@ -1,0 +1,4 @@
+{
+    "degRad": true,
+    "notation": simple,
+}
