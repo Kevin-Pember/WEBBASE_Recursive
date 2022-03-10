@@ -170,6 +170,12 @@ function findMethod(func,degRad) {
       }else{
         array.splice(func.funcParse.indexOf("toRad"), 1, "*(180/Math.PI)");
       }
+    }else{
+      if(array.includes("toDeg")){
+        array.splice(func.funcParse.indexOf("toDeg"), 1, "");
+      }else{
+        array.splice(func.funcParse.indexOf("toRad"), 1, "");
+      }
     }
   }
   return array;
