@@ -1,5 +1,6 @@
 let TextColorGlobal = "";
 let BackgroundColorGlobal = "";
+var settings;
 console.log(window.innerHeight/window.innerWidth);
 if(localStorage.getItem('funcColor') != undefined){
   BackgroundColorGlobal = localStorage.getItem('funcColor');
@@ -79,6 +80,28 @@ if (document.getElementById("mainBody") != null) {
       sel.removeAllRanges()
       sel.addRange(range);
       document.getElementById("uifCalculator").scrollTop = document.getElementById("uifCalculator").scrollHeight;
+    }
+  });
+  let letToSybol = [
+    {
+      'lets': ["pi", "PI", "Pi"],
+      "symbol": "π"
+    },
+    {
+      'lets': ["abs", "Abs", "ABS"],
+      "symbol": "|"
+    }
+  ]
+  condole
+  document.getElementById("enterHeader").addEventListener("input", function (){
+    console.log("checking enter")
+    let text = document.getElementById("enterHeader").innerHTML;
+    for(let item of letToSybol){
+      for(let letItem of item.lets){
+        if(text.includes(letItem)){
+          text = text.replace(letItem, item.symbol);
+        }
+      }
     }
   });
   document.getElementById('historyHeader').innerHTML = localStorage.getItem("historyOut");
