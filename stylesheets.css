@@ -236,6 +236,7 @@ button:focus, input[type="button"]:focus {
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
     border: none;
     color: var(--textColor);
     background-color: transparent;
@@ -266,6 +267,7 @@ button:focus, input[type="button"]:focus {
     color: var(--functionsColor);
   }
   #enterHeader{
+    width: 100%;
     font-weight: lighter;
     font-size: 30px;
     text-indent: 5px;
@@ -2057,6 +2059,7 @@ button:focus, input[type="button"]:focus {
   left: 2.5%;
   right: 2.5%;
   bottom: 2.5%;
+  overflow-y: auto;
   position: absolute;
   visibility: hidden;
 }
@@ -2064,6 +2067,56 @@ button:focus, input[type="button"]:focus {
   position: absolute;
   height: 100%;
   width: 100%;
+}
+.selectorDiv{
+  background-color: var(--functionsColor);
+  padding: 5px;
+  padding-right:50px;
+  border-radius: 0 25px 25px 25px;
+  width: fit-content;
+}
+.secondaryFuncHeaders{
+  color: var(--textColor);
+  text-align: left;
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+  background-color: var(--functionsColor);
+  padding: 5px 10px;
+  border-radius: 25px 25px 25px 25px;
+  margin-top: 10px;
+  width: fit-content;
+}
+.funcHeaders{
+  margin: 5px;
+  padding-left: 10px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border-radius: 25px;
+  width: fit-content;
+  background-color: var(--displayColor);
+}
+.funcInputs{
+  margin-left: 5px;
+  height: 25px;
+  width: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 25px;
+  border: none;
+  background-color: var(--numbersColor);
+}
+.stepInputs{
+  margin-left: 5px;
+  height: 25px;
+  width: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 25px;
+  border: none;
+  background-color: var(--numbersColor);
 }
 #tableDiv{
   top: 50px;
