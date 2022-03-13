@@ -82,28 +82,7 @@ if (document.getElementById("mainBody") != null) {
       document.getElementById("uifCalculator").scrollTop = document.getElementById("uifCalculator").scrollHeight;
     }
   });
-  let letToSybol = [
-    {
-      'lets': ["pi", "PI", "Pi"],
-      "symbol": "π"
-    },
-    {
-      'lets': ["abs", "Abs", "ABS"],
-      "symbol": "|"
-    }
-  ]
-  condole
-  document.getElementById("enterHeader").addEventListener("input", function (){
-    console.log("checking enter")
-    let text = document.getElementById("enterHeader").innerHTML;
-    for(let item of letToSybol){
-      for(let letItem of item.lets){
-        if(text.includes(letItem)){
-          text = text.replace(letItem, item.symbol);
-        }
-      }
-    }
-  });
+  
   document.getElementById('historyHeader').innerHTML = localStorage.getItem("historyOut");
   document.getElementById("uifCalculator").scrollTop = document.getElementById("uifCalculator").scrollHeight;
   document.getElementById('mainTab').addEventListener("click", function (e) { 
@@ -222,9 +201,6 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('cosPopup').addEventListener("click", function () { trigPressed('cos('); });
   document.getElementById('tanPopup').addEventListener("click", function () { trigPressed('tan('); });
   document.getElementById('absPopup').addEventListener("click", function () { frontButtonPressed('|'); });
-  document.getElementById('cscPopup').addEventListener("click", function () { trigPressed('csc('); });
-  document.getElementById('secPopup').addEventListener("click", function () { trigPressed('sec('); });
-  document.getElementById('cotPopup').addEventListener("click", function () { trigPressed('cot('); });
   document.getElementById('modPopup').addEventListener("click", function () { frontButtonPressed('mod(') });
 
   document.getElementById('confirmNameEntry').addEventListener("click", function () {
@@ -263,6 +239,30 @@ if (document.getElementById("mainBody") != null) {
     const x = e.pageX - elem.offsetLeft;
     const walk = (x - startX) * 3;
     elem.scrollLeft = scrollLeft - walk;
+  });
+  let letToSybol = [
+    {
+      'lets': ["pi", "PI", "Pi"],
+      "symbol": "π"
+    },
+    {
+      'lets': ["abs", "Abs", "ABS"],
+      "symbol": "|"
+    }
+  ]
+  document.getElementById("enterHeader").addEventListener("input", function (e){
+    console.log("checking enter")
+    let text = document.getElementById("enterHeader").innerHTML;
+    for(let item of letToSybol){
+      for(let letItem of item.lets){
+        if(text.includes(letItem)){
+          text = text.replace(letItem, item.symbol);
+          console.log(text+" : "+letItem+" : "+item.symbol);
+          document.getElementById("enterHeader").innerHTML = text;
+          break;
+        }
+      }
+    }
   });
 } else if (document.getElementById("settingsBody") != null) {
   let rootCss = document.querySelector(':root');
