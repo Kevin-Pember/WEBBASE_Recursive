@@ -2083,7 +2083,7 @@ button:focus, input[type="button"]:focus {
 }
 #funcTable{
   position: relative;
-  padding-top: 10px;
+  top: 10px;
   width: calc(100% - 20px);
   height: calc(100% - 20px);
   margin-left: 10px;
@@ -2093,7 +2093,7 @@ button:focus, input[type="button"]:focus {
 #funcTable, td, th{
   border: 1px solid var(--textColor);
   border-radius: 20px;
-  text-align: left;
+  text-indent: 10px;
 }
 .selectorDiv{
   background-color: var(--functionsColor);
