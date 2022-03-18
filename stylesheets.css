@@ -2081,6 +2081,11 @@ button:focus, input[type="button"]:focus {
   background-color: var(--functionsColor);
   border-radius: 20px;
 }
+#settingsSelector{
+  right: 2.5%;
+  position: absolute;
+  top: 0;
+}
 #funcTable{
   position: relative;
   top: 10px;
