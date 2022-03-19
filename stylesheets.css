@@ -2141,6 +2141,7 @@ button:focus, input[type="button"]:focus {
   border-radius: 25px;
   border: none;
   background-color: var(--numbersColor);
+  text-align: center;
 }
 .stepInputs{
   margin-left: 5px;
@@ -2151,6 +2152,7 @@ button:focus, input[type="button"]:focus {
   border-radius: 25px;
   border: none;
   background-color: var(--numbersColor);
+  text-align: center;
 }
 #tableDiv{
   top: 50px;

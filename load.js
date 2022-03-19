@@ -1114,16 +1114,71 @@ function newCustFuncTab(text) {
     }
   }
   if (!exist) {
+    //parsing the func string
     let funcINIT = text;
     let name = text.substring(0, text.indexOf("»"));
     text = text.substring(text.indexOf("»") + 1);
     equation = text.substring(0,text.indexOf("»"));
+
+    //setting the value of elements on the page
     clon.getElementById('customFuncTab').dataset.tab = funcINIT;
     clon.getElementById("customValue").innerHTML = funcINIT;
     clon.getElementById("nameFunc").value = name;
-    let tab = clon.getElementById('customFuncTab');
-    
-    let currentTab = clon.getElementById('customFuncTab').dataset.tab;
+    clon.getElementById("EquationFunc").innerHTML = equation;
+    clon.getElementById("EquationFunc").dataset.baseE = equation;
+    clon.getElementById("minDomainGraph").value = 10;
+    clon.getElementById("maxDomainGraph").value = 10;
+    clon.getElementById("stepDomainGraph").value = 1;
+    clon.getElementById("minRangeGraph").value = 10;
+    clon.getElementById("maxRangeGraph").value = 10;
+    clon.getElementById("stepRangeGraph").value = 1;
+    clon.getElementById("minDomainTable").value = 10;
+    clon.getElementById("maxDomainTable").value = 10;
+    clon.getElementById("stepDomainTable").value = 1;
+    clon.getElementById("minRangeTable").value = 10;
+    clon.getElementById("maxRangeTable").value = 10;
+    clon.getElementById("stepRangeTable").value = 1;
+    let chart = clon.getElementById("funcChart");
+    var cfcg = new Chart(chart, {
+      type: 'line',
+      data: {
+          labels: [-2,4],
+          datasets: [{
+              data: [10,20],
+              label: 'x',
+              fontColor: '#FFFFFF',
+              borderColor: "#FFFFFF",
+              backgroundColor: "#FFFFFF",
+          }]
+      },
+      options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          elements: {
+              point: {
+                  radius: 0
+              }
+          },
+          plugins: {
+              legend: {
+                  labels: {
+                      usePointStyle: true,
+                      pointStyle: 'circle',
+                  }
+              }
+          }
+      }
+  })
+
+    //creating variables that wil be used in the Event listeners
+    let varGrid = clon.getElementById("varGrid");
+    let equationDIV = clon.getElementById("EquationFunc");
+    let movable = clon.getElementById("selectorUnder");
+    let funcTabs = [clon.getElementById('resultDiv'), clon.getElementById('graphDiv'), clon.getElementById('tableDiv')];
+    movable.dataset.pos = 0;
+    console.log("Equation given to the function: " + equation);
+
+    //adding event listeners
     clon.getElementById('nameFunc').addEventListener("input", function (e) {
       let tabsElements = document.getElementsByClassName('tablinks')
       let liveTab = e.target.parentNode;
@@ -1136,15 +1191,6 @@ function newCustFuncTab(text) {
       matchPage.dataset.tabmap = e.target.value + currentTab.substring(currentTab.indexOf("»"));
       liveTab.dataset.tab = e.target.value + currentTab.substring(currentTab.indexOf("»"))
     });
-    let varGrid = clon.getElementById("varGrid");
-    let equationDIV = clon.getElementById("EquationFunc");
-    let movable = clon.getElementById("selectorUnder");
-    let funcTabs = [clon.getElementById('resultDiv'), clon.getElementById('graphDiv'), clon.getElementById('tableDiv')];
-    movable.dataset.pos = 0;
-    let backupClon = clon;
-    console.log("Equation given to the function: " + equation);
-    clon.getElementById("EquationFunc").innerHTML = equation;
-    clon.getElementById("EquationFunc").dataset.baseE = equation;
     varGrid.addEventListener("change", function (e) {
       console.log("%c Vargid Changed", "color: red;");
     });
@@ -1183,7 +1229,7 @@ function newCustFuncTab(text) {
       matchPage.dataset.tabmap = currentTab.substring(0, currentTab.indexOf("»") + 1) + e.target.innerHTML + "»";
       liveTab.dataset.tab = currentTab.substring(0, currentTab.indexOf("»") + 1) + e.target.innerHTML + "»";
     });
-    let equationArea = clon.getElementById('EquationFunc');
+
     document.getElementById("mainBody").appendChild(clon);
     checkVar(varGrid, equationDIV,funcTabs);
   }
@@ -1252,6 +1298,16 @@ function varListAssbely(element){
   console.log(varData)
   return varData;
 }
+function parseVar(parsedEquation,data){
+  for(let i = 0; i < parsedEquation.length; i++){
+    if(funcMatch(parsedEquation.substring(i)) != ""){
+      i += funcMatch(parsedEquation.substring(i)).length;
+    }else if(parsedEquation.charAt(i) == data.Name){
+      parsedEquation = parsedEquation.substring(0,i) + "("+data.Value+")" + parsedEquation.substring(i+1);
+    }
+  }
+  return parsedEquation;
+}
 //Takes a tab element and returns the variables in the tab with their data in json format
 function parseVariables(element,equationDIV, funcTabs){
   console.log("Parse Variables ran");
@@ -1259,31 +1315,45 @@ function parseVariables(element,equationDIV, funcTabs){
   let parsedEquation = equationDIV.dataset.baseE
   console.log("%c parsedEquation: "+parsedEquation,"color:red");
   let all = true;
+  let first = undefined;
   for(let Vars of varData){
     if(Vars.Value == ''){
       all = false;
+    }else if(first == undefined){
+      first = Vars;
+    }else {
+      first = undefined;
+      break;
     }
+  }
+  for(let data of varData){
+    parsedEquation = parseVar(parsedEquation,data);
   }
   if(all){
-    for(let data of varData){
-      for(let i = 0; i < parsedEquation.length; i++){
-        if(funcMatch(parsedEquation.substring(i)) != ""){
-          i += funcMatch(parsedEquation.substring(i)).length;
-        }else if(parsedEquation.charAt(i) == data.Name){
-          parsedEquation = parsedEquation.substring(0,i) + "("+data.Value+")" + parsedEquation.substring(i+1);
-        }
-      }
-    }
-    let fullyParsed = solveInpr(parsedEquation,true);
-    console.log("%c parsedEquation post op: "+fullyParsed,"color:green");
-    var mySolver = new Solver({
-      s: fullyParsed,
-    })
-    let result = "="+mySolver.solve({})["s"];
-    console.log("%c result: "+result,"color:green");
-    funcTabs[0].childNodes[1].innerHTML = result; 
-    console.log(funcTabs[0].childNodes[1]);
+    solveEquation(parsedEquation,funcTabs);
+    solveGraph(varData,parsedEquation,first);
+    solveTable();
+  }else if(first != undefined){
+    solveGraph(varData,parsedEquation,first);
+    solveTable();
   }
+}
+function solveEquation(parsedEquation,funcTabs){
+  console.log("Parsed Equation is "+parsedEquation);
+  let fullyParsed = solveInpr(parsedEquation,true);
+  console.log("%c parsedEquation post op: "+fullyParsed,"color:green");
+  var mySolver = new Solver({
+    s: fullyParsed,
+  })
+  let result = "="+mySolver.solve({})["s"];
+  console.log("%c result: "+result,"color:green");
+  funcTabs[0].querySelector('#equalsHeader').innerHTML = result;
+}
+function solveGraph(varData,parsedEquation,data){
+
+}
+function solveTable(){
+
 }
 /*function parseEquation(element,parsedEquation){
   console.log("Parse Equation ran");
