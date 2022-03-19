@@ -2084,7 +2084,7 @@ button:focus, input[type="button"]:focus {
 #settingsSelector{
   right: 2.5%;
   position: absolute;
-  top: 0;
+  top: calc(100% - 100px);
 }
 #funcTable{
   position: relative;

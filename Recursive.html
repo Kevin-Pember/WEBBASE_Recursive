@@ -324,6 +324,7 @@
                     </div>
                 </div>
                 <div id="graphDiv">
+                    <div id="graphContainer"><canvas id="funcChart"></canvas></div>
                     <div id="rangingValues">
                         <details class="funcDetails">
                             <summary class="secondaryFuncHeaders">Domain</summary>
@@ -347,34 +348,11 @@
                             </div>
                         </details>
                     </div>
-                    <div id="graphContainer"><canvas id="funcChart"></canvas></div>
+                    
                 </div>
                 <div id="tableDiv">
-                    <div id="rangingValues">
-                        <details class="funcDetails">
-                            <summary class="secondaryFuncHeaders">Domain</summary>
-                            <div class="selectorDiv">
-                                <h3 class="funcHeaders">min<input class="funcInputs" id="minDomainTable" type="text"></h3>
-                                <h3 class="funcHeaders">max<input class="funcInputs" id="maxDomainTable" type="text"></h3>
-                                <h3 class="funcHeaders">step<input class="stepInputs" id="stepDomainTable" type="text"></h3>
-                            </div>
-                        </details>
-                        <details class="funcDetails">
-                            <summary class="secondaryFuncHeaders">Range</summary>
-                            <div class="selectorDiv">
-                                <h3 class="funcHeaders">min<input class="funcInputs" id="minRangeTable" type="text"></h3>
-                                <h3 class="funcHeaders">max<input class="funcInputs" id="maxRangeTable" type="text"></h3>
-                                <h3 class="funcHeaders">step<input class="stepInputs" id="stepRangeTable" type="text"></h3>
-                            </div>
-                        </details>
-                        <details class="funcDetails" id="settingsSelector">
-                            <summary class="secondaryFuncHeaders">Settings</summary>
-                            <div class="selectorDiv">
-                            </div>
-                        </details>
-                    </div>
                     <div id="tableContainer">
-                    <table id="funcTable">
+                        <table id="funcTable">
                         <tr>
                           <th>x</th>
                           <th>y</th>
@@ -405,6 +383,30 @@
                         </tr>
                       </table>
                     </div>
+                    <div id="rangingValues">
+                        <details class="funcDetails">
+                            <summary class="secondaryFuncHeaders">Domain</summary>
+                            <div class="selectorDiv">
+                                <h3 class="funcHeaders">min<input class="funcInputs" id="minDomainTable" type="text"></h3>
+                                <h3 class="funcHeaders">max<input class="funcInputs" id="maxDomainTable" type="text"></h3>
+                                <h3 class="funcHeaders">step<input class="stepInputs" id="stepDomainTable" type="text"></h3>
+                            </div>
+                        </details>
+                        <details class="funcDetails">
+                            <summary class="secondaryFuncHeaders">Range</summary>
+                            <div class="selectorDiv">
+                                <h3 class="funcHeaders">min<input class="funcInputs" id="minRangeTable" type="text"></h3>
+                                <h3 class="funcHeaders">max<input class="funcInputs" id="maxRangeTable" type="text"></h3>
+                                <h3 class="funcHeaders">step<input class="stepInputs" id="stepRangeTable" type="text"></h3>
+                            </div>
+                        </details>
+                        <details class="funcDetails" id="settingsSelector">
+                            <summary class="secondaryFuncHeaders">Settings</summary>
+                            <div class="selectorDiv">
+                            </div>
+                        </details>
+                    </div>
+                    
                 </div>
 
 
