@@ -1132,12 +1132,8 @@ function newCustFuncTab(text) {
     clon.getElementById("minRangeGraph").value = 10;
     clon.getElementById("maxRangeGraph").value = 10;
     clon.getElementById("stepRangeGraph").value = 1;
-    clon.getElementById("minDomainTable").value = 10;
-    clon.getElementById("maxDomainTable").value = 10;
-    clon.getElementById("stepDomainTable").value = 1;
-    clon.getElementById("minRangeTable").value = 10;
-    clon.getElementById("maxRangeTable").value = 10;
-    clon.getElementById("stepRangeTable").value = 1;
+    clon.getElementById("cellsTable").value = 6;
+    clon.getElementById('stepDomainTable').value = 1;
     let chart = clon.getElementById("funcChart");
     var cfcg = new Chart(chart, {
       type: 'line',
