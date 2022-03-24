@@ -1,4 +1,16 @@
 {
     "degRad": true,
     "notation": simple,
+    "display": "color",
+    "func": "color",
+    "nums": "color",
+    "text": "color",
+    "tS" : num,
+    "tC" : num,
+    "gDS" : num,
+    "gDMin" : num,
+    "gDMax" : num,
+    "gRS" : num,
+    "gRMin" : num,
+    "gRMax" : num
 }

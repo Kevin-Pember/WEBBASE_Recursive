@@ -1,6 +1,11 @@
 let TextColorGlobal = "";
 let BackgroundColorGlobal = "";
 var settings;
+if(localStorage.getItem("settings") != ""){
+  settings = JSON.parse(localStorage.getItem("settings"));
+}else {
+  localStorage.setItem("settings", '{"degRad": true,"notation": simple,"display": "color","func": "color","nums": "color","text": "color","tS" : num,"tC" : num,"gDS" : num,"gDMin" : num,"gDMax" : num,"gRS" : num,"gRMin" : num,"gRMax" : num}');
+}
 console.log(window.innerHeight/window.innerWidth);
 if(localStorage.getItem('funcColor') != undefined){
   BackgroundColorGlobal = localStorage.getItem('funcColor');
