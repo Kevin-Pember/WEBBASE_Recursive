@@ -6,7 +6,7 @@ if(localStorage.getItem("settings") != undefined){
   console.log("settings got");
   console.log(settings);
 }else {
-  localStorage.setItem("settings", '{"degRad": true,"notation": "simple","display": "#d9d9d9","func": "#919191","nums": "#a3a3a3","text": "#000000","tS" : 1,"tC" : 5,"gDS" : 1,"gDMin" : -10,"gDMax" : 10,"gRS" : 1,"gRMin" : -10,"gRMax" : 10}');
+  localStorage.setItem("settings", '{"version": "1","oL": "auto","degRad": true,"notation": "simple","display": "#d9d9d9","func": "#919191","nums": "#a3a3a3","text": "#000000"","tS" : 1,"tC" : 5,"gDS" : 1,"gDMin" : -10,"gDMax" : 10,"gRS" : 1,"gRMin" : -10,"gRMax" : 10}');
   settings = JSON.parse(localStorage.getItem("settings"));
   console.log(settings);
 }
@@ -261,21 +261,14 @@ if (document.getElementById("mainBody") != null) {
     }
   });
 } else if (document.getElementById("settingsBody") != null) {
+  //setting the root color variables in css
   let rootCss = document.querySelector(':root');
   rootCss.style.setProperty('--displayColor', settings.display);
   rootCss.style.setProperty('--numbersColor', settings.nums);
   rootCss.style.setProperty('--functionsColor', settings.func);
   rootCss.style.setProperty('--textColor', settings.text);
-  document.getElementById('DisplayColorPicker').addEventListener("input", updatePreview, false)
-  document.getElementById('NumbersColorPicker').addEventListener("input", updatePreview, false)
-  document.getElementById('FunctionsColorPicker').addEventListener("input", updatePreview, false);
-  document.getElementById('DisplayColorPicker').value = settings.display;
-  document.getElementById('NumbersColorPicker').value = settings.nums;
-  document.getElementById('FunctionsColorPicker').value = settings.func;
-  createTheme("#D9D9D9", "#A3A3A3", "#919191", "#000000", "Cityscape", false);
-  createTheme("#383838","#525252","#292929","#ffffff","Backstreet", false);
-  createTheme("#6CB999","#88BDA7","#538E76","#000000","Seafoam",false);
-  createTheme("#ec8888", "#ce9797", "#291e1e", "#FFFFFF", "Salmon", false);
+
+  //coloring UI elements that are images but need sytling
   if (settings.text == "#000000") {
     document.getElementById('dropbtn').innerHTML = "Black <h3 id='displayText' style='color: black;'>t</h3>";
     document.getElementById('addIcon').src = "Images/addObject.svg";
@@ -290,6 +283,30 @@ if (document.getElementById("mainBody") != null) {
   } else {
     document.getElementById('dropbtn').innerHTML = "White <h3 id='displayText' style='color: white;'>t</h3>";
   }
+
+  //Setting the values of elements
+    //elements in the colors tab
+  document.getElementById('DisplayColorPicker').value = settings.display;
+  document.getElementById('NumbersColorPicker').value = settings.nums;
+  document.getElementById('FunctionsColorPicker').value = settings.func;
+  createTheme("#D9D9D9", "#A3A3A3", "#919191", "#000000", "Cityscape", false);
+  createTheme("#383838","#525252","#292929","#ffffff","Backstreet", false);
+  createTheme("#6CB999","#88BDA7","#538E76","#000000","Seafoam",false);
+  createTheme("#ec8888", "#ce9797", "#291e1e", "#FFFFFF", "Salmon", false);
+    //elements in the Calculations Tab
+  document.getElementById('outputLength').value = settings.oL;
+  document.getElementById("graphDStep").value = settings.gDS;
+  document.getElementById("domainBottomG").value = settings.gDMin;
+  document.getElementById("domainTopG").value = settings.gDMax;
+
+  document.getElementById("graphRStep").value = settings.gRS;
+  document.getElementById("rangeBottomG").value = settings.gRMin;
+  document.getElementById("rangeTopG").value = settings.gRMax;
+
+  document.getElementById("tableStep").value = settings.tS;
+  document.getElementById("tableCells").value = settings.tC;
+
+ //Theme parsing part
   var i = 1;
   let themeRaw;
   while (i != -1) {
@@ -318,6 +335,10 @@ if (document.getElementById("mainBody") != null) {
       break;
     }
   }
+  //Adding events to elements
+  document.getElementById('DisplayColorPicker').addEventListener("input", updatePreview, false)
+  document.getElementById('NumbersColorPicker').addEventListener("input", updatePreview, false)
+  document.getElementById('FunctionsColorPicker').addEventListener("input", updatePreview, false);
   document.getElementById('backButton').addEventListener("click", function(){settingExit()});
   document.getElementById('LooknFeel').addEventListener("click", function(){settingsTabChange('colorsTab')});
   document.getElementById('Preferences').addEventListener("click", function(){settingsTabChange('PreferencesTab')});
@@ -329,6 +350,7 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('minusIcon').addEventListener("click", function(){removeThemes()});
   document.getElementById('PreferencesBack').addEventListener("click", function(){SettingsBack('PreferencesTab')});
   document.getElementById('AboutBack').addEventListener("click", function(){SettingsBack('AboutTab')});
+
 } else if (document.getElementById('helpBody') != null) {
   let rootCss = document.querySelector(':root');
   rootCss.style.setProperty('--displayColor', localStorage.getItem('displayColor'));

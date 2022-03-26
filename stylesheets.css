@@ -675,6 +675,7 @@ button:focus, input[type="button"]:focus {
   .backIcon{
     transform: rotate(180deg);
     background-color: transparent;
+    height: 45px;
     z-index: 1;
   }
   #backButton{
@@ -1213,8 +1214,6 @@ button:focus, input[type="button"]:focus {
   background-color: var(--numbersColor);
   position: relative;
   text-align: left;
-  text-indent: 50px;
-  top: 0;
   border: none;
   left: 2%;
   height: 100px;
@@ -1254,11 +1253,10 @@ button:focus, input[type="button"]:focus {
 }
 .settingsHeaders{
   left: 35px;
-  height: 20px;
-  top: 0;
+  font-size: 50px;
+  margin-top: -30px;
   color: var(--textColor);
   text-align: center;
-  position: absolute;
   font-family: Arial, Helvetica, sans-serif;
 }
 .topLine{
@@ -1266,12 +1264,35 @@ button:focus, input[type="button"]:focus {
   width: 100%;
   position: absolute;
 }
+#settingsTitle{
+  margin-left : 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  font-size: 50px;
+}
+.settingsDiv{
+  background-color: var(--functionsColor);
+  border-radius: 25px;
+  align-self: center;
+  position: relative;
+  top: 5px;
+  left: 2.5%;
+  width: 95%;
+}
 .h2Settings{
   color: var(--textColor);
   text-align: center;
-  position: absolute;
+  width: fit-content;
   left: 15;
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  top: 10px;
+  background-color: var(--numbersColor);
+  padding: 5px 10px;
+  border-radius:  25px 0 25px 0;
 }.h5Settings{
   color: var(--textColor);
   text-align: left;
@@ -1292,9 +1313,7 @@ button:focus, input[type="button"]:focus {
   margin-right: 15px;
   margin-left: 5px;
 }
-#topNavColumn{
-  height: 75px;
-}
+
 #showcaseTextColor{
   color: var(--textColor);
 }
@@ -1303,8 +1322,7 @@ button:focus, input[type="button"]:focus {
   height: 305px;
   border-radius: 25px;
   align-self: center;
-  position: absolute;
-  top: 40px;
+  top: 5px;
   left: 2.5%;
   width: 95%;
 }
@@ -1336,11 +1354,15 @@ button:focus, input[type="button"]:focus {
   font-family: Arial, Helvetica, sans-serif;
   color: var(--textColor);
 }
-#colorsHeader{
-  top: 10px;
-  background-color: var(--numbersColor);
-  padding: 5px 10px;
-  border-radius: 25px;
+.calculationsLabels{
+  display:flex;
+  position: relative;
+  align-self: center;
+  align-content: center;
+  width: calc(100% - 15px);
+  left: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--textColor);
 }
 #dropbtn {
   background-color: var(--numbersColor);
@@ -1472,8 +1494,7 @@ button:focus, input[type="button"]:focus {
   height: 408px;
   border-radius: 25px;
   align-self: center;
-  position: absolute;
-  top: 360px;
+  top: 20px;
   left: 2.5%;
   width: 95%;
 }
@@ -1483,12 +1504,6 @@ button:focus, input[type="button"]:focus {
   width: 100%;
   position: absolute;
   color: var(--textColor);
-}
-#themesHeader{
-  top: 10px;
-  background-color: var(--numbersColor);
-  padding: 5px 10px;
-  border-radius: 25px;
 }
 #ThemesDiv{
   height: 340px;
@@ -1601,55 +1616,46 @@ button:focus, input[type="button"]:focus {
   top: 90px;
   right: 15px;
 }
-#graphCalcDiv{
-  background-color: var(--functionsColor);
-  height: 235px;
-  border-radius: 25px;
-  align-self: center;
-  position: absolute;
-  top: 40px;
-  left: 2.5%;
-  width: 95%;
-}
 #PreferencesGrid{
   top: 50px;
   display: grid;
-  position: absolute;
-  width: 95%;
+  width: 100%;
   left: 0;
-  right: 205px;
   grid-template-columns: 100%;
-  grid-template-rows: 30px 30px 30px ;
+  grid-auto-rows: 30px;
   justify-content: center;
   align-content: end;
-}
-.settingsTextInputFirst{
-  background-color: var(--numbersColor);
-  border: solid;
-  border-width: 1.5px;
-  border-color: var(--textColor);
-  height: 25px;
-  width: 50px;
-  color: var(--textColor);
-  border-radius: 8px;
-  text-indent: 5px;
-  margin-right: 10px;
-  right: 60px;
-  position: absolute;
+  padding-bottom: 20px;
 }
 .settingsTextInput{
   background-color: var(--numbersColor);
-  border: solid;
+  border: none;
   border-width: 1.5px;
-  border-color: var(--textColor);
   height: 25px;
   width: 50px;
+  text-align: center;
   color: var(--textColor);
   text-indent: 5px;
   border-radius: 8px;
   margin-right: 10px;
   right: 0;
   position: absolute;
+}
+.settingsButton{
+  color: var(--textColor);
+  background-color: var(--numbersColor);
+  width: fit-content;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 25px;
+  right: 0px;
+  margin-right: 10px;
+  border-radius: 15px;
+  border: none;
+  position: absolute;
+}
+.settingsButton focused{
+  background-color: var(--functionsColor);
 }
 #AboutUsDiv{
   background-color: var(--functionsColor);
@@ -1659,12 +1665,6 @@ button:focus, input[type="button"]:focus {
   top: 5px;
   left: 2.5%;
   width: 95%;
-}
-#aboutUsHeader{
-  top: 10px;
-  background-color: var(--numbersColor);
-  padding: 5px 10px;
-  border-radius: 25px;
 }
 #aboutTag{
   padding-top: 50px;
@@ -1814,13 +1814,6 @@ button:focus, input[type="button"]:focus {
   background-color: var(--functionsColor);
   overflow-x: none;
 }
-#backIcon{
-  left: 2px;
-  top: 0px;
-  z-index: 2;
-  position: absolute;
-  transform: rotate(180deg);
-}
 ::placeholder {
   color: var(--textColor);
   opacity: 0.2;
@@ -1892,13 +1885,6 @@ button:focus, input[type="button"]:focus {
   bottom: 10px;
   position: absolute;
   align-self: center;
-}
-#backIconFunc{
-  transform: rotate(180deg);
-  left: 0;
-  top: 0;
-  z-index: 2;
-  position: absolute;
 }
 @media only screen and (min-aspect-ratio: 4/3){
   
