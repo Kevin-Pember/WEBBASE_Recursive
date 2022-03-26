@@ -1,12 +1,15 @@
 let TextColorGlobal = "";
 let BackgroundColorGlobal = "";
 var settings;
-if(localStorage.getItem("settings") != ""){
+if(localStorage.getItem("settings") != undefined){
   settings = JSON.parse(localStorage.getItem("settings"));
+  console.log("settings got");
+  console.log(settings);
 }else {
-  localStorage.setItem("settings", '{"degRad": true,"notation": simple,"display": "color","func": "color","nums": "color","text": "color","tS" : num,"tC" : num,"gDS" : num,"gDMin" : num,"gDMax" : num,"gRS" : num,"gRMin" : num,"gRMax" : num}');
+  localStorage.setItem("settings", '{"degRad": true,"notation": "simple","display": "#d9d9d9","func": "#919191","nums": "#a3a3a3","text": "#000000","tS" : 1,"tC" : 5,"gDS" : 1,"gDMin" : -10,"gDMax" : 10,"gRS" : 1,"gRMin" : -10,"gRMax" : 10}');
+  settings = JSON.parse(localStorage.getItem("settings"));
+  console.log(settings);
 }
-console.log(window.innerHeight/window.innerWidth);
 if(localStorage.getItem('funcColor') != undefined){
   BackgroundColorGlobal = localStorage.getItem('funcColor');
 }else{
@@ -21,24 +24,12 @@ for (var i=0; i<allMetaElements.length; i++) {
 } 
 if (document.getElementById("mainBody") != null) {
   let rootCss = document.querySelector(':root');
-  if (localStorage.getItem('displayColor') != null) {
-    rootCss.style.setProperty('--displayColor', localStorage.getItem('displayColor'));
-    rootCss.style.setProperty('--numbersColor', localStorage.getItem('numsColor'));
-    rootCss.style.setProperty('--functionsColor', localStorage.getItem('funcColor'));
-    rootCss.style.setProperty('--textColor', localStorage.getItem('textColor'));
-    TextColorGlobal = localStorage.getItem('textColor');
-  } else {
-    localStorage.setItem('displayColor', "#d9d9d9");
-    localStorage.setItem('numsColor', "#a3a3a3");
-    localStorage.setItem('funcColor', "#919191");
-    localStorage.setItem('textColor', "#000000");
-    rootCss.style.setProperty('--displayColor', localStorage.getItem('displayColor'));
-    rootCss.style.setProperty('--numbersColor', localStorage.getItem('numsColor'));
-    rootCss.style.setProperty('--functionsColor', localStorage.getItem('funcColor'));
-    rootCss.style.setProperty('--textColor', localStorage.getItem('textColor'));
-    TextColorGlobal = localStorage.getItem('textColor');
-  }
-  if (localStorage.getItem('textColor') == "#000000") {
+  rootCss.style.setProperty('--displayColor', settings.display);
+  rootCss.style.setProperty('--numbersColor', settings.func);
+  rootCss.style.setProperty('--functionsColor', settings.nums);
+  rootCss.style.setProperty('--textColor', settings.text);
+  TextColorGlobal = settings.text;
+  if (settings.text == "#000000") {
     document.getElementById('settingsCogIcon').src = "Images/SettingsCog.svg";
     document.getElementById('backspcaeIcon').src = "Images/backIcon.svg";
     document.getElementById('mobileTabIcon').src = "Images/mobileTabsIcon.svg";
@@ -271,21 +262,21 @@ if (document.getElementById("mainBody") != null) {
   });
 } else if (document.getElementById("settingsBody") != null) {
   let rootCss = document.querySelector(':root');
-  rootCss.style.setProperty('--displayColor', localStorage.getItem('displayColor'));
-  rootCss.style.setProperty('--numbersColor', localStorage.getItem('numsColor'));
-  rootCss.style.setProperty('--functionsColor', localStorage.getItem('funcColor'));
-  rootCss.style.setProperty('--textColor', localStorage.getItem('textColor'));
+  rootCss.style.setProperty('--displayColor', settings.display);
+  rootCss.style.setProperty('--numbersColor', settings.nums);
+  rootCss.style.setProperty('--functionsColor', settings.func);
+  rootCss.style.setProperty('--textColor', settings.text);
   document.getElementById('DisplayColorPicker').addEventListener("input", updatePreview, false)
   document.getElementById('NumbersColorPicker').addEventListener("input", updatePreview, false)
   document.getElementById('FunctionsColorPicker').addEventListener("input", updatePreview, false);
-  document.getElementById('DisplayColorPicker').value = localStorage.getItem('displayColor');
-  document.getElementById('NumbersColorPicker').value = localStorage.getItem('numsColor');
-  document.getElementById('FunctionsColorPicker').value = localStorage.getItem('funcColor');
+  document.getElementById('DisplayColorPicker').value = settings.display;
+  document.getElementById('NumbersColorPicker').value = settings.nums;
+  document.getElementById('FunctionsColorPicker').value = settings.func;
   createTheme("#D9D9D9", "#A3A3A3", "#919191", "#000000", "Cityscape", false);
   createTheme("#383838","#525252","#292929","#ffffff","Backstreet", false);
   createTheme("#6CB999","#88BDA7","#538E76","#000000","Seafoam",false);
   createTheme("#ec8888", "#ce9797", "#291e1e", "#FFFFFF", "Salmon", false);
-  if (localStorage.getItem('textColor') == "#000000") {
+  if (settings.text == "#000000") {
     document.getElementById('dropbtn').innerHTML = "Black <h3 id='displayText' style='color: black;'>t</h3>";
     document.getElementById('addIcon').src = "Images/addObject.svg";
     document.getElementById('minusIcon').src = "Images/minusIcon.svg";
@@ -1057,7 +1048,7 @@ function SettingsBack(tab) {
   }
 }
 function settingExit() {
-  localStorage.setItem('displayColor', document.getElementById("DisplayColorPicker").value);
+  /*localStorage.setItem('displayColor', document.getElementById("DisplayColorPicker").value);
   localStorage.setItem('funcColor', document.getElementById("FunctionsColorPicker").value);
   localStorage.setItem('numsColor', document.getElementById("NumbersColorPicker").value);
   if (document.getElementById('dropbtn').childNodes[0].nodeValue === "Black ") {
@@ -1065,7 +1056,17 @@ function settingExit() {
   } else {
     localStorage.setItem('textColor', "#FFFFFF");
   }
-  document.location = 'Recursive.html';
+  document.location = 'Recursive.html';*/
+  let newSettings = settings;
+  newSettings.display = document.getElementById("DisplayColorPicker").value;
+  newSettings.func = document.getElementById("FunctionsColorPicker").value;
+  newSettings.nums = document.getElementById("NumbersColorPicker").value;
+  if (document.getElementById('dropbtn').childNodes[0].nodeValue === "Black ") {
+    newSettings.text = "#000000";
+  } else {
+    newSettings.text = "#FFFFFF";
+  }
+  
 }
 function helpLoad() {
   
