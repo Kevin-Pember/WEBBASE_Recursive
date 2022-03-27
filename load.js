@@ -6,15 +6,11 @@ if(localStorage.getItem("settings") != undefined){
   console.log("settings got");
   console.log(settings);
 }else {
-  localStorage.setItem("settings", '{"version": "1","oL": "auto","degRad": true,"notation": "simple","display": "#d9d9d9","func": "#919191","nums": "#a3a3a3","text": "#000000"","tS" : 1,"tC" : 5,"gDS" : 1,"gDMin" : -10,"gDMax" : 10,"gRS" : 1,"gRMin" : -10,"gRMax" : 10}');
+  localStorage.setItem("settings", '{"version": 1,"oL":"auto","degRad": true,"notation": "simple","display": "#d9d9d9","func": "#919191","nums": "#a3a3a3","text": "#000000","tS" : 1,"tC" : 5,"gDS" : 1,"gDMin" : -10,"gDMax" : 10,"gRS" : 1,"gRMin" : -10,"gRMax" : 10}');
   settings = JSON.parse(localStorage.getItem("settings"));
   console.log(settings);
 }
-if(localStorage.getItem('funcColor') != undefined){
-  BackgroundColorGlobal = localStorage.getItem('funcColor');
-}else{
-  BackgroundColorGlobal = "#000000";
-}
+BackgroundColorGlobal = settings.func;
 var allMetaElements = document.getElementsByTagName('meta');
 for (var i=0; i<allMetaElements.length; i++) { 
   if (allMetaElements[i].getAttribute("name") == "theme-color") { 
@@ -25,8 +21,8 @@ for (var i=0; i<allMetaElements.length; i++) {
 if (document.getElementById("mainBody") != null) {
   let rootCss = document.querySelector(':root');
   rootCss.style.setProperty('--displayColor', settings.display);
-  rootCss.style.setProperty('--numbersColor', settings.func);
-  rootCss.style.setProperty('--functionsColor', settings.nums);
+  rootCss.style.setProperty('--numbersColor', settings.nums);
+  rootCss.style.setProperty('--functionsColor', settings.func);
   rootCss.style.setProperty('--textColor', settings.text);
   TextColorGlobal = settings.text;
   if (settings.text == "#000000") {
@@ -294,7 +290,13 @@ if (document.getElementById("mainBody") != null) {
   createTheme("#6CB999","#88BDA7","#538E76","#000000","Seafoam",false);
   createTheme("#ec8888", "#ce9797", "#291e1e", "#FFFFFF", "Salmon", false);
     //elements in the Calculations Tab
+  if(settings.degRad == true){
+    document.getElementById('degModeBut').className = "settingsButton active";
+  }else{
+    document.getElementById('radModeBut').className = "settingsButton active";
+  }
   document.getElementById('outputLength').value = settings.oL;
+
   document.getElementById("graphDStep").value = settings.gDS;
   document.getElementById("domainBottomG").value = settings.gDMin;
   document.getElementById("domainTopG").value = settings.gDMax;
@@ -349,6 +351,8 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('addIcon').addEventListener("click", function(){newTheme()});
   document.getElementById('minusIcon').addEventListener("click", function(){removeThemes()});
   document.getElementById('PreferencesBack').addEventListener("click", function(){SettingsBack('PreferencesTab')});
+  document.getElementById('degModeBut').addEventListener("click", function(){degRadSwitch(true)});
+  document.getElementById('radModeBut').addEventListener("click", function(){degRadSwitch(false)});
   document.getElementById('AboutBack').addEventListener("click", function(){SettingsBack('AboutTab')});
 
 } else if (document.getElementById('helpBody') != null) {
@@ -375,6 +379,15 @@ if (document.getElementById("mainBody") != null) {
   document.getElementById('mainCalBack').addEventListener("click", function(){helpBack('mainCalculatorHelp');});
   document.getElementById('customFuncBack').addEventListener("click", function(){helpBack('customFuncHelp')});
   document.getElementById('settingsBack').addEventListener("click", function(){helpBack('settingsHelp')});
+}
+function degRadSwitch(mode){
+  document.getElementById('degModeBut').className = "settingsButton";
+  document.getElementById('radModeBut').className = "settingsButton";
+  if(mode){
+    document.getElementById('degModeBut').className = "settingsButton active";
+  }else{
+    document.getElementById('radModeBut').className = "settingsButton active";
+  }
 }
 function createFunc(){
   let name = document.getElementById('nameEntryArea').value;
@@ -1088,7 +1101,20 @@ function settingExit() {
   } else {
     newSettings.text = "#FFFFFF";
   }
-  
+  //newSettings.oL = document.getElementById("outputLength").value;
+  newSettings.gDS = Number(document.getElementById("graphDStep").value);
+  newSettings.gDMin = Number(document.getElementById("domainBottomG").value);
+  newSettings.gDMax = Number(document.getElementById("domainTopG").value);
+  newSettings.gRS = Number(document.getElementById("graphRStep").value);
+  newSettings.gRMin = Number(document.getElementById("rangeBottomG").value);
+  newSettings.gRMax = Number(document.getElementById("rangeTopG").value);
+  if(document.getElementById("degModeBut").className == "settingsButton active"){
+    newSettings.degRad = true;
+  }else {
+    newSettings.degRad = false;
+  }
+  localStorage.setItem("settings", JSON.stringify(newSettings));
+  document.location = 'Recursive.html';
 }
 function helpLoad() {
   
