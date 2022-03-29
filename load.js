@@ -879,7 +879,7 @@ function tabOpen(intialize) {
 function enterPressed(input) {
   let display = document.getElementById('enterHeader');
   historyMethod(input);
-  input = solveInpr(input,true);
+  input = solveInpr(input,settings.degRad);
   console.log("Equation after interpeter " + input);
   var mySolver = new Solver({
     s: input,
@@ -890,7 +890,7 @@ function enterPressed(input) {
 }
 function historyMethod(equation) {
   let historyHeader = document.getElementById('historyHeader');
-  let interpetedEquat = solveInpr(equation,true);
+  let interpetedEquat = solveInpr(equation,settings.degRad);
   console.log("%cEquation after interpeter " + interpetedEquat, "color: #00ff00");
   var mySolver = new Solver({
     s: interpetedEquat,
@@ -1390,7 +1390,7 @@ function parseVariables(element,equationDIV, funcTabs){
 }
 function solveEquation(parsedEquation,funcTabs){
   console.log("Parsed Equation is "+parsedEquation);
-  let fullyParsed = solveInpr(parsedEquation,true);
+  let fullyParsed = solveInpr(parsedEquation,settings.degRad);
   console.log("%c parsedEquation post op: "+fullyParsed,"color:green");
   var mySolver = new Solver({
     s: fullyParsed,
