@@ -1180,14 +1180,14 @@ function newCustFuncTab(text) {
     clon.getElementById("nameFunc").value = name;
     clon.getElementById("EquationFunc").innerHTML = equation;
     clon.getElementById("EquationFunc").dataset.baseE = equation;
-    clon.getElementById("minDomainGraph").value = 10;
-    clon.getElementById("maxDomainGraph").value = 10;
-    clon.getElementById("stepDomainGraph").value = 1;
-    clon.getElementById("minRangeGraph").value = 10;
-    clon.getElementById("maxRangeGraph").value = 10;
-    clon.getElementById("stepRangeGraph").value = 1;
-    clon.getElementById("cellsTable").value = 6;
-    clon.getElementById('stepDomainTable').value = 1;
+    clon.getElementById("minDomainGraph").value = settings.gDMin;
+    clon.getElementById("maxDomainGraph").value = settings.gDMax;
+    clon.getElementById("stepDomainGraph").value = settings.gDS;
+    clon.getElementById("minRangeGraph").value = settings.gRMin;
+    clon.getElementById("maxRangeGraph").value = settings.gRMax;
+    clon.getElementById("stepRangeGraph").value = settings.gRS;
+    clon.getElementById("cellsTable").value = settings.tC;
+    clon.getElementById('stepTable').value = settings.tS;
     let chart = clon.getElementById("funcChart");
     var cfcg = new Chart(chart, {
       type: 'line',
@@ -1279,7 +1279,6 @@ function newCustFuncTab(text) {
       matchPage.dataset.tabmap = currentTab.substring(0, currentTab.indexOf("»") + 1) + e.target.innerHTML + "»";
       liveTab.dataset.tab = currentTab.substring(0, currentTab.indexOf("»") + 1) + e.target.innerHTML + "»";
     });
-
     document.getElementById("mainBody").appendChild(clon);
     checkVar(varGrid, equationDIV,funcTabs);
   }
@@ -1349,6 +1348,8 @@ function varListAssbely(element){
   return varData;
 }
 function parseVar(parsedEquation,data){
+  console.log("Parse var types")
+  console.log(typeof data.Value)
   for(let i = 0; i < parsedEquation.length; i++){
     if(funcMatch(parsedEquation.substring(i)) != ""){
       i += funcMatch(parsedEquation.substring(i)).length;
@@ -1367,26 +1368,28 @@ function parseVariables(element,equationDIV, funcTabs){
   let all = true;
   let first = undefined;
   for(let Vars of varData){
-    if(Vars.Value == ''){
-      all = false;
-    }else if(first == undefined){
-      first = Vars;
-    }else {
+    if(all){
+      if(Vars.Value == ''){
+        all = false;
+        first = Vars;
+      }
+    }else if (Vars.Value == ''){
       first = undefined;
-      break;
     }
   }
+  console.log("first = "+first);
   for(let data of varData){
     parsedEquation = parseVar(parsedEquation,data);
   }
   if(all){
     solveEquation(parsedEquation,funcTabs);
     solveGraph(varData,parsedEquation,first);
-    solveTable();
+    solveTable(varData, equationDIV.dataset.baseE, first);
   }else if(first != undefined){
-    solveGraph(varData,parsedEquation,first);
-    solveTable();
+    solveGraph();
+    solveTable(varData, equationDIV.dataset.baseE, first);
   }
+  console.log("%c Check method ran","color:green")
 }
 function solveEquation(parsedEquation,funcTabs){
   console.log("Parsed Equation is "+parsedEquation);
@@ -1402,8 +1405,44 @@ function solveEquation(parsedEquation,funcTabs){
 function solveGraph(varData,parsedEquation,data){
 
 }
-function solveTable(){
-
+function solveTable(varData, parsedEquation,data){
+  console.log("solve table ran")
+  /*
+  needs to get the settings table step and number of steps
+  then it will run a loop the number of values there are and for each it will
+     will run the equation on the designated step by mutiplying the step by number of values
+     then insert the number which is the result of mutipling values by loop and step 
+     and the value resulted by runing that number in the eqaution into the table
+  end method
+  */
+  let numValue = Number(document.getElementById('cellsTable').value);
+  let step = Number(document.getElementById('stepTable').value);
+  for(let i = 1; i <= numValue; i++){
+    // missing the code that will parse and solve equation
+    console.log("Loop "+i);
+    let result;
+    let currentVal = i*step;
+    var newData = data;
+    let loopEqua = parsedEquation;
+    newData.Value = ""+currentVal;
+    console.log(newData.Value)
+    loopEqua = solveInpr(parseVar(loopEqua, newData),settings.degRad);
+    console.log(loopEqua)
+    console.log("pared is "+parseVar(loopEqua, newData));
+    var mySolver = new Solver({
+      s: loopEqua,
+    });
+    result = mySolver.solve({})["s"];
+    var newRow = document.getElementById('funcTable').insertRow(i);
+    var newXCell = newRow.insertCell(0);
+    var newYCell = newRow.insertCell(1);
+    newXCell.innerHTML = ""+currentVal;
+    newXCell.id = "shit"
+    console.log(i*step)
+    newYCell.innerHTML = result;
+    newYCell.id = "other shit"
+    console.log(result)
+  }
 }
 /*function parseEquation(element,parsedEquation){
   console.log("Parse Equation ran");
