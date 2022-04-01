@@ -1381,13 +1381,14 @@ function parseVariables(element,equationDIV, funcTabs){
   for(let data of varData){
     parsedEquation = parseVar(parsedEquation,data);
   }
+  console.log(equationDIV.dataset.baseE);
   if(all){
     solveEquation(parsedEquation,funcTabs);
-    solveGraph(varData,parsedEquation,first);
-    solveTable(varData, equationDIV.dataset.baseE, first);
+    solveGraph(varData,equationDIV.innerHTML,first);
+    solveTable(varData, parsedEquation, first);
   }else if(first != undefined){
     solveGraph();
-    solveTable(varData, equationDIV.dataset.baseE, first);
+    solveTable(varData, equationDIV.innerHTML, first);
   }
   console.log("%c Check method ran","color:green")
 }
