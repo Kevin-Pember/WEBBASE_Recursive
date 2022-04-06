@@ -2119,9 +2119,8 @@ button:focus, input[type="button"]:focus {
 .funcInputs{
   margin-left: 5px;
   height: 25px;
-  width: 50px;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: 60px;
+  padding-left: 14px;
   border-radius: 25px;
   border: none;
   background-color: var(--numbersColor);
@@ -2130,9 +2129,8 @@ button:focus, input[type="button"]:focus {
 .stepInputs{
   margin-left: 5px;
   height: 25px;
-  width: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: 50px;
+  padding-left: 12px;
   border-radius: 25px;
   border: none;
   background-color: var(--numbersColor);

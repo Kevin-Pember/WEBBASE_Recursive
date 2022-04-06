@@ -1279,8 +1279,15 @@ function newCustFuncTab(text) {
       matchPage.dataset.tabmap = currentTab.substring(0, currentTab.indexOf("»") + 1) + e.target.innerHTML + "»";
       liveTab.dataset.tab = currentTab.substring(0, currentTab.indexOf("»") + 1) + e.target.innerHTML + "»";
     });
+    clon.getElementById('cellsTable').addEventListener("input", function (e) {
+      parseVariables(varGrid, equationDIV,funcTabs);
+    });
+    clon.getElementById('stepTable').addEventListener("input", function (e) {
+      parseVariables(varGrid, equationDIV,funcTabs);
+    });
     document.getElementById("mainBody").appendChild(clon);
     checkVar(varGrid, equationDIV,funcTabs);
+    parseVariables(varGrid, equationDIV,funcTabs);
   }
 }
 function hidModes(num,tabs){
@@ -1385,10 +1392,10 @@ function parseVariables(element,equationDIV, funcTabs){
   if(all){
     solveEquation(parsedEquation,funcTabs);
     solveGraph(varData,equationDIV.innerHTML,first);
-    solveTable(varData, parsedEquation, first);
+    solveTable(parsedEquation, first);
   }else if(first != undefined){
     solveGraph();
-    solveTable(varData, equationDIV.innerHTML, first);
+    solveTable(equationDIV.innerHTML, first);
   }
   console.log("%c Check method ran","color:green")
 }
@@ -1406,7 +1413,7 @@ function solveEquation(parsedEquation,funcTabs){
 function solveGraph(varData,parsedEquation,data){
 
 }
-function solveTable(varData, parsedEquation,data){
+function solveTable(parsedEquation,data){
   console.log("solve table ran")
   /*
   needs to get the settings table step and number of steps
@@ -1418,6 +1425,7 @@ function solveTable(varData, parsedEquation,data){
   */
   let numValue = Number(document.getElementById('cellsTable').value);
   let step = Number(document.getElementById('stepTable').value);
+  document.getElementById("funcTable").innerHTML = "<tr><th>x</th><th>y</th></tr>";
   for(let i = 1; i <= numValue; i++){
     // missing the code that will parse and solve equation
     console.log("Loop "+i);
