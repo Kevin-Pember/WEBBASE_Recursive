@@ -1,2 +1,2 @@
-# WEBBASE_Recursive
+# WEBBASE_Recursive (deprecated)
 Web Based version of a previous project in order to reach more platforms and add new features
